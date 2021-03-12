@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerLoginSignup.CustomerVerification"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTP Verification"
+        android:textSize="35dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="150dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please Enter The OTP Send To You"
+        android:textSize="15dp"
+        android:textColor="@color/purple_700"
+        android:gravity="center"
+        android:layout_marginTop="100dp"/>
+
+
+    <com.chaos.view.PinView
+        android:id="@+id/input_pin"
+        style="@style/PinWidget.PinView"
+        android:textStyle="bold"
+        android:importantForAutofill="no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:cursorVisible="true"
+        android:inputType="numberDecimal"
+        android:itemBackground="@color/white"
+        app:cursorColor="@color/black"
+        android:textColor="@color/black"
+        app:itemCount="6"
+        app:itemHeight="50dp"
+        app:itemRadius="5dp"
+        app:itemWidth="50dp"
+        app:lineColor="@color/black"
+        android:textColorHint="@color/black"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Did't Receive The OTP"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="RESEND OTP"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/astronaut"
+        android:text="Sumbit"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:iconSize="25dp"
+        app:iconPadding="-1dp"
+        app:icon="@drawable/ic_save"
+        app:iconGravity="end"
+        app:iconTint="@color/black" />
+
+
+
+</LinearLayout>

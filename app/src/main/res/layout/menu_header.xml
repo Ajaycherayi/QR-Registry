@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/purple_700"
+    android:paddingLeft="20dp">
+
+    <TextView
+        android:id="@+id/yrsv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go YOUR SAFETY"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/urname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USER NAME"
+        android:textSize="25dp"
+        android:layout_above="@+id/yrsv"/>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/qr_scan_icon"
+        android:layout_above="@+id/urname"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_qr_code"
+        android:layout_above="@+id/urname"
+        android:layout_alignParentRight="true"/>
+
+
+</RelativeLayout>

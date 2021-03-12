@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/anurati_regular"
+        android:text="@string/welcome"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/astronaut"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/anurati_regular"
+        android:layout_gravity="center"
+        android:text="@string/or"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/astronaut"
+        android:text="@string/login"
+        android:textSize="50sp"
+        android:layout_marginEnd="20dp"
+        tools:ignore="RtlHardcoded" />
+
+    <RelativeLayout
+        android:id="@+id/shop_card"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="10dp"
+        android:animationCache="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="50sp"
+            android:background="@drawable/bg_cardview">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/anurati_regular"
+                android:padding="25dp"
+                android:text="@string/shop"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="22dp"
+                android:text="@string/sDetails"
+                android:textSize="20sp"
+                android:layout_marginStart="22dp" />
+
+
+        </RelativeLayout>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/shop_animation"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="220dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginBottom="10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/home_shop" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/customer_card"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="10dp"
+       >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="50sp"
+            android:background="@drawable/bg_cardview">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/anurati_regular"
+                android:text="@string/customer"
+                android:textSize="30sp"
+                android:layout_marginLeft="240dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="200dp"
+                android:text="@string/cDetails"
+                android:textSize="20sp"
+                android:layout_marginStart="180dp" />
+
+
+        </RelativeLayout>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/customer_animation"
+            android:layout_width="180dp"
+            android:layout_height="400dp"
+            android:layout_marginBottom="10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/home_customer" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

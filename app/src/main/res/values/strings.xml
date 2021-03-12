@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">QR Registry</string>
+    <string name="welcome">W E L C O M E</string>
+    <string name="qr_registry"><b> QR CODE  REGISTRY</b></string>
+    <string name="powered_by">Powered by Ajay</string>
+
+
+    <string name="register">r e g i s t e r</string>
+    <string name="login">L o g i n</string>
+    <string name="or">O R</string>
+    <string name="shop"><b>Shop</b></string>
+    <string name="customer"><b>Customer</b></string>
+    <string name="cDetails">Provided For Customers</string>
+    <string name="sDetails">Provided For Shop Owners</string>
+
+    <string name="name">Name</string>
+    <string name="email">E-Mail</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="Details">Enter Your Details For Register</string>
+
+
+</resources>

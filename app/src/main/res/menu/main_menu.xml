@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/qr_scan_icon" />
+
+        <item
+            android:id="@+id/nav_Switch"
+            android:title="Switch User"
+            android:icon="@drawable/qr_scan_icon"/>
+
+        <item
+            android:id="@+id/nav_about"
+            android:title="About"
+            android:icon="@drawable/qr_scan_icon"/>
+
+    </group>
+
+    <item android:title="Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/Profile"
+                    android:title="Home"
+                    android:icon="@drawable/qr_scan_icon" />
+
+                <item
+                    android:id="@+id/details"
+                    android:title="Switch User"
+                    android:icon="@drawable/qr_scan_icon"/>
+
+                <item
+                    android:id="@+id/logout"
+                    android:title="About"
+                    android:icon="@drawable/qr_scan_icon"/>
+
+            </group>
+        </menu>
+    </item>
+
+</menu>
