@@ -17,6 +17,15 @@
         android:gravity="center"
         android:layout_marginTop="150dp"/>
     <TextView
+        android:id="@+id/show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Please Enter The OTP Send To You"

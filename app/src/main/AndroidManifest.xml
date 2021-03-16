@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRegistry">
-        <activity android:name=".CustomerLoginSignup.CustomerDashBoard"></activity>
+        <activity android:name=".CustomerLoginSignup.QRCodeGeneration"></activity>
+        <activity android:name=".CustomerLoginSignup.CustomerDashBoard" />
         <activity android:name=".CustomerLoginSignup.CustomerVerification" />
         <activity android:name=".ShopLoginSignup.ShopSignup" />
         <activity android:name=".ShopLoginSignup.ShopLogin" />

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,13 +69,15 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener( this);
         navigationView.setCheckedItem(R.id.nav_home);
 
+
         animateNavigationDrawer();
     }
 
     private void animateNavigationDrawer() {
 
         //Add any color or remove it to use the default one!
-       // drawerLayout.setScrimColor(getResources().getColor(R.color.red));
+
+       //drawerLayout.setScrimColor(getResources().getColor(R.color.red));
         //To make it transparent use Color.Transparent in side setScrimColor();
         //drawerLayout.setScrimColor(Color.TRANSPARENT);
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {

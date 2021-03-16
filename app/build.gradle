@@ -38,7 +38,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.6.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth:20.0.3'
-    implementation 'com.google.firebase:firebase-database:19.6.0'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -46,4 +46,6 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.chaos.view:pinview:1.4.4'
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
 }

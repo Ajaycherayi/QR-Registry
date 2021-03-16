@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.renderscript.Script;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -29,8 +32,13 @@ import java.util.concurrent.TimeUnit;
 public class CustomerSignup extends AppCompatActivity {
 
 
-    private EditText enterPhone;
+    private EditText _name;
+    private EditText _email;
+    private EditText _password;
+    private EditText _phone;
     private Button getOtp;
+    private TextView login;
+
 
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
@@ -40,20 +48,34 @@ public class CustomerSignup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_signup);
 
-        enterPhone = findViewById(R.id.te_phone);
+        _name = findViewById(R.id.et_name);
+        _email = findViewById(R.id.et_email);
+        _password = findViewById(R.id.et_password);
+        _phone = findViewById(R.id.te_phone);
         getOtp = findViewById(R.id.get_Otp);
-
+        login = findViewById(R.id.btn_login);
         auth = FirebaseAuth.getInstance();
+
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomerSignup.this,CustomerLogin.class);
+                startActivity(intent);
+            }
+        });
 
         getOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String phone = enterPhone.getText().toString();
+                String phone = _phone.getText().toString();
                 String phoneNumber = "+91" + phone;
+
 
                 if (!phone.isEmpty()) {
                     if (phone.length() == 10) {
+
 
                         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                                 .setPhoneNumber(phoneNumber)
@@ -97,7 +119,17 @@ public class CustomerSignup extends AppCompatActivity {
                     public void run() {
                         Intent otpIntent = new Intent(CustomerSignup.this, CustomerVerification.class);
                         otpIntent.putExtra("auth", s);
-                        otpIntent.putExtra("phoneNumber", s);
+                        String phoneNumber = "+91"+_phone.getText().toString();
+                        otpIntent.putExtra("phoneNumber", phoneNumber);
+
+                        String name = _name.getText().toString();
+                        String email = _email.getText().toString();
+                        String password = _password.getText().toString();
+                        otpIntent.putExtra("name",name);
+                        otpIntent.putExtra("email",email);
+                        otpIntent.putExtra("password",password);
+                       // otpIntent.putExtra("_email",s);
+                       // otpIntent.putExtra("_password",);
                         startActivity(otpIntent);
                     }
                 }, 1);

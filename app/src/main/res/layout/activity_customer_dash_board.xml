@@ -13,10 +13,19 @@
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F8000000"
+        android:theme="@style/navTheme"
+        android:background="@color/white"
         android:layout_gravity="start"
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/main_menu"
+        app:itemTextColor="@color/black"
+        app:itemIconSize="40dp"
+        app:itemHorizontalPadding="20dp"
+        app:itemIconPadding="8dp"
+
+        app:itemIconTint="@color/black"
+
+
         />
 
 
@@ -48,10 +57,8 @@
                 android:id="@+id/drawer_btn"
                 android:layout_width="63dp"
                 android:layout_height="49dp"
-                android:layout_marginBottom="10dp"
                 app:lottie_autoPlay="true"
                 app:lottie_rawRes="@raw/drawer_menu1" />
-
 
 
         </RelativeLayout>

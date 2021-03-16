@@ -17,12 +17,19 @@
 
 
     <!--- Menu Style -->
-    <style name="navtheme">
+    <style name="navTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="navigationViewStyle">@style/navTheme</item>
         <!-- Text Color -->
-        <item name="colorPrimary">@color/teal_200</item>
+        <item name="colorPrimary">@color/white</item>
         <!-- Background Color -->
-        <item name="colorControlHighlight">@color/purple_500</item>
+        <item name="colorControlHighlight">#673AB7</item>
         <item name="sizePercent">25</item>
+        <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>
+        <item name="listPreferredItemPaddingLeft">10dp</item>
+
+
+        <item name="android:textSize">23sp</item><!-- text size in menu-->
+
     </style>
 
 

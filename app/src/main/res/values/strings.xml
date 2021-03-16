@@ -19,5 +19,8 @@
     <string name="password">Password</string>
     <string name="Details">Enter Your Details For Register</string>
 
+    <string name="home"><b>HOME</b></string>
+    <string name="about"><b>ABOUT</b></string>
+
 
 </resources>
