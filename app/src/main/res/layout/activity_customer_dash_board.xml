@@ -22,7 +22,6 @@
         app:itemIconSize="40dp"
         app:itemHorizontalPadding="20dp"
         app:itemIconPadding="8dp"
-
         app:itemIconTint="@color/black"
 
 
@@ -44,6 +43,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/get_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"

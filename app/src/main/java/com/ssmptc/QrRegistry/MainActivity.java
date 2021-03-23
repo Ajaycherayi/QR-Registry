@@ -11,15 +11,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerDashBoard;
+import com.ssmptc.QrRegistry.DataBase.SessionManager;
+
 
 public class MainActivity extends AppCompatActivity {
 
     Animation bottom,side;
 
-    private static int SPLASH_TIMER = 5000;
+    private static int SPLASH_TIMER = 4000;
 
     ImageView qr_img;
     TextView wcm,qr,powered;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,18 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(MainActivity.this, Home.class);
-                startActivity(intent);
-                finish();
+
+                //Initialize SessionManager
+                sessionManager = new SessionManager(getApplicationContext());
+
+                if (sessionManager.getLogin()){
+                    startActivity(new Intent(getApplicationContext(),CustomerDashBoard.class));
+                }else {
+                    Intent intent = new Intent(MainActivity.this, Home.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         },SPLASH_TIMER);
 

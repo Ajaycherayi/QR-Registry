@@ -15,9 +15,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.R;
 
 public class CustomerLogin extends AppCompatActivity {
+    SessionManager sessionManager;
 
     EditText phoneNumber, password;
     Button b1;
@@ -32,10 +34,15 @@ public class CustomerLogin extends AppCompatActivity {
         password = findViewById(R.id.log_password);
         b1 = findViewById(R.id.bt_login);
 
-
+        //Create a Session
+        sessionManager = new SessionManager(getApplicationContext());
     }
 
     public void login(View view) {
+
+        //Initialize SessionManager
+
+
         String _phoneNumber = phoneNumber.getText().toString().trim();
         String _password = password.getText().toString().trim();
 
@@ -56,24 +63,33 @@ public class CustomerLogin extends AppCompatActivity {
                 if (snapshot.exists()) {
 
                     phoneNumber.setError(null);
-
-
                     String systemPassword = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
 
                     if (systemPassword.equals(_password)) {
                         password.setError(null);
 
-
                         String _name = snapshot.child(_completePhoneNumber).child("name").getValue(String.class);
                         String _email = snapshot.child(_completePhoneNumber).child("email").getValue(String.class);
                         String _phoneNo = snapshot.child(_completePhoneNumber).child("phoneNo").getValue(String.class);
+                        String _password = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
 
-                        Toast.makeText(CustomerLogin.this, "Hai", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CustomerLogin.this, QRCodeGeneration.class);
-                        intent.putExtra("name",_name);
-                        intent.putExtra("email",_email);
-                        intent.putExtra("phoneNo",_phoneNo);
-                        startActivity(intent);
+
+                       // sessionManager.setLoginSession(_name, _email, _phoneNo, _password);
+
+                        sessionManager.setLogin(true);
+
+                        sessionManager.setName(_name);
+
+                        startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class));
+                        finish();
+
+
+                        //   Toast.makeText(CustomerLogin.this, "Hai", Toast.LENGTH_SHORT).show();
+                        //  Intent intent = new Intent(CustomerLogin.this, QRCodeGeneration.class);
+                        //  intent.putExtra("name",_name);
+                        // intent.putExtra("email",_email);
+                        //  intent.putExtra("phoneNo",_phoneNo);
+                        // startActivity(intent);
 
                     } else {
                         Toast.makeText(CustomerLogin.this, "Password Doesn't Match!", Toast.LENGTH_SHORT).show();
@@ -81,6 +97,8 @@ public class CustomerLogin extends AppCompatActivity {
                 } else {
                     Toast.makeText(CustomerLogin.this, "User Does Not Exist!", Toast.LENGTH_SHORT).show();
                 }
+
+
 
             }
 
@@ -90,6 +108,8 @@ public class CustomerLogin extends AppCompatActivity {
                 Toast.makeText(CustomerLogin.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 }
 
