@@ -17,6 +17,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.journeyapps.barcodescanner.BarcodeView;
+import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.R;
 
 public class QRCodeGeneration extends AppCompatActivity {
@@ -32,17 +33,19 @@ public class QRCodeGeneration extends AppCompatActivity {
 
         output = findViewById(R.id.iv_output);
 
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
 
-        String _name = getIntent().getStringExtra("name");
-        String _email = getIntent().getStringExtra("email");
-        String _phoneNo = getIntent().getStringExtra("phoneNo");
+
+        String _name = sessionManager.getName();
+        String _email = sessionManager.getEmail();
+        String _phoneNo = sessionManager.getPhone();
 
 
 
 
                 MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix = writer.encode("Name :" + _name + "\n" + "Email :" + _email + "\n" + "PhoneNo :" + _phoneNo,
+                    BitMatrix matrix = writer.encode( _name + ":" + _email + ":" + _phoneNo,
                             BarcodeFormat.QR_CODE,350,350);
 
                     BarcodeEncoder encoder =new BarcodeEncoder();

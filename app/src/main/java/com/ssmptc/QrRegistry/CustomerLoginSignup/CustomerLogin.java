@@ -74,11 +74,9 @@ public class CustomerLogin extends AppCompatActivity {
                         String _password = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
 
 
-                       // sessionManager.setLoginSession(_name, _email, _phoneNo, _password);
-
                         sessionManager.setLogin(true);
 
-                        sessionManager.setName(_name);
+                        sessionManager.setDetails(_name, _email, _phoneNo, _password);
 
                         startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class));
                         finish();

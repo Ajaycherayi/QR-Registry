@@ -57,6 +57,9 @@ public class CustomerSignup extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
 
+        LottieAnimationView lottieAnimationView1 = findViewById(R.id.customer_animation);
+        lottieAnimationView1.loop(true);
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

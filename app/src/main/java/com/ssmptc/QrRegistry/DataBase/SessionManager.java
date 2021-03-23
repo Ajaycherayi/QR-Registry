@@ -26,32 +26,30 @@ public class SessionManager {
 
         return sharedPreferences.getBoolean("KEY_LOGIN",false);
     }
-    public void setName(String name){
+    public void setDetails(String name,String email,String phoneNo,String password){
         editor.putString("KEY_NAME",name);
+        editor.putString("KEY_EMAIL",email);
+        editor.putString("KEY_PHONE",phoneNo);
+        editor.putString("KEY_PASSWORD",password);
+
         editor.commit();
 
     }
 
     public String getName(){
         return sharedPreferences.getString("KEY_NAME","");
-
+    }
+    public String getEmail(){
+                return sharedPreferences.getString("KEY_EMAIL","");
+    }
+    public String getPhone(){
+        return sharedPreferences.getString("KEY_PHONE","");
     }
 
-    /*public HashMap<String, String> getUserDetailsFromSession(){
-
-        HashMap<String,String> userData = new HashMap<String,String>();
-
-        userData.put(KEY_NAME,userSession.getString(KEY_NAME,null));
-        userData.put(KEY_EMAIL,userSession.getString(KEY_EMAIL,null));
-        userData.put(KEY_PHONENUMBER,userSession.getString(KEY_PHONENUMBER,null));
-        userData.put(KEY_PASSWORD,userSession.getString(KEY_PASSWORD,null));
-
-        return userData;
-    }
 
 
     public void logoutUserFromSession(){
         editor.clear();
         editor.commit();
-    }*/
+    }
 }
