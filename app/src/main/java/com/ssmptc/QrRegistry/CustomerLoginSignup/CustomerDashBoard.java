@@ -20,21 +20,16 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
-import com.ssmptc.QrRegistry.DataBase.UserHelperClass;
-import com.ssmptc.QrRegistry.Home;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.ShopLoginSignup.QRCodeScanner;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -199,7 +194,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 dialog.dismiss();
 
                 //Finish Activity
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                startActivity(new Intent(getApplicationContext(), CustomerSignup.class));
                finish();
             }
         });

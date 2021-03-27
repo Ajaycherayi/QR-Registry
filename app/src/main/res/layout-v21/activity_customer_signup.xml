@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/Primary"
     tools:context=".CustomerLoginSignup.CustomerSignup"
-    android:transitionName="transition_signUp"
-    tools:targetApi="lollipop">
+    android:transitionName="transition_signUp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +22,7 @@
             android:text="@string/existing_user"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_callLogin"
@@ -58,8 +56,7 @@
                 android:text="@string/SignUpWith"
                 android:textSize="20sp"
                 android:textColor="@color/Primary"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,8 +67,7 @@
                 android:textStyle="bold"
                 android:textSize="35sp"
                 android:textColor="@color/Primary"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_marginStart="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

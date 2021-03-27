@@ -3,14 +3,17 @@ package com.ssmptc.QrRegistry.CustomerLoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.renderscript.Script;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,21 +28,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.internal.RecaptchaActivity;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.concurrent.TimeUnit;
 
 public class CustomerSignup extends AppCompatActivity {
 
-
+    //Variable
     private EditText _name;
     private EditText _email;
     private EditText _password;
     private EditText _phone;
-    private Button getOtp;
-    private TextView login;
 
-
+    //FireBase Variables
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
@@ -52,19 +54,27 @@ public class CustomerSignup extends AppCompatActivity {
         _email = findViewById(R.id.et_email);
         _password = findViewById(R.id.et_password);
         _phone = findViewById(R.id.te_phone);
-        getOtp = findViewById(R.id.get_Otp);
-        login = findViewById(R.id.btn_login);
+
+        ImageButton getOtp = findViewById(R.id.get_Otp);
+        Button login = findViewById(R.id.btn_callLogin);
         auth = FirebaseAuth.getInstance();
-
-
-        LottieAnimationView lottieAnimationView1 = findViewById(R.id.customer_animation);
-        lottieAnimationView1.loop(true);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CustomerSignup.this,CustomerLogin.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(),CustomerLogin.class);
+
+                // Button Animation
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_callLogin),"transition_login");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CustomerSignup.this,pairs);
+                    startActivity(intent,options.toBundle());
+                }
+                else{
+                    startActivity(intent);
+                }
             }
         });
 
@@ -75,10 +85,8 @@ public class CustomerSignup extends AppCompatActivity {
                 String phone = _phone.getText().toString();
                 String phoneNumber = "+91" + phone;
 
-
                 if (!phone.isEmpty()) {
                     if (phone.length() == 10) {
-
 
                         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                                 .setPhoneNumber(phoneNumber)
@@ -87,7 +95,6 @@ public class CustomerSignup extends AppCompatActivity {
                                 .setCallbacks(mCallBacks)
                                 .build();
                         PhoneAuthProvider.verifyPhoneNumber(options);
-
 
                     } else {
                         Toast.makeText(CustomerSignup.this, "Please Enter Correct Mobile Number", Toast.LENGTH_SHORT).show();

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerDashBoard;
+import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerLogin;
+import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerSignup;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;
 
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if (sessionManager.getLogin()){
                     startActivity(new Intent(getApplicationContext(),CustomerDashBoard.class));
                 }else {
-                    Intent intent = new Intent(MainActivity.this, Home.class);
+                    Intent intent = new Intent(MainActivity.this, CustomerSignup.class);
                     startActivity(intent);
                     finish();
                 }

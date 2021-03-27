@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class CustomerVerification extends AppCompatActivity {
     private Button verify_Btn;
     private String back_otp;
     private TextView show_name;
+    private ImageView b1;
 
     private String name,email,password,phoneNo;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
@@ -45,9 +47,10 @@ public class CustomerVerification extends AppCompatActivity {
         setContentView(R.layout.activity_customer_verification);
 
         get_otp = findViewById(R.id.input_pin);
-
         verify_Btn = findViewById(R.id.submit_btn);
         show_name = findViewById(R.id.show);
+        b1 = findViewById(R.id.btn_backSignUpPage);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
        // String phone_No = getIntent().getStringExtra("phoneNo");
@@ -70,6 +73,13 @@ public class CustomerVerification extends AppCompatActivity {
 
                     Toast.makeText(CustomerVerification.this, "Please Enter oTp", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CustomerVerification.this,CustomerSignup.class));
             }
         });
 
