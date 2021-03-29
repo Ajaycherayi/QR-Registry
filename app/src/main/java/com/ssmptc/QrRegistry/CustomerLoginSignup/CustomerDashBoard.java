@@ -131,6 +131,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
         if (drawerLayout.isDrawerVisible(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
+
         }else
             super.onBackPressed();
     }

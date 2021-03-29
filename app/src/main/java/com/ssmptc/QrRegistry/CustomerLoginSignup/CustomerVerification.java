@@ -1,5 +1,6 @@
 package com.ssmptc.QrRegistry.CustomerLoginSignup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +22,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.DataBase.UserHelperClass;
 import com.ssmptc.QrRegistry.R;
 
@@ -36,10 +42,11 @@ public class CustomerVerification extends AppCompatActivity {
     private TextView show_name;
     private ImageView b1;
 
+    SessionManager sessionManager;
+
     private String name,email,password,phoneNo;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private FirebaseAuth firebaseAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,8 @@ public class CustomerVerification extends AppCompatActivity {
         phoneNo = getIntent().getStringExtra("phoneNumber");
         show_name.setText(phoneNo);
 
+        sessionManager = new SessionManager(getApplicationContext());
+
         verify_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +88,10 @@ public class CustomerVerification extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(CustomerVerification.this,CustomerSignup.class));
+                finish();
+
             }
         });
 
@@ -96,9 +108,6 @@ public class CustomerVerification extends AppCompatActivity {
 
                             storeNewUserData();
 
-                            Intent intent = new Intent(CustomerVerification.this,CustomerDashBoard.class);
-                            startActivity(intent);
-                            // ...
                         } else {
 
                             Toast.makeText(CustomerVerification.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -109,6 +118,7 @@ public class CustomerVerification extends AppCompatActivity {
                 });
     }
 
+
     private void storeNewUserData() {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -118,6 +128,36 @@ public class CustomerVerification extends AppCompatActivity {
 
         UserHelperClass addNewUser = new UserHelperClass(name,email,phoneNo,password);
         reference.child(phoneNo).setValue(addNewUser);
+
+
+
+        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(phoneNo);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                String _name = snapshot.child(phoneNo).child("name").getValue(String.class);
+                String _email = snapshot.child(phoneNo).child("email").getValue(String.class);
+                String _phoneNo = snapshot.child(phoneNo).child("phoneNo").getValue(String.class);
+                String _password = snapshot.child(phoneNo).child("password").getValue(String.class);
+
+
+                sessionManager.setLogin(true);
+
+                sessionManager.setDetails(_name, _email, _phoneNo, _password);
+
+                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class));
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 

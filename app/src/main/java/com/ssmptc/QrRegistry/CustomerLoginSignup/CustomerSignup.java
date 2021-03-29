@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,12 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.internal.RecaptchaActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.concurrent.TimeUnit;
@@ -41,9 +48,14 @@ public class CustomerSignup extends AppCompatActivity {
     private EditText _password;
     private EditText _phone;
 
+    ProgressDialog progressDialog;
+
     //FireBase Variables
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +100,46 @@ public class CustomerSignup extends AppCompatActivity {
                 if (!phone.isEmpty()) {
                     if (phone.length() == 10) {
 
-                        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
-                                .setPhoneNumber(phoneNumber)
-                                .setTimeout(60L, TimeUnit.SECONDS)
-                                .setActivity(CustomerSignup.this)
-                                .setCallbacks(mCallBacks)
-                                .build();
-                        PhoneAuthProvider.verifyPhoneNumber(options);
+                        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(phoneNumber);
+
+                        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                if (snapshot.exists()) {
+
+                                    Toast.makeText(CustomerSignup.this, "This User already Exist  Please Login", Toast.LENGTH_LONG).show();
+
+                                } else {
+
+                                    //Initialize ProgressDialog
+                                    progressDialog = new ProgressDialog(CustomerSignup.this);
+
+                                    progressDialog.show();
+
+                                    progressDialog.setContentView(R.layout.progress_dialog);
+
+                                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
+                                    PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
+                                            .setPhoneNumber(phoneNumber)
+                                            .setTimeout(60L, TimeUnit.SECONDS)
+                                            .setActivity(CustomerSignup.this)
+                                            .setCallbacks(mCallBacks)
+                                            .build();
+                                    PhoneAuthProvider.verifyPhoneNumber(options);
+
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
                     } else {
                         Toast.makeText(CustomerSignup.this, "Please Enter Correct Mobile Number", Toast.LENGTH_SHORT).show();
@@ -127,21 +172,27 @@ public class CustomerSignup extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent otpIntent = new Intent(CustomerSignup.this, CustomerVerification.class);
-                        otpIntent.putExtra("auth", s);
-                        String phoneNumber = "+91"+_phone.getText().toString();
-                        otpIntent.putExtra("phoneNumber", phoneNumber);
 
-                        String name = _name.getText().toString();
-                        String email = _email.getText().toString();
-                        String password = _password.getText().toString();
-                        otpIntent.putExtra("name",name);
-                        otpIntent.putExtra("email",email);
-                        otpIntent.putExtra("password",password);
-                       // otpIntent.putExtra("_email",s);
-                       // otpIntent.putExtra("_password",);
-                        startActivity(otpIntent);
-                    }
+
+
+                                    Intent otpIntent = new Intent(CustomerSignup.this, CustomerVerification.class);
+                                    otpIntent.putExtra("auth", s);
+                                    String phoneNumber = "+91" + _phone.getText().toString();
+                                    otpIntent.putExtra("phoneNumber", phoneNumber);
+
+                                    String name = _name.getText().toString();
+                                    String email = _email.getText().toString();
+                                    String password = _password.getText().toString();
+                                    otpIntent.putExtra("name", name);
+                                    otpIntent.putExtra("email", email);
+                                    otpIntent.putExtra("password", password);
+                                    // otpIntent.putExtra("_email",s);
+                                    // otpIntent.putExtra("_password",);
+                                    startActivity(otpIntent);
+                                    finish();
+                                }
+
+
                 }, 1);
 
             }

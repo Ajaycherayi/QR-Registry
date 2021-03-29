@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Intent intent = new Intent(MainActivity.this, CustomerSignup.class);
                     startActivity(intent);
-                    finish();
                 }
+                finish();
 
             }
         },SPLASH_TIMER);

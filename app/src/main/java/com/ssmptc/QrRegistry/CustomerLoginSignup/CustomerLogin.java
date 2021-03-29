@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
@@ -28,6 +29,8 @@ public class CustomerLogin extends AppCompatActivity {
     EditText phoneNumber, password;
     ImageView b1;
     Button b2,b3;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,14 @@ public class CustomerLogin extends AppCompatActivity {
 
     public void login(View view) {
 
-        //Initialize SessionManager
+        //Initialize ProgressDialog
+        progressDialog = new ProgressDialog(CustomerLogin.this);
+
+        progressDialog.show();
+
+        progressDialog.setContentView(R.layout.progress_dialog);
+
+       progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         String _phoneNumber = phoneNumber.getText().toString().trim();
         String _password = password.getText().toString().trim();
