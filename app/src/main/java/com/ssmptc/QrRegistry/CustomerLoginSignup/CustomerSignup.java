@@ -76,7 +76,6 @@ public class CustomerSignup extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),CustomerLogin.class);
 
-                // Button Animation
                 Pair[] pairs = new Pair[1];
                 pairs[0] = new Pair<View,String>(findViewById(R.id.btn_callLogin),"transition_login");
 
@@ -85,7 +84,7 @@ public class CustomerSignup extends AppCompatActivity {
                     startActivity(intent,options.toBundle());
                 }
                 else{
-                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -175,7 +174,7 @@ public class CustomerSignup extends AppCompatActivity {
 
 
 
-                                    Intent otpIntent = new Intent(CustomerSignup.this, CustomerVerification.class);
+                                    Intent otpIntent = new Intent(CustomerSignup.this, CustomerVerification.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     otpIntent.putExtra("auth", s);
                                     String phoneNumber = "+91" + _phone.getText().toString();
                                     otpIntent.putExtra("phoneNumber", phoneNumber);

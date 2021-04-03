@@ -22,14 +22,32 @@
     <string name="noOtp">Did\'t Receive The OTP</string>
     <string name="resend"><b>RESEND OTP</b></string>
 
+    <!-- Menu Page -->
+    <string name="home">HOME</string>
+    <string name="about">ABOUT</string>
+    <string name="shop">SHOP</string>
+    <string name="Profile"><b>Profile</b></string>
+    <string name="account">Account</string>
+    <string name="update">Update</string>
+    <string name="communication"><b>Communication</b></string>
+    <string name="logout"><b>Logout</b></string>
+
     <string name="name">Name</string>
     <string name="email">E-Mail</string>
     <string name="phone">Phone</string>
     <string name="password">Password</string>
-    <string name="Details">Enter Your Details For Register</string>
 
-    <string name="home"><b>HOME</b></string>
-    <string name="about"><b>ABOUT</b></string>
+    <!-- Menu Page -->
+
+    <string name="shopName">Shop Name</string>
+    <string name="category">Category</string>
+    <string name="shopLocation">Location</string>
+    <string name="licenseNo">License Number</string>
+    <string name="shopTime">Open Time</string>
+    <string name="closeTime">Close Time</string>
+    <string name="startDay">Day</string>
+    <string name="closeDay">Day</string>
+    <string name="description">Description</string>
 
 
 </resources>

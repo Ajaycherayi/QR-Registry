@@ -22,12 +22,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.ShopLoginSignup.QRCodeScanner;
+import com.ssmptc.QrRegistry.ShopLoginSignup.ShopSignup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -145,8 +147,9 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
         switch (id){
 
-            case R.id.nav_Switch:
+            case R.id.nav_shop:
                 Toast.makeText(getApplicationContext(), "Switch", Toast.LENGTH_SHORT).show();
+                shopLogin();
                 break;
 
             case R.id.nav_home:
@@ -169,6 +172,28 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void shopLogin() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Register or SignUp For Shop");
+        builder.setMessage(" Are You Owner of a Shop...?\n\n Then Register or SignUp Using Shop Details \uD83D\uDC4D");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(CustomerDashBoard.this, ShopSignup.class));
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
     private void logout() {
@@ -195,7 +220,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 dialog.dismiss();
 
                 //Finish Activity
-                startActivity(new Intent(getApplicationContext(), CustomerSignup.class));
+                startActivity(new Intent(getApplicationContext(), CustomerSignup.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                finish();
             }
         });
@@ -219,6 +244,10 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     }
 
     public void scanQR(View view) {
+        scanCode();
+    }
+
+    private void scanCode(){
         //Initialize intent integrator
         IntentIntegrator intentIntegrator = new IntentIntegrator(CustomerDashBoard.this);
 
@@ -234,8 +263,11 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         //Set Capture Activity
         intentIntegrator.setCaptureActivity(QRCodeScanner.class);
 
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+
         //Initiate Scan
         intentIntegrator.initiateScan();
+
     }
 
     @Override
@@ -244,6 +276,8 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
        //Initiate Intent Result
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+
+
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("New");
@@ -269,7 +303,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
 
         //Check Condition
-        if(intentResult.getContents() != null){
+        if (intentResult.getContents() != null) {
 
             //Initialize Dialog box
             AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
@@ -281,7 +315,12 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             builder.setMessage("Read Successfully");
 
             //set Positive Button
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    scanCode();
+                }
+            }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -290,10 +329,9 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
             //Show Alert Dialog
             builder.show();
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
         }
-
 
 
     }

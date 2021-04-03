@@ -69,13 +69,13 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_generateQR"
                 android:layout_width="0dp"
                 android:layout_height="135dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:onClick="generateQR">
+                android:onClick="generateQR"
+                android:backgroundTint="@color/Primary_light">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -105,7 +105,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/todo_list"
                 android:onClick="scanQR"
                 android:layout_width="0dp"
                 android:layout_height="135dp"

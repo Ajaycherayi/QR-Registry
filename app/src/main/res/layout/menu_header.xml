@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@drawable/bg_primary"
-    android:paddingLeft="20dp">
+    android:paddingLeft="20dp"
+    android:layout_centerVertical="true">
 
     <TextView
         android:id="@+id/yrsv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go YOUR SAFETY"
+        android:textColor="@color/black"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp" />
 
     <TextView
-        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="USER NAME"
+        android:textColor="@color/black"
         android:textSize="25dp"
         android:layout_above="@+id/yrsv"/>
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/qr_scan_icon"
-        android:layout_above="@+id/urname"/>
+
+
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_qr_code"
         android:layout_above="@+id/urname"
-        android:layout_alignParentRight="true"/>
+        app:tint="@color/black"
+        android:layout_marginBottom="20dp"
+        tools:ignore="UnknownId" />
 
 
 </RelativeLayout>

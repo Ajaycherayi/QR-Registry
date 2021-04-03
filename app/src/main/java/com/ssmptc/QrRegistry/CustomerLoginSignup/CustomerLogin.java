@@ -51,7 +51,6 @@ public class CustomerLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),CustomerSignup.class));
-                finish();
             }
         });
 
@@ -68,7 +67,7 @@ public class CustomerLogin extends AppCompatActivity {
                     startActivity(intent,options.toBundle());
                 }
                 else{
-                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -120,7 +119,7 @@ public class CustomerLogin extends AppCompatActivity {
 
                         sessionManager.setDetails(_name, _email, _phoneNo, _password);
 
-                        startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class));
+                        startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();
 
 

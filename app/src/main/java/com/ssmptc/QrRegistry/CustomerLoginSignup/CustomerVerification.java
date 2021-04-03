@@ -148,7 +148,7 @@ public class CustomerVerification extends AppCompatActivity {
 
                 sessionManager.setDetails(_name, _email, _phoneNo, _password);
 
-                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class));
+                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
 

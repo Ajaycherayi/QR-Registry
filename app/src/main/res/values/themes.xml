@@ -13,6 +13,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/statusBarBackground</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
 
@@ -22,10 +23,14 @@
         <!-- Text Color -->
         <item name="colorPrimary">@color/white</item>
         <!-- Background Color -->
-        <item name="colorControlHighlight">#673AB7</item>
+        <item name="colorControlHighlight">@color/Primary_light</item>
+        <item name="statusBarBackground">#00000000</item>
         <item name="sizePercent">25</item>
         <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>
-        <item name="listPreferredItemPaddingLeft">10dp</item>
+        <item name="paddingTopNoTitle">20dp</item>
+        <item name="android:layout_centerInParent">true</item>
+
+
 
 
         <item name="android:textSize">23sp</item><!-- text size in menu-->

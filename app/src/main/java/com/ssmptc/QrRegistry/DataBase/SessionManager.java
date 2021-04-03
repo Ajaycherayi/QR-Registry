@@ -45,6 +45,7 @@ public class SessionManager {
     public String getPhone(){
         return sharedPreferences.getString("KEY_PHONE","");
     }
+    public String getPassword(){ return sharedPreferences.getString("KEY_PASSWORD",""); }
 
 
 
