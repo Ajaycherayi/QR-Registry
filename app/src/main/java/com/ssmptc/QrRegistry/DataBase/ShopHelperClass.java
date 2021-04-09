@@ -3,7 +3,7 @@ package com.ssmptc.QrRegistry.DataBase;
 public class ShopHelperClass {
     String name,email,phoneNo,currentDate,currentTime;
 
-    public ShopHelperClass(){}
+    public ShopHelperClass(String name, String email, String phoneNo, long currentDate, String currentTime){}
 
     public ShopHelperClass(String name, String email, String phoneNo, String currentDate,String currentTime) {
         this.name = name;

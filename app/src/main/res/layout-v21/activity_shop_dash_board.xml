@@ -173,6 +173,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
+                android:onClick="CustomerList"
                 android:backgroundTint="@color/white">
 
                 <RelativeLayout

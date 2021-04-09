@@ -4,9 +4,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,13 +21,21 @@ import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
 import com.ssmptc.QrRegistry.R;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class ShopDashBoard extends AppCompatActivity {
 
-    String name,email,phoneNo,currentDate,currentTime;
+    String name;
+    String email;
+    String phoneNo;
+    String currentTime;
+    String currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +90,9 @@ public class ShopDashBoard extends AppCompatActivity {
 
 
 
-        currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());
+
+
+        currentDate = new SimpleDateFormat("dd-MM-yy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
         name = separated[0];
@@ -135,5 +147,9 @@ public class ShopDashBoard extends AppCompatActivity {
 
     public void UpdateShopProfile(View view) {
         startActivity(new Intent(getApplicationContext(),ShopProfile.class));
+    }
+
+    public void CustomerList(View view) {
+        startActivity(new Intent(getApplicationContext(),ShopCustomersList.class));
     }
 }
