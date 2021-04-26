@@ -1,14 +1,9 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignup;
+package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
@@ -16,7 +11,6 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.journeyapps.barcodescanner.BarcodeView;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.R;
 
@@ -39,13 +33,14 @@ public class QRCodeGeneration extends AppCompatActivity {
         String _name = sessionManager.getName();
         String _email = sessionManager.getEmail();
         String _phoneNo = sessionManager.getPhone();
+        String appName = "QrRegistry";
 
 
 
 
                 MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix = writer.encode( _name + ":" + _email + ":" + _phoneNo,
+                    BitMatrix matrix = writer.encode( appName+":"+_name + ":" + _email + ":" + _phoneNo,
                             BarcodeFormat.QR_CODE,350,350);
 
                     BarcodeEncoder encoder =new BarcodeEncoder();

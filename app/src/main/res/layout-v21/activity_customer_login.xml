@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerLoginSignup.CustomerLogin"
+    tools:context=".CustomerLoginSignUp.CustomerLogin"
     android:background="@color/Primary"
     android:orientation="vertical"
     android:transitionName="transition_login">

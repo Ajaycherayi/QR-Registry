@@ -4,11 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,16 +14,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerDashBoard;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
 import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
 import com.ssmptc.QrRegistry.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -34,8 +26,9 @@ public class ShopDashBoard extends AppCompatActivity {
     String name;
     String email;
     String phoneNo;
-    String currentTime;
-    String currentDate;
+    String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
+    String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +51,13 @@ public class ShopDashBoard extends AppCompatActivity {
         //set beep
         intentIntegrator.setBeepEnabled(true);
 
+        //set Camera
+        intentIntegrator.setCameraId(0);
+
         //Locked Orientation
         intentIntegrator.setOrientationLocked(true);
+
+        intentIntegrator.setBarcodeImageEnabled(true);
 
         //Set Capture Activity
         intentIntegrator.setCaptureActivity(QRCodeScanner.class);
@@ -80,65 +78,84 @@ public class ShopDashBoard extends AppCompatActivity {
 
 
 
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("Customer-Details-For-Shop");
 
-        //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        String output = intentResult.getContents();
-
-        String[] separated = output.split(":");
+            //Check Condition
+            if (intentResult.getContents() != null && resultCode==RESULT_OK) {
 
 
+                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+                DatabaseReference reference = rootNode.getReference("Customer-Details-For-Shop");
+
+                //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
 
+                String output = intentResult.getContents();
 
-        currentDate = new SimpleDateFormat("dd-MM-yy", Locale.getDefault()).format(new Date());
-        currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        name = separated[0];
-        email= separated[1];
-        phoneNo = separated[2];
+                if (output.startsWith("QrRegistry")) {
+                    String[] separated = output.split(":");
 
 
-        ShopHelperClass addNewUser = new ShopHelperClass(name,email,phoneNo,currentDate,currentTime);
+                    name = separated[1];
+                    email = separated[2];
+                    phoneNo = separated[3];
 
-        reference.child(currentDate).child(currentTime).child(phoneNo).setValue(addNewUser);
+                    String dbTime = new SimpleDateFormat("hh a", Locale.getDefault()).format(new Date());
+
+                    ShopHelperClass addNewUser = new ShopHelperClass(name, email, phoneNo, currentDate, currentTime);
+
+                    reference.child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
 
 
-        //Check Condition
-        if (intentResult.getContents() != null) {
+                    //Initialize Dialog box
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
 
-            //Initialize Dialog box
-            AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
+                    //Set Title
+                    builder.setTitle("Result");
 
-            //Set Title
-            builder.setTitle("Result");
+                    //Set Message
+                    builder.setMessage("Read Successfully");
 
-            //Set Message
-            builder.setMessage("Read Successfully");
+                    //set Positive Button
+                    builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            scanCode();
+                        }
+                    }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
 
-            //set Positive Button
-            builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    scanCode();
-                }
-            }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+                    //Show Alert Dialog
+                    builder.show();
+            } else {
 
-            //Show Alert Dialog
-            builder.show();
-        } else {
-            Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
+                    builder.setMessage("Wrong QR Code");
+                    builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            scanCode();
+                        }
+                    });
+                    builder.show();
+
+
+            }
+
+        }
+        else {
+
+                Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
         }
 
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
-
+    
 
     public void ShopQR(View view) {
         startActivity(new Intent(getApplicationContext(),ShopQRCode.class));
@@ -151,5 +168,9 @@ public class ShopDashBoard extends AppCompatActivity {
 
     public void CustomerList(View view) {
         startActivity(new Intent(getApplicationContext(),ShopCustomersList.class));
+    }
+
+    public void CustomerReport(View view) {
+        startActivity(new Intent(getApplicationContext(),ShopCustomersReport.class));
     }
 }

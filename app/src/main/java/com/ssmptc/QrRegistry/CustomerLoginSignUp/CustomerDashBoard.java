@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignup;
+package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +22,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;

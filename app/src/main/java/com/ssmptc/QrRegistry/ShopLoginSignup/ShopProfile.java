@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -30,12 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerSignup;
 import com.ssmptc.QrRegistry.DataBase.Model;
 import com.ssmptc.QrRegistry.R;
-
-import java.io.IOException;
-import java.util.UUID;
 
 public class ShopProfile extends AppCompatActivity {
 

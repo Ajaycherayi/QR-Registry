@@ -11,9 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerDashBoard;
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerLogin;
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerSignup;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
 import com.ssmptc.QrRegistry.DataBase.SessionManager;
 
 

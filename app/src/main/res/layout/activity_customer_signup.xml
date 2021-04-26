@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Primary"
-    tools:context=".CustomerLoginSignup.CustomerSignup"
+    tools:context=".CustomerLoginSignUp.CustomerSignup"
     android:transitionName="transition_signUp"
     tools:targetApi="lollipop">
 

@@ -24,6 +24,7 @@ public class CustomerAdapter  extends RecyclerView.Adapter<CustomerAdapter.Textv
     private Context mContext;
     private List<CustomersModel> modelList;
 
+
     public CustomerAdapter(Context context,List<CustomersModel> customersModels){
         mContext = context;
         modelList = customersModels;

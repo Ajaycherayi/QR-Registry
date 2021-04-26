@@ -1,7 +1,5 @@
 package com.ssmptc.QrRegistry.DataBase;
 
-import com.ssmptc.QrRegistry.CustomerLoginSignup.CustomerDashBoard;
-
 public class CustomersModel {
 
     String name,phoneNo,currentDate,currentTime;

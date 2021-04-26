@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -32,6 +33,8 @@ public class ShopCustomersList extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    TextView tw_times;
+
     CustomerAdapter adapter;
 
     private DatabaseReference mDatabaseRef;
@@ -41,6 +44,8 @@ public class ShopCustomersList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_customers_list);
+
+        tw_times = findViewById(R.id.timer);
 
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(ShopCustomersList.this);
@@ -54,35 +59,15 @@ public class ShopCustomersList extends AppCompatActivity {
 
         customersModels = new ArrayList<>();
 
+        String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
-        Calendar cal = Calendar.getInstance();
-        String currentDate = new SimpleDateFormat("dd-MM-yy", Locale.getDefault()).format(new Date());
-        String time = "10";
-        String date = "02-04-21";
-        String minusDate;
+        String [] times = {"07 am","08 am","09 am","10 am","11 am","12 pm","01 pm","02 pm","03 pm","04 pm","05 pm",
+                "06 pm","07 pm","08 pm","09 pm","10 am"};
 
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(currentDate).child(time);
-        list();
-        cal.add(Calendar.DATE, -1);
-        minusDate = sdf.format(cal.getTime());
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(minusDate).child(time);
-        list();
-
-
-
-        for (int now = -1; !minusDate.equals(date); now=-1) {
-
-            cal.add(Calendar.DATE, now);
-            minusDate = sdf.format(cal.getTime());
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(minusDate).child(time);
+        for (int i=0; i<=15; i++) {
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(currentDate).child(times[i]);
             list();
-
         }
-
-
-
 
     }
 

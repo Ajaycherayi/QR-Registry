@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ShopLoginSignup.ShopCustomersList">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timer"
+        android:textSize="20sp"
+        android:text="20"
+        android:textColor="@color/black"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customersView"
         android:layout_width="match_parent"

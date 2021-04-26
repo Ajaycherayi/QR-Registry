@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerLoginSignup.CustomerDashBoard"
+    tools:context=".CustomerLoginSignUp.CustomerDashBoard"
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
    android:background="@color/white">
