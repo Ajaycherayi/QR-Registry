@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView qr_img;
     TextView wcm,qr,powered;
-    SessionManager sessionManager;
+    SessionManagerCustomer managerCustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 //Initialize SessionManager
-                sessionManager = new SessionManager(getApplicationContext());
+                managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
-                if (sessionManager.getLogin()){
+                if (managerCustomer.getCustomerLogin()){
                     startActivity(new Intent(getApplicationContext(),CustomerDashBoard.class));
                 }else {
                     Intent intent = new Intent(MainActivity.this, CustomerSignup.class);

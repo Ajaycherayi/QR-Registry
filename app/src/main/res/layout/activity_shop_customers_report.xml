@@ -50,8 +50,9 @@
                 android:id="@+id/sort_date"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:inputType="date"
+                android:inputType="none"
                 android:textColor="@color/black"
+                android:editable="false"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -61,13 +62,13 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:hint="Time"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="2dp"
-            app:endIconTint="@color/white"
-            app:hintTextColor="@color/white"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/ic_time"
-            app:startIconTint="@color/white"
+            app:startIconTint="@color/black"
             android:layout_marginStart="10dp">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -76,6 +77,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:background="@null"
+                android:inputType="none"
+                android:editable="false"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>

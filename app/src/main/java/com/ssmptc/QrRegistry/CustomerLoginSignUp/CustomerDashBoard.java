@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -20,19 +21,30 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
-import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.CustomersDataForShops;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
+import com.ssmptc.QrRegistry.MainActivity;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.ShopLoginSignup.QRCodeScanner;
+import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
+import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopSignup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 public class CustomerDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -45,7 +57,8 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     TextView user_Name;
 
     String name,email,phoneNo,currentDate,currentTime;
-    SessionManager sessionManager;
+    SessionManagerCustomer managerCustomer;
+    SessionManagerShop managerShop;
 
 
     @Override
@@ -63,8 +76,8 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         contentView = findViewById(R.id.linear_content);
         user_Name = findViewById(R.id.get_name);
 
-        sessionManager = new SessionManager(getApplicationContext());
-        String sName = sessionManager.getName();
+        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        String sName = managerCustomer.getName();
         user_Name.setText(sName);
 
         navigationDrawer();
@@ -175,29 +188,124 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
     private void shopLogin() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Register or SignUp For Shop");
-        builder.setMessage(" Are You Owner of a Shop...?\n\n Then Register or SignUp Using Shop Details \uD83D\uDC4D");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(CustomerDashBoard.this, ShopSignup.class));
-            }
-        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerShop = new SessionManagerShop(getApplicationContext());
+        String nPhone = managerCustomer.getPhone();
 
-        AlertDialog alert = builder.create();
-        alert.show();
+        if (managerShop.getShopLogin()){
+            startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
+        }else {
+
+            Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(nPhone);
+
+            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
+                        builder.setTitle("Login For Shop");
+                        builder.setMessage(" Please Login For Your Shop... \uD83D\uDC4D");
+                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(CustomerDashBoard.this, ShopLogin.class));
+                            }
+                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+                    } else {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
+                        builder.setTitle("SignUp For Shop");
+                        builder.setMessage(" Are You Owner of a Shop Then Register for Shop \uD83D\uDC4D");
+                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(CustomerDashBoard.this, ShopSignup.class);
+                                intent.putExtra("phone", nPhone);
+                                startActivity(intent);
+
+                            }
+                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+
+
+        //Initialize SessionManager
+       // managerShop = new SessionManagerShop(getApplicationContext());
+
+       // if (managerShop.getShopLogin()){
+          //  startActivity(new Intent(getApplicationContext(),ShopSignup.class));
+       // }else {
+
+       // }
+        //finish();
+
+        //Initialize SessionManager
+        /*managerShop = new SessionManagerShop(getApplicationContext());
+
+        if (managerShop.getShopLogin()){
+            startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+        }else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Register or SignUp For Shop");
+            builder.setMessage(" Are You Owner of a Shop...?\n\n Then Register or SignUp Using Shop Details \uD83D\uDC4D");
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                     Intent intent = new Intent(CustomerDashBoard.this, ShopSignup.class);
+                     managerCustomer = new SessionManagerCustomer(getApplicationContext());
+                     String nPhone = managerCustomer.getPhone();
+                     intent.putExtra("phone", nPhone);
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        }
+        finish();*/
 
     }
 
     private void logout() {
 
-        sessionManager = new SessionManager(getApplicationContext());
+        managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
         //Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -213,8 +321,8 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-              sessionManager.setLogin(false);
-              sessionManager.setDetails("","","","");
+              managerCustomer.setCustomerLogin(false);
+              managerCustomer.setDetails("","","","");
                 //activity.finishAffinity();
                 dialog.dismiss();
 
@@ -296,7 +404,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         phoneNo = separated[2];
 
 
-        ShopHelperClass addNewUser = new ShopHelperClass(name,email,phoneNo,currentDate,currentTime);
+        CustomersDataForShops addNewUser = new CustomersDataForShops(name,email,phoneNo,currentDate,currentTime);
 
         reference.child(currentDate).child(currentTime).child(phoneNo).setValue(addNewUser);
 

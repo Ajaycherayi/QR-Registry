@@ -19,12 +19,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.R;
 
 public class CustomerLogin extends AppCompatActivity {
 
-    SessionManager sessionManager;
+    SessionManagerCustomer managerCustomer;
 
     EditText phoneNumber, password;
     ImageView b1;
@@ -45,7 +45,7 @@ public class CustomerLogin extends AppCompatActivity {
 
         b3 = findViewById(R.id.btn_callSignUp);
         //Create a Session
-        sessionManager = new SessionManager(getApplicationContext());
+        managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +115,9 @@ public class CustomerLogin extends AppCompatActivity {
                         String _password = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
 
 
-                        sessionManager.setLogin(true);
+                        managerCustomer.setCustomerLogin(true);
 
-                        sessionManager.setDetails(_name, _email, _phoneNo, _password);
+                        managerCustomer.setDetails(_name, _email, _phoneNo, _password);
 
                         startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();

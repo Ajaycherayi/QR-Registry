@@ -5,24 +5,24 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
-public class SessionManager {
+public class SessionManagerCustomer {
 
     // Initialize Variables
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    public SessionManager(Context context){
-        sharedPreferences = context.getSharedPreferences("AppKey",0);
+    public SessionManagerCustomer(Context context){
+        sharedPreferences = context.getSharedPreferences("CustomerAppKey",0);
         editor = sharedPreferences.edit();
         editor.apply();
     }
     // Set Login
-    public void setLogin(boolean login){
+    public void setCustomerLogin(boolean login){
             editor.putBoolean("KEY_LOGIN",login);
             editor.commit();
     }
 
-    public boolean  getLogin(){
+    public boolean getCustomerLogin(){
 
         return sharedPreferences.getBoolean("KEY_LOGIN",false);
     }
@@ -45,7 +45,9 @@ public class SessionManager {
     public String getPhone(){
         return sharedPreferences.getString("KEY_PHONE","");
     }
-    public String getPassword(){ return sharedPreferences.getString("KEY_PASSWORD",""); }
+    public String getPassword(){
+        return sharedPreferences.getString("KEY_PASSWORD","");
+    }
 
 
 

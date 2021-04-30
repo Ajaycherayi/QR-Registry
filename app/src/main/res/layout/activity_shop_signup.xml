@@ -103,6 +103,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/nameOfShop"
                    android:hint="Shop Name"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
@@ -125,6 +126,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_shopLocation"
                    android:hint="Shop Location"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
@@ -140,7 +142,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
                        android:textSize="20sp"
-                       android:inputType="phone"
+                       android:inputType="text"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,6 +150,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_category"
                    android:hint="Category"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
@@ -163,7 +166,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
                        android:textSize="20sp"
-                       android:inputType="phone"
+                       android:inputType="text"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,6 +179,7 @@
 
                <com.google.android.material.textfield.TextInputLayout
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_ownerName"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="15dp"
@@ -190,7 +194,6 @@
                    app:startIconTint="@color/black">
 
                    <com.google.android.material.textfield.TextInputEditText
-                       android:id="@+id/et_ownerName"
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
                        android:inputType="text"
@@ -203,6 +206,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_shopPassword"
                    android:hint="@string/password"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
@@ -215,7 +219,6 @@
                    app:startIconTint="@color/black">
 
                    <com.google.android.material.textfield.TextInputEditText
-                       android:id="@+id/et_shopPassword"
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
                        android:textSize="20sp"
@@ -224,7 +227,7 @@
                </com.google.android.material.textfield.TextInputLayout>
 
                <com.google.android.material.button.MaterialButton
-                   android:id="@+id/submit_btn"
+                   android:id="@+id/bt_signUp"
                    android:layout_width="match_parent"
                    android:layout_height="60dp"
                    android:layout_gravity="center"
@@ -236,6 +239,7 @@
                    android:backgroundTint="@color/Primary_light"
                    app:cornerRadius="25dp"
                    android:text="@string/SignUp"
+                   android:onClick="ShopSignUp"
                    android:textColor="@color/black"
                    android:textSize="25sp"
                    android:transitionName="transition_signUp"

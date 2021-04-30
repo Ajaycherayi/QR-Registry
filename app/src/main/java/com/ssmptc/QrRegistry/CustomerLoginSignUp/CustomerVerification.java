@@ -24,8 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
-import com.ssmptc.QrRegistry.DataBase.UserHelperClass;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.CustomersData;
 import com.ssmptc.QrRegistry.R;
 
 public class CustomerVerification extends AppCompatActivity {
@@ -36,7 +36,7 @@ public class CustomerVerification extends AppCompatActivity {
     private TextView show_name;
     private ImageView b1;
 
-    SessionManager sessionManager;
+    SessionManagerCustomer managerCustomer;
 
     private String name,email,password,phoneNo;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
@@ -63,7 +63,7 @@ public class CustomerVerification extends AppCompatActivity {
         phoneNo = getIntent().getStringExtra("phoneNumber");
         show_name.setText(phoneNo);
 
-        sessionManager = new SessionManager(getApplicationContext());
+        managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
         verify_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +120,7 @@ public class CustomerVerification extends AppCompatActivity {
 
         //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        UserHelperClass addNewUser = new UserHelperClass(name,email,phoneNo,password);
+        CustomersData addNewUser = new CustomersData(name,email,phoneNo,password);
         reference.child(phoneNo).setValue(addNewUser);
 
 
@@ -138,9 +138,9 @@ public class CustomerVerification extends AppCompatActivity {
                 String _password = snapshot.child(phoneNo).child("password").getValue(String.class);
 
 
-                sessionManager.setLogin(true);
+                managerCustomer.setCustomerLogin(true);
 
-                sessionManager.setDetails(_name, _email, _phoneNo, _password);
+                managerCustomer.setDetails(_name, _email, _phoneNo, _password);
 
                 startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();

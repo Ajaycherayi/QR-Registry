@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -52,7 +54,7 @@ public class ShopCustomersReport extends AppCompatActivity {
 
     TextView display;
 
-    String time;
+    String time,date;
 
     DatePickerDialog.OnDateSetListener setListener;
 
@@ -74,14 +76,11 @@ public class ShopCustomersReport extends AppCompatActivity {
 
         display = findViewById(R.id.show_time);
 
-
-
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(ShopCustomersReport.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
 
         recyclerView = findViewById(R.id.customersView);
         recyclerView.setHasFixedSize(true);
@@ -95,8 +94,7 @@ public class ShopCustomersReport extends AppCompatActivity {
         String date = "02-4-2021";
         String minusDate;
 
-
-         arrayAdapter =new ArrayAdapter<String>(this,R.layout.shop_time_list,times);
+        arrayAdapter =new ArrayAdapter<String>(this,R.layout.shop_time_list,times);
 
         getTimeList.setAdapter(arrayAdapter);
 
@@ -123,11 +121,9 @@ public class ShopCustomersReport extends AppCompatActivity {
             }
         }
 
-
         filter();
 
     }
-
 
     private void filter(){
 
@@ -145,18 +141,18 @@ public class ShopCustomersReport extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month+1;
-                String date = day+"-"+month+"-"+year;
+                date = day+"-"+month+"-"+year;
                 et_Date.setText(date);
 
                 getTimeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        time = (arrayAdapter.getItem(position));
+                        time = arrayAdapter.getItem(position);
 
                         Query query= FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(date).child(time);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -205,7 +201,6 @@ public class ShopCustomersReport extends AppCompatActivity {
                     CustomersModel model = postSnapshot.getValue(CustomersModel.class);
                     customersModels.add(model);
                 }
-
 
                 adapter = new CustomerAdapter(ShopCustomersReport.this, customersModels);
                 recyclerView.setAdapter(adapter);

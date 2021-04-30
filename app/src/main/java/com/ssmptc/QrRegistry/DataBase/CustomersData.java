@@ -1,12 +1,12 @@
 package com.ssmptc.QrRegistry.DataBase;
 
-public class UserHelperClass {
+public class CustomersData {
 
     String name,email,phoneNo,password;
 
-    public UserHelperClass(){}
+    public CustomersData(){}
 
-    public UserHelperClass(String name, String email, String phoneNo, String password) {
+    public CustomersData(String name, String email, String phoneNo, String password) {
         this.name = name;
         this.email = email;
         this.phoneNo = phoneNo;

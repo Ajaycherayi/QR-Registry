@@ -8,13 +8,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.DataBase.ShopHelperClass;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
+import com.ssmptc.QrRegistry.DataBase.CustomersDataForShops;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
 import java.text.SimpleDateFormat;
@@ -22,18 +26,30 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ShopDashBoard extends AppCompatActivity {
+    TextView textView;
 
     String name;
     String email;
     String phoneNo;
     String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
     String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+    SessionManagerShop managerShop;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_dash_board);
+
+        textView = findViewById(R.id.show_name);
+
+        String shopName = getIntent().getStringExtra("shopName");
+        textView.setText(shopName);
+
+        managerShop = new SessionManagerShop(getApplicationContext());
+        String sName = managerShop.getShopName();
+        textView.setText(sName);
+
     }
 
     public void ScannerForShop(View view) {
@@ -101,7 +117,7 @@ public class ShopDashBoard extends AppCompatActivity {
 
                     String dbTime = new SimpleDateFormat("hh a", Locale.getDefault()).format(new Date());
 
-                    ShopHelperClass addNewUser = new ShopHelperClass(name, email, phoneNo, currentDate, currentTime);
+                    CustomersDataForShops addNewUser = new CustomersDataForShops(name, email, phoneNo, currentDate, currentTime);
 
                     reference.child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
 
@@ -172,5 +188,50 @@ public class ShopDashBoard extends AppCompatActivity {
 
     public void CustomerReport(View view) {
         startActivity(new Intent(getApplicationContext(),ShopCustomersReport.class));
+    }
+
+    public void Logout(View view) {
+        logout();
+    }
+
+    private void logout() {
+        //managerShop = new SessionManagerShop(getApplicationContext());
+
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Set Title
+        builder.setTitle("Log out");
+
+        //set Message
+        builder.setMessage("Are you sure to Log out ?");
+
+        //positive YES button
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                managerShop.setShopLogin(false);
+                managerShop.setDetails("","","","","","");
+                //activity.finishAffinity();
+               // dialog.dismiss();
+
+                //Finish Activity
+                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+                finish();
+            }
+        });
+
+        //Negative NO button
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Dismiss Dialog
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

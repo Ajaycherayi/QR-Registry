@@ -1,11 +1,10 @@
 package com.ssmptc.QrRegistry.DataBase;
 
-public class ShopHelperClass {
+public class CustomersDataForShops {
     String name,email,phoneNo,currentDate,currentTime;
 
-    public ShopHelperClass(String name, String email, String phoneNo, long currentDate, String currentTime){}
 
-    public ShopHelperClass(String name, String email, String phoneNo, String currentDate,String currentTime) {
+    public CustomersDataForShops(String name, String email, String phoneNo, String currentDate, String currentTime) {
         this.name = name;
         this.email = email;
         this.phoneNo = phoneNo;

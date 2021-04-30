@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +13,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.ssmptc.QrRegistry.DataBase.SessionManager;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.R;
 
 public class ShopQRCode extends AppCompatActivity {
@@ -30,7 +29,7 @@ public class ShopQRCode extends AppCompatActivity {
         output = findViewById(R.id.iv_output);
         back = findViewById(R.id.btn_backToDashBoard);
 
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        SessionManagerCustomer sessionManager = new SessionManagerCustomer(getApplicationContext());
 
 
         String _name = sessionManager.getName();
