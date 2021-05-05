@@ -196,7 +196,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
         }else {
 
-            Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(nPhone);
+            Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").child(nPhone);
 
             checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -259,53 +259,12 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         }
 
 
-
-        //Initialize SessionManager
-       // managerShop = new SessionManagerShop(getApplicationContext());
-
-       // if (managerShop.getShopLogin()){
-          //  startActivity(new Intent(getApplicationContext(),ShopSignup.class));
-       // }else {
-
-       // }
-        //finish();
-
-        //Initialize SessionManager
-        /*managerShop = new SessionManagerShop(getApplicationContext());
-
-        if (managerShop.getShopLogin()){
-            startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
-        }else {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Register or SignUp For Shop");
-            builder.setMessage(" Are You Owner of a Shop...?\n\n Then Register or SignUp Using Shop Details \uD83D\uDC4D");
-            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                     Intent intent = new Intent(CustomerDashBoard.this, ShopSignup.class);
-                     managerCustomer = new SessionManagerCustomer(getApplicationContext());
-                     String nPhone = managerCustomer.getPhone();
-                     intent.putExtra("phone", nPhone);
-                }
-            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
-        }
-        finish();*/
-
     }
 
     private void logout() {
 
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerShop = new SessionManagerShop(getApplicationContext());
 
         //Initialize alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -323,6 +282,10 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
               managerCustomer.setCustomerLogin(false);
               managerCustomer.setDetails("","","","");
+
+              managerShop.setShopLogin(false);
+              managerShop.setDetails("","","","","","");
+
                 //activity.finishAffinity();
                 dialog.dismiss();
 

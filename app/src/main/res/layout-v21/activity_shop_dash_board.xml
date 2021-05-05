@@ -21,10 +21,13 @@
             android:padding="20dp">
 
             <ImageView
-                android:id="@+id/drawer_btn"
+                android:id="@+id/btn_back"
                 android:layout_width="63dp"
                 android:layout_height="49dp"
-                android:src="@drawable/back_arrow1" />
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/back_arrow1"
+                android:focusable="true" />
 
             <ImageView
                 android:layout_width="130dp"
@@ -114,7 +117,7 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="Shop QR Code"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -194,7 +197,7 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Search People"
+                        android:text="Today's Customers"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -239,7 +242,7 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Report"
+                        android:text="Search Customers"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -267,7 +270,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/shop_logout" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -275,7 +278,7 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="Logout Shop"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="25sp" />

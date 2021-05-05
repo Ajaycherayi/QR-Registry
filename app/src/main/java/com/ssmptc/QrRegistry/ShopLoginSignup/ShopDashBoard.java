@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +27,16 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ShopDashBoard extends AppCompatActivity {
-    TextView textView;
 
+    TextView textView;
+    ImageView btn_back;
+
+    String shopPhoneNo,shopName;
     String name;
     String email;
     String phoneNo;
-    String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
-    String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());;
+    String currentTime = new SimpleDateFormat("hh:mm aa", Locale.getDefault()).format(new Date());
     SessionManagerShop managerShop;
 
 
@@ -42,15 +46,26 @@ public class ShopDashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_shop_dash_board);
 
         textView = findViewById(R.id.show_name);
+        btn_back = findViewById(R.id.btn_back);
 
-        String shopName = getIntent().getStringExtra("shopName");
-        textView.setText(shopName);
+        //String shopName = getIntent().getStringExtra("shopName");
+        //textView.setText(shopName);
 
         managerShop = new SessionManagerShop(getApplicationContext());
         String sName = managerShop.getShopName();
         textView.setText(sName);
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShopDashBoard.this,CustomerDashBoard.class));
+                finish();
+            }
+        });
+
     }
+
+
 
     public void ScannerForShop(View view) {
 
@@ -100,7 +115,7 @@ public class ShopDashBoard extends AppCompatActivity {
 
 
                 FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                DatabaseReference reference = rootNode.getReference("Customer-Details-For-Shop");
+                DatabaseReference reference = rootNode.getReference("Shops");
 
                 //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -110,16 +125,21 @@ public class ShopDashBoard extends AppCompatActivity {
                 if (output.startsWith("QrRegistry")) {
                     String[] separated = output.split(":");
 
+                    managerShop = new SessionManagerShop(getApplicationContext());
+                    shopPhoneNo = managerShop.getPhone();
+                    shopName = managerShop.getShopName();
 
                     name = separated[1];
                     email = separated[2];
                     phoneNo = separated[3];
 
+
+
                     String dbTime = new SimpleDateFormat("hh a", Locale.getDefault()).format(new Date());
 
                     CustomersDataForShops addNewUser = new CustomersDataForShops(name, email, phoneNo, currentDate, currentTime);
 
-                    reference.child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
+                    reference.child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
 
 
                     //Initialize Dialog box

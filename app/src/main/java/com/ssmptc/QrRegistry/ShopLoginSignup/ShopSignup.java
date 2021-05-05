@@ -3,12 +3,15 @@ package com.ssmptc.QrRegistry.ShopLoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
+import com.ssmptc.QrRegistry.DataBase.CustomersModel;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.ShopsData;
@@ -31,14 +35,16 @@ import com.ssmptc.QrRegistry.R;
 import java.util.concurrent.TimeUnit;
 
 public class ShopSignup extends AppCompatActivity {
-    
-    //SessionManagerCustomer managerCustomer;
-    //SessionManagerShop managerShop;
+
+    SessionManagerShop managerShop;
+
+    ImageView b1;
+    long node = 0;
+    private String nodeId;
 
     //Variables
     private TextInputLayout et_shopLocation,et_shopCategory,et_ownerName,et_password,et_shopName;
-    private Button shopLogin,shop_SignUp;
-    private String phoneNumber;
+    private String phoneNumber,sName;
     TextView showPhoneNo;
 
     @Override
@@ -52,99 +58,41 @@ public class ShopSignup extends AppCompatActivity {
         et_ownerName = findViewById(R.id.et_ownerName);
         et_password = findViewById(R.id.et_shopPassword);
 
-        shopLogin = findViewById(R.id.btn_goShopLogin);
         showPhoneNo = findViewById(R.id.tv_ownerPhone);
-        shop_SignUp= findViewById(R.id.bt_signUp);
 
-      // managerCustomer = new SessionManagerCustomer(getApplicationContext());
-       // managerShop = new SessionManagerShop(getApplicationContext());
+        b1 = findViewById(R.id.btn_backToCd);
+
+
+       managerShop = new SessionManagerShop(getApplicationContext());
 
         phoneNumber = getIntent().getStringExtra("phone");
 
+
         showPhoneNo.setText(phoneNumber);
 
-       // String _ownerName = managerCustomer.getName();
 
-       // et_ownerName.setText(_ownerName);
-        //showPhoneNo.setText(phoneNumber);
-
-
-
-        shopLogin.setOnClickListener(new View.OnClickListener() {
+        b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ShopLogin.class));
+                startActivity(new Intent(ShopSignup.this,CustomerDashBoard.class));
+                finish();
             }
         });
 
+        setNode();
+
+
     }
 
-    public void ShopSignUp(View view) {
+    public void setNode(){
 
-
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(phoneNumber);
-
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference rff;
+        rff = FirebaseDatabase.getInstance().getReference().child("Shops");
+        rff.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.exists()) {
-
-                    Toast.makeText(ShopSignup.this, "This User already Exist  Please Login", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() | !validatePassword()) {
-
-                        return;
-                    }
-
-
-                    String shopName = et_shopName.getEditText().getText().toString();
-                    String location = et_shopLocation.getEditText().getText().toString();
-                    String category = et_shopCategory.getEditText().getText().toString();
-                    String ownerName = et_ownerName.getEditText().getText().toString();
-                    String password = et_password.getEditText().getText().toString();
-
-
-
-                    FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = rootNode.getReference("Shops");
-
-                    ShopsData addNewShop = new ShopsData(phoneNumber, shopName, location, category, ownerName, password);
-                    reference.child(phoneNumber).setValue(addNewShop);
-
-                    Query checkShop = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(phoneNumber);
-
-                    checkShop.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            String _shopName = snapshot.child(phoneNumber).child("shopName").getValue(String.class);
-                            String _category = snapshot.child(phoneNumber).child("category").getValue(String.class);
-                            String _location = snapshot.child(phoneNumber).child("location").getValue(String.class);
-                            String _phoneNo = snapshot.child(phoneNumber).child("ownerName").getValue(String.class);
-                            String _ownerName = snapshot.child(phoneNumber).child("phoneNumber").getValue(String.class);
-                            String _password = snapshot.child(phoneNumber).child("password").getValue(String.class);
-
-
-                            //managerShop.setShopLogin(true);
-
-                            // managerShop.setDetails(_phoneNo, _shopName, _location ,_category,_ownerName, _password);
-
-                            Intent intent = new Intent(ShopSignup.this, ShopDashBoard.class);
-                            intent.putExtra("shopName", _shopName);
-                            startActivity(intent);
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
+                if (snapshot.exists()){
+                    node = (snapshot.getChildrenCount());
                 }
             }
 
@@ -154,12 +102,114 @@ public class ShopSignup extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void ShopSignUp(View view) {
 
 
+        if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() ) {
+
+            return;
+        }
+
+        setNode();
+        DatabaseReference rff;
+        rff = FirebaseDatabase.getInstance().getReference().child("Shops");
+
+        String shopName = et_shopName.getEditText().getText().toString();
+        String location = et_shopLocation.getEditText().getText().toString();
+        String category = et_shopCategory.getEditText().getText().toString();
+        String ownerName = et_ownerName.getEditText().getText().toString();
+        String password = et_password.getEditText().getText().toString();
+
+
+        nodeId = String.valueOf(node+1000);
+
+
+        Dialog dialog = new Dialog(ShopSignup.this);
+        dialog.setContentView(R.layout.alert_dialog);
+        CheckBox checkBox = dialog.findViewById(R.id.check_box);
+        Button btCancel = dialog.findViewById(R.id.bt_cancel);
+        Button btOk = dialog.findViewById(R.id.bt_ok);
+        TextView shopId = dialog.findViewById(R.id.tv_shopId);
+
+        shopId.setText(nodeId);
+
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox.isChecked()){
+
+                    btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
+                    btOk.setEnabled(true);
+                    btOk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
+                            ShopsData addNewShop = new ShopsData(nodeId,phoneNumber, shopName, location, category, ownerName, password);
+                            rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
+
+                            Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");
+
+                            shopData.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshotData) {
+
+                                    String _shopName = snapshotData.child("shopName").getValue(String.class);
+                                    String _category = snapshotData.child("category").getValue(String.class);
+                                    String _location = snapshotData.child("location").getValue(String.class);
+                                    String _phoneNo = snapshotData.child("phoneNumber").getValue(String.class);
+                                    String _ownerName = snapshotData.child("ownerName").getValue(String.class);
+                                    String _password = snapshotData.child("password").getValue(String.class);
+
+                                    managerShop.setShopLogin(true);
+                                    managerShop.setDetails(_phoneNo, _shopName, _location, _category, _ownerName, _password);
+
+                                    startActivity(new Intent(ShopSignup.this, ShopDashBoard.class));
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                            dialog.dismiss();
+                        }
+                    });
+
+
+
+
+
+                }else {
+                    btOk.setEnabled(false);
+                    btOk.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }
+            }
+        });
+        dialog.show();
 
 
 
     }
+
+
+
 
   /*  private boolean validateAll(){
         String val = et_shopName.getText().toString().trim();

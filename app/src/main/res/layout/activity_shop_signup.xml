@@ -12,40 +12,14 @@
        android:layout_height="wrap_content"
        android:orientation="vertical">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/Primary"
-           android:orientation="vertical">
-
-           <TextView
-
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="25dp"
-               android:text="@string/existing_user"
-               android:textSize="20sp"
-               android:textColor="@color/white"
-               android:layout_marginStart="20dp"
-               android:layout_marginLeft="20dp" />
-
-           <com.google.android.material.button.MaterialButton
-               android:id="@+id/btn_goShopLogin"
-               android:layout_width="match_parent"
-               android:layout_height="60dp"
-               android:layout_gravity="center"
-               android:layout_margin="20dp"
-               android:fontFamily="@font/astronaut"
-               android:gravity="center"
-               android:backgroundTint="@color/white"
-               app:cornerRadius="25dp"
-               android:text="@string/login"
-               android:textColor="@color/Primary"
-               android:textSize="25sp"
-               android:transitionName="transition_login"/>
-
-
-       </LinearLayout>
+       <ImageView
+           android:layout_width="150dp"
+           android:layout_height="150dp"
+           android:src="@drawable/shop_signup"
+           android:layout_gravity="center"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="20dp"/>
 
 
        <LinearLayout
@@ -248,6 +222,19 @@
            </LinearLayout>
 
        </LinearLayout>
+
+       <ImageView
+           android:id="@+id/btn_backToCd"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:background="?attr/selectableItemBackgroundBorderless"
+           android:clickable="true"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginBottom="25dp"
+           android:src="@drawable/back_arrow"
+           android:layout_marginTop="30dp"
+           app:tint="@color/white" />
+
 
    </LinearLayout>
 

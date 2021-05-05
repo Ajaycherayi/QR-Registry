@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.DataBase.CustomerAdapter;
 import com.ssmptc.QrRegistry.DataBase.CustomersModel;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +46,7 @@ public class ShopCustomersReport extends AppCompatActivity {
 
     AutoCompleteTextView getTimeList;
 
-    EditText et_Date;
+    Button et_Date;
 
     RecyclerView recyclerView;
 
@@ -52,9 +54,13 @@ public class ShopCustomersReport extends AppCompatActivity {
 
     CustomerAdapter adapter;
 
+    String shopPhoneNo,shopName;
+
     TextView display;
 
     String time,date;
+
+    SessionManagerShop managerShop;
 
     DatePickerDialog.OnDateSetListener setListener;
 
@@ -88,25 +94,29 @@ public class ShopCustomersReport extends AppCompatActivity {
 
         customersModels = new ArrayList<>();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-        Calendar cal = Calendar.getInstance();
-        String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
-        String date = "02-4-2021";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String date = "02-04-2021";
         String minusDate;
+
+        managerShop = new SessionManagerShop(getApplicationContext());
+        shopPhoneNo = managerShop.getPhone();
+        shopName = managerShop.getShopName();
 
         arrayAdapter =new ArrayAdapter<String>(this,R.layout.shop_time_list,times);
 
         getTimeList.setAdapter(arrayAdapter);
 
         for (int i=0; i<=15; i++) {
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(currentDate).child(times[i]);
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(times[i]);
             list();
         }
-
-        cal.add(Calendar.DATE, -1);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE,-1);
         minusDate = sdf.format(cal.getTime());
         for (int i=0; i<=15; i++) {
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(minusDate).child(times[i]);
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(minusDate).child(times[i]);
             list();
         }
 
@@ -116,7 +126,7 @@ public class ShopCustomersReport extends AppCompatActivity {
 
             for (int i=0; i<=15; i++) {
 
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(minusDate).child(times[i]);
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(minusDate).child(times[i]);
                 list();
             }
         }
@@ -146,7 +156,15 @@ public class ShopCustomersReport extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month+1;
-                date = day+"-"+month+"-"+year;
+                String fm = ""+month;
+                String fd = ""+day;
+                if(month<10){
+                    fm = "0"+month;
+                }
+                if (day<10){
+                    fd = "0"+day;
+                }
+                date = fd+"-"+fm+"-"+year;
                 et_Date.setText(date);
 
                 getTimeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -154,7 +172,7 @@ public class ShopCustomersReport extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         time = arrayAdapter.getItem(position);
 
-                        Query query= FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(date).child(time);
+                        Query query= FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(date).child(time);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {

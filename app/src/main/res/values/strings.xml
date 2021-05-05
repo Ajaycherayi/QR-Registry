@@ -49,5 +49,8 @@
     <string name="closeDay">Day</string>
     <string name="description">Description</string>
 
+    <!-- Shops Customer Report -->
+
+    <string name="time"><b>SELECT TIME</b></string>
 
 </resources>

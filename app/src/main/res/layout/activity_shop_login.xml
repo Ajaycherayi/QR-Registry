@@ -17,20 +17,18 @@
 
 
         <ImageView
-        android:id="@+id/btn_backToSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        app:tint="@color/white"
-        android:layout_marginStart="20dp" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/shop_login"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginTop="50dp"
             android:background="@drawable/bg_white"
             android:orientation="vertical">
 
@@ -72,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="Category"
+                    android:hint="Shop ID"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="2dp"
@@ -85,7 +83,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:id="@+id/login_category"
+                        android:id="@+id/login_shopId"
                         android:inputType="text"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -162,42 +160,18 @@
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:background="@color/Primary"
-        android:layout_margin="20dp">
+        <ImageView
+            android:id="@+id/btn_backToCd"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/back_arrow"
+            android:layout_marginTop="30dp"
+            app:tint="@color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_gravity="center"
-            android:textColor="@color/white"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_callSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/astronaut"
-            android:gravity="center"
-            android:backgroundTint="@color/white"
-            app:cornerRadius="25dp"
-            android:text="@string/SignUp"
-            android:textColor="@color/Primary"
-            android:textSize="25sp"
-            android:transitionName="transition_signUp"/>
-
-
-    </LinearLayout>
 
     </LinearLayout>
 

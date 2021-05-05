@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.DataBase.CustomerAdapter;
 import com.ssmptc.QrRegistry.DataBase.CustomersModel;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +38,10 @@ public class ShopCustomersList extends AppCompatActivity {
 
     CustomerAdapter adapter;
 
+    String shopPhoneNo,shopName;
+
+    SessionManagerShop managerShop;
+
     private DatabaseReference mDatabaseRef;
     private List<CustomersModel> customersModels;
 
@@ -53,19 +58,24 @@ public class ShopCustomersList extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        recyclerView = (RecyclerView) findViewById(R.id.customersView);
+        recyclerView = findViewById(R.id.customersView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         customersModels = new ArrayList<>();
 
-        String currentDate = new SimpleDateFormat("dd-M-yyyy", Locale.getDefault()).format(new Date());
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         String [] times = {"07 am","08 am","09 am","10 am","11 am","12 pm","01 pm","02 pm","03 pm","04 pm","05 pm",
-                "06 pm","07 pm","08 pm","09 pm","10 am"};
+                "06 pm","07 pm","08 pm","09 pm","10 pm"};
 
-        for (int i=0; i<=15; i++) {
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Customer-Details-For-Shop").child(currentDate).child(times[i]);
+        managerShop = new SessionManagerShop(getApplicationContext());
+        shopPhoneNo = managerShop.getPhone();
+        shopName = managerShop.getShopName();
+
+        for (int i=0; i<16; i++) {
+
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(times[i]);
             list();
         }
 

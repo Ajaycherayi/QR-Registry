@@ -22,19 +22,23 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ssmptc.QrRegistry.DataBase.Model;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
 public class ShopProfile extends AppCompatActivity {
 
     AutoCompleteTextView getList1,getList2,getList3,getList4;
 
+    private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_phone,et_email, et_openTime,et_closeTime,et_openDay,et_closeDay,et_description;
     private Button btnUpload,btnShowAll;
     private ImageView btnChooseImg;
     private ProgressDialog progressDialog;
@@ -43,6 +47,7 @@ public class ShopProfile extends AppCompatActivity {
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Shop-ImageUrls");
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("ShopImages");
     private Uri filePath;
+    SessionManagerShop managerShop;
 
 
     EditText desc;
@@ -63,6 +68,19 @@ public class ShopProfile extends AppCompatActivity {
         getList2 = findViewById(R.id.shop_endTimes);
         getList3 = findViewById(R.id.shop_startDay);
         getList4 = findViewById(R.id.shop_endDay);
+
+        // Update Details
+        et_ShopName = findViewById(R.id.et_shopName);
+        et_LicenseNumber = findViewById(R.id.et_LicenseNumber);
+        et_category = findViewById(R.id.et_category);
+        et_location = findViewById(R.id.et_shopLocation);
+        et_phone = findViewById(R.id.et_phone2);
+        et_email = findViewById(R.id.et_email);
+        et_openTime = findViewById(R.id.et_openTime);
+        et_closeTime = findViewById(R.id.et_closeTime);
+        et_openDay = findViewById(R.id.et_openDay);
+        et_closeDay = findViewById(R.id.et_closeDay);
+        et_description = findViewById(R.id.et_description);
 
         String [] start = {"7:00 AM" , "8:00 AM" , "9:00 AM" , "10:00 AM"};
         String [] end = {"5:00 PM" , "6:00 PM" , "7:00 PM" , "8:00 PM" , "9:00 PM" , "10:00 PM"};
@@ -185,6 +203,16 @@ public class ShopProfile extends AppCompatActivity {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(mUri));
+
+    }
+
+    public void updateData(){
+
+        managerShop = new SessionManagerShop(getApplicationContext());
+        String shopPhoneNo = managerShop.getPhone();
+
+        Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(shopPhoneNo);
+
 
     }
 
