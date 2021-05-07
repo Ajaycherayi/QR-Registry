@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -196,65 +198,27 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
         }else {
 
-            Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").child(nPhone);
+            Dialog dialog = new Dialog(CustomerDashBoard.this);
+            dialog.setContentView(R.layout.login_alert);
+            Button btCancel = dialog.findViewById(R.id.bt_cancel);
+            Button btOk = dialog.findViewById(R.id.bt_ok);
 
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            btCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    if (snapshot.exists()) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
-                        builder.setTitle("Login For Shop");
-                        builder.setMessage(" Please Login For Your Shop... \uD83D\uDC4D");
-                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(CustomerDashBoard.this, ShopLogin.class));
-                            }
-                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                    } else {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
-                        builder.setTitle("SignUp For Shop");
-                        builder.setMessage(" Are You Owner of a Shop Then Register for Shop \uD83D\uDC4D");
-                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(CustomerDashBoard.this, ShopSignup.class);
-                                intent.putExtra("phone", nPhone);
-                                startActivity(intent);
-
-                            }
-                        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
+                public void onClick(View v) {
+                    dialog.cancel();
                 }
             });
+            btOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    startActivity(new Intent(CustomerDashBoard.this, ShopLogin.class));
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+
 
         }
 
@@ -284,7 +248,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
               managerCustomer.setDetails("","","","");
 
               managerShop.setShopLogin(false);
-              managerShop.setDetails("","","","","","");
+              managerShop.setDetails("","","","","","","");
 
                 //activity.finishAffinity();
                 dialog.dismiss();

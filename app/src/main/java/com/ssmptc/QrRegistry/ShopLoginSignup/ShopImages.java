@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ssmptc.QrRegistry.DataBase.Model;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.ShopAdapter;
 import com.ssmptc.QrRegistry.R;
 
@@ -29,10 +30,13 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
     private RecyclerView recyclerView;
     private ArrayList<Model> list;
     private ShopAdapter shopAdapter;
+    private SessionManagerShop managerShop;
+    private String shopId;
     ProgressDialog progressDialog;
 
-    private FirebaseStorage mStorage= FirebaseStorage.getInstance();
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Shop-ImageUrls");
+
+    private FirebaseStorage mStorage;
+    private DatabaseReference root ;
 
     private ValueEventListener mDBListener;
 
@@ -46,6 +50,12 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        managerShop = new SessionManagerShop(getApplicationContext());
+        shopId = managerShop.getShopId();
+
+        mStorage= FirebaseStorage.getInstance();
+        root = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
 
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);

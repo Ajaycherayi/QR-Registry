@@ -31,7 +31,7 @@ public class ShopDashBoard extends AppCompatActivity {
     TextView textView;
     ImageView btn_back;
 
-    String shopPhoneNo,shopName;
+    String shopId;
     String name;
     String email;
     String phoneNo;
@@ -126,8 +126,7 @@ public class ShopDashBoard extends AppCompatActivity {
                     String[] separated = output.split(":");
 
                     managerShop = new SessionManagerShop(getApplicationContext());
-                    shopPhoneNo = managerShop.getPhone();
-                    shopName = managerShop.getShopName();
+                    shopId = managerShop.getShopId();
 
                     name = separated[1];
                     email = separated[2];
@@ -139,7 +138,7 @@ public class ShopDashBoard extends AppCompatActivity {
 
                     CustomersDataForShops addNewUser = new CustomersDataForShops(name, email, phoneNo, currentDate, currentTime);
 
-                    reference.child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
+                    reference.child(shopId).child("Customers").child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
 
 
                     //Initialize Dialog box
@@ -232,7 +231,7 @@ public class ShopDashBoard extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 managerShop.setShopLogin(false);
-                managerShop.setDetails("","","","","","");
+                managerShop.setDetails("","","","","","","");
                 //activity.finishAffinity();
                // dialog.dismiss();
 

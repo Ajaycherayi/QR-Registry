@@ -38,7 +38,7 @@ public class ShopCustomersList extends AppCompatActivity {
 
     CustomerAdapter adapter;
 
-    String shopPhoneNo,shopName;
+    String shopId;
 
     SessionManagerShop managerShop;
 
@@ -66,16 +66,15 @@ public class ShopCustomersList extends AppCompatActivity {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        String [] times = {"07 am","08 am","09 am","10 am","11 am","12 pm","01 pm","02 pm","03 pm","04 pm","05 pm",
-                "06 pm","07 pm","08 pm","09 pm","10 pm"};
+        String [] times = {"12 am","01 am","02 am","03 am","04 am","05 am","06 am","07 am","08 am","09 am","10 am","11 am",
+                           "12 pm","01 pm","02 pm","03 pm","04 pm","05 pm","06 pm","07 pm","08 pm","09 pm","10 pm","11 pm",};
 
         managerShop = new SessionManagerShop(getApplicationContext());
-        shopPhoneNo = managerShop.getPhone();
-        shopName = managerShop.getShopName();
+        shopId = managerShop.getShopId();
 
         for (int i=0; i<16; i++) {
 
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(times[i]);
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(currentDate).child(times[i]);
             list();
         }
 

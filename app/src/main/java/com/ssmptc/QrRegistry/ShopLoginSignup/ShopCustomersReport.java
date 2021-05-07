@@ -54,7 +54,7 @@ public class ShopCustomersReport extends AppCompatActivity {
 
     CustomerAdapter adapter;
 
-    String shopPhoneNo,shopName;
+    String shopId;
 
     TextView display;
 
@@ -101,22 +101,21 @@ public class ShopCustomersReport extends AppCompatActivity {
         String minusDate;
 
         managerShop = new SessionManagerShop(getApplicationContext());
-        shopPhoneNo = managerShop.getPhone();
-        shopName = managerShop.getShopName();
+        shopId = managerShop.getShopId();
 
         arrayAdapter =new ArrayAdapter<String>(this,R.layout.shop_time_list,times);
 
         getTimeList.setAdapter(arrayAdapter);
 
         for (int i=0; i<=15; i++) {
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(currentDate).child(times[i]);
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(currentDate).child(times[i]);
             list();
         }
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE,-1);
         minusDate = sdf.format(cal.getTime());
         for (int i=0; i<=15; i++) {
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(minusDate).child(times[i]);
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(minusDate).child(times[i]);
             list();
         }
 
@@ -126,7 +125,7 @@ public class ShopCustomersReport extends AppCompatActivity {
 
             for (int i=0; i<=15; i++) {
 
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(minusDate).child(times[i]);
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(minusDate).child(times[i]);
                 list();
             }
         }
@@ -167,12 +166,28 @@ public class ShopCustomersReport extends AppCompatActivity {
                 date = fd+"-"+fm+"-"+year;
                 et_Date.setText(date);
 
+                for (int i=0; i<=15; i++) {
+                    Query q = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(date).child(times[i]);
+                    q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            showListener(snapshot);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
                 getTimeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         time = arrayAdapter.getItem(position);
 
-                        Query query= FirebaseDatabase.getInstance().getReference("Shops").child(shopPhoneNo).child(shopName).child("Customers").child(date).child(time);
+                        Query query= FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Customers").child(date).child(time);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {

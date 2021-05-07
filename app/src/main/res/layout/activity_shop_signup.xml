@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_primary"
+    android:background="@color/Primary"
     tools:context=".ShopLoginSignup.ShopSignup">
 
    <LinearLayout
@@ -12,23 +12,34 @@
        android:layout_height="wrap_content"
        android:orientation="vertical">
 
+
+
        <ImageView
            android:layout_width="150dp"
            android:layout_height="150dp"
            android:src="@drawable/shop_signup"
            android:layout_gravity="center"
            android:layout_marginLeft="10dp"
-           android:layout_marginTop="30dp"
-           android:layout_marginBottom="20dp"/>
+           android:layout_marginTop="20dp" />
 
+       <ImageView
+           android:id="@+id/btn_backToCd"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:background="?attr/selectableItemBackgroundBorderless"
+           android:clickable="true"
+           android:layout_marginLeft="20dp"
+           android:src="@drawable/back_arrow"
+           android:layout_marginTop="-40dp"
+           android:layout_marginBottom="10dp"
+           app:tint="@color/black" />
 
        <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_height="match_parent"
            android:orientation="vertical"
            android:background="@drawable/bg_white"
-           android:layout_margin="20dp">
-
+           android:layout_marginHorizontal="20dp">
 
            <TextView
                android:layout_width="match_parent"
@@ -42,36 +53,20 @@
                android:layout_marginStart="20dp"
                android:layout_marginLeft="20dp" />
 
-           <LinearLayout
-               android:layout_width="wrap_content"
+           <TextView
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:text="@string/SignUp"
+               android:textColor="@color/Primary"
+               android:textSize="20sp"
                android:layout_marginLeft="20dp"
-               android:layout_marginTop="8dp"
-               android:orientation="horizontal">
-
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="@string/SignUpWith"
-                   android:textColor="@color/Primary"
-                   android:textSize="20sp" />
-
-               <TextView
-                   android:id="@+id/tv_ownerPhone"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text=" PHONE NUMBER"
-                   android:textColor="@color/Primary"
-                   android:textSize="20sp" />
-
-           </LinearLayout>
-
+               android:layout_marginBottom="8dp"/>
 
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="vertical"
-               android:layout_margin="20dp">
+               android:layout_marginHorizontal="15dp">
 
                <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
@@ -100,36 +95,12 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                   android:id="@+id/et_shopLocation"
-                   android:hint="Shop Location"
-                   android:textColorHint="@color/black"
-                   app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
-                   android:layout_marginTop="15dp"
-                   app:endIconMode="clear_text"
-                   app:endIconTint="@color/black"
-                   app:hintTextColor="@color/black"
-                   app:startIconDrawable="@drawable/ic_location"
-                   app:startIconTint="@color/black">
-
-                   <com.google.android.material.textfield.TextInputEditText
-                       android:layout_width="match_parent"
-                       android:layout_height="55dp"
-                       android:textSize="20sp"
-                       android:inputType="text"
-                       android:textColor="@color/black"/>
-               </com.google.android.material.textfield.TextInputLayout>
-
-               <com.google.android.material.textfield.TextInputLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_category"
                    android:hint="Category"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
                    app:boxStrokeWidth="2dp"
-                   android:layout_marginTop="15dp"
+                   android:layout_marginTop="8dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
                    app:hintTextColor="@color/black"
@@ -144,19 +115,42 @@
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
+               <com.google.android.material.textfield.TextInputLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_shopLocation"
+                   android:hint="Shop Location"
+                   android:textColorHint="@color/black"
+                   app:boxStrokeColor="@color/black"
+                   app:boxStrokeWidth="2dp"
+                   android:layout_marginTop="8dp"
+                   app:endIconMode="clear_text"
+                   app:endIconTint="@color/black"
+                   app:hintTextColor="@color/black"
+                   app:startIconDrawable="@drawable/ic_location"
+                   app:startIconTint="@color/black">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:layout_width="match_parent"
+                       android:layout_height="55dp"
+                       android:textSize="20sp"
+                       android:inputType="text"
+                       android:textColor="@color/black"/>
+               </com.google.android.material.textfield.TextInputLayout>
+
                <View
                    android:layout_width="match_parent"
                    android:layout_height="2dp"
                    android:background="@color/Primary"
-                   android:layout_marginTop="20dp"/>
-
+                   android:layout_marginTop="15dp"/>
 
                <com.google.android.material.textfield.TextInputLayout
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_ownerName"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="15dp"
+                   android:layout_marginTop="8dp"
                    android:hint="@string/name"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
@@ -177,6 +171,31 @@
                </com.google.android.material.textfield.TextInputLayout>
 
                <com.google.android.material.textfield.TextInputLayout
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:id="@+id/et_phone"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:hint="@string/phone"
+                   android:textColorHint="@color/black"
+                   app:boxStrokeColor="@color/black"
+                   app:boxStrokeWidth="2dp"
+                   app:endIconMode="clear_text"
+                   app:endIconTint="@color/black"
+                   app:hintTextColor="@color/black"
+                   app:startIconDrawable="@drawable/ic_customer"
+                   app:startIconTint="@color/black">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:layout_width="match_parent"
+                       android:layout_height="55dp"
+                       android:inputType="phone"
+                       android:textColor="@color/black"
+                       android:textSize="20sp" />
+
+               </com.google.android.material.textfield.TextInputLayout>
+
+               <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -185,7 +204,7 @@
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
                    app:boxStrokeWidth="2dp"
-                   android:layout_marginTop="15dp"
+                   android:layout_marginTop="8dp"
                    app:endIconMode="password_toggle"
                    app:endIconTint="@color/black"
                    app:hintTextColor="@color/black"
@@ -202,19 +221,38 @@
 
                <com.google.android.material.button.MaterialButton
                    android:id="@+id/bt_signUp"
-                   android:layout_width="match_parent"
+                   android:layout_width="345dp"
                    android:layout_height="60dp"
                    android:layout_gravity="center"
-                   android:layout_marginTop="20dp"
+                   android:layout_marginTop="10dp"
+                   android:fontFamily="@font/astronaut"
+                   android:gravity="center"
+                   android:backgroundTint="@color/Primary"
+                   app:cornerRadius="5dp"
+                   android:text="@string/SignUp"
+                   android:onClick="ShopSignUp"
+                   android:textColor="@color/white"
+                   android:textSize="25sp"
+                   android:transitionName="transition_signUp"
+                   tools:targetApi="lollipop" />
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/bt_toLogin"
+                   android:layout_width="345dp"
+                   android:layout_height="60dp"
+                   android:layout_gravity="center"
+                   android:layout_marginBottom="10dp"
                    android:layout_marginLeft="20dp"
                    android:layout_marginRight="20dp"
                    android:fontFamily="@font/astronaut"
                    android:gravity="center"
-                   android:backgroundTint="@color/Primary_light"
-                   app:cornerRadius="25dp"
-                   android:text="@string/SignUp"
-                   android:onClick="ShopSignUp"
-                   android:textColor="@color/black"
+                   android:onClick="ToLogin"
+                   android:backgroundTint="@color/white"
+                   app:strokeColor="@color/Primary"
+                   app:strokeWidth="2dp"
+                   app:cornerRadius="5dp"
+                   android:text="@string/login"
+                   android:textColor="@color/Primary"
                    android:textSize="25sp"
                    android:transitionName="transition_signUp"
                    tools:targetApi="lollipop" />
@@ -222,19 +260,6 @@
            </LinearLayout>
 
        </LinearLayout>
-
-       <ImageView
-           android:id="@+id/btn_backToCd"
-           android:layout_width="50dp"
-           android:layout_height="50dp"
-           android:background="?attr/selectableItemBackgroundBorderless"
-           android:clickable="true"
-           android:layout_gravity="center_horizontal"
-           android:layout_marginBottom="25dp"
-           android:src="@drawable/back_arrow"
-           android:layout_marginTop="30dp"
-           app:tint="@color/white" />
-
 
    </LinearLayout>
 

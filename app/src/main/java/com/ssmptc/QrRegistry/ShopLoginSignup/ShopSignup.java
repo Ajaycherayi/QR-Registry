@@ -43,8 +43,8 @@ public class ShopSignup extends AppCompatActivity {
     private String nodeId;
 
     //Variables
-    private TextInputLayout et_shopLocation,et_shopCategory,et_ownerName,et_password,et_shopName;
-    private String phoneNumber,sName;
+    private TextInputLayout et_shopLocation,et_shopCategory,et_ownerName,et_password,et_shopName,et_phoneNumber;
+    private String phoneNo,sName;
     TextView showPhoneNo;
 
     @Override
@@ -57,18 +57,18 @@ public class ShopSignup extends AppCompatActivity {
         et_shopCategory = findViewById(R.id.et_category);
         et_ownerName = findViewById(R.id.et_ownerName);
         et_password = findViewById(R.id.et_shopPassword);
+        et_phoneNumber = findViewById(R.id.et_phone);
 
-        showPhoneNo = findViewById(R.id.tv_ownerPhone);
+
 
         b1 = findViewById(R.id.btn_backToCd);
 
 
+
        managerShop = new SessionManagerShop(getApplicationContext());
 
-        phoneNumber = getIntent().getStringExtra("phone");
+       phoneNo = getIntent().getStringExtra("phone");
 
-
-        showPhoneNo.setText(phoneNumber);
 
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +76,19 @@ public class ShopSignup extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(ShopSignup.this,CustomerDashBoard.class));
                 finish();
+
             }
         });
 
         setNode();
 
+
+    }
+
+    public void ToLogin(View view) {
+
+        startActivity(new Intent(ShopSignup.this,ShopLogin.class));
+        finish();
 
     }
 
@@ -121,6 +129,7 @@ public class ShopSignup extends AppCompatActivity {
         String category = et_shopCategory.getEditText().getText().toString();
         String ownerName = et_ownerName.getEditText().getText().toString();
         String password = et_password.getEditText().getText().toString();
+        String phoneNumber = et_phoneNumber.getEditText().getText().toString();
 
 
         nodeId = String.valueOf(node+1000);
@@ -161,6 +170,10 @@ public class ShopSignup extends AppCompatActivity {
                             rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
                             ShopsData addNewShop = new ShopsData(nodeId,phoneNumber, shopName, location, category, ownerName, password);
                             rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
+                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("licenseNumber").setValue("");
+                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("email").setValue("");
+                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("description").setValue("");
+
 
                             Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");
 
@@ -174,9 +187,10 @@ public class ShopSignup extends AppCompatActivity {
                                     String _phoneNo = snapshotData.child("phoneNumber").getValue(String.class);
                                     String _ownerName = snapshotData.child("ownerName").getValue(String.class);
                                     String _password = snapshotData.child("password").getValue(String.class);
+                                    String _shopId = snapshotData.child("id").getValue(String.class);
 
                                     managerShop.setShopLogin(true);
-                                    managerShop.setDetails(_phoneNo, _shopName, _location, _category, _ownerName, _password);
+                                    managerShop.setDetails(_shopId,_phoneNo, _shopName, _location, _category, _ownerName, _password);
 
                                     startActivity(new Intent(ShopSignup.this, ShopDashBoard.class));
 
@@ -191,10 +205,6 @@ public class ShopSignup extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-
-
-
-
 
                 }else {
                     btOk.setEnabled(false);
@@ -301,5 +311,6 @@ public class ShopSignup extends AppCompatActivity {
         }
 
     }
+
 
 }

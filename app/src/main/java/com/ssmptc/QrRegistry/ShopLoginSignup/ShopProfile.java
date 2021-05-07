@@ -23,9 +23,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -44,10 +47,13 @@ public class ShopProfile extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     //vars
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Shop-ImageUrls");
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("ShopImages");
+    private DatabaseReference root,reference ;
+    private StorageReference storageReference;
     private Uri filePath;
+    private String shopId;
+    private String  _ShopName,_LicenseNumber,_category,_location,_phone,_email,_openTime,_closeTime,_openDay,_closeDay,_description;
     SessionManagerShop managerShop;
+
 
 
     EditText desc;
@@ -98,6 +104,15 @@ public class ShopProfile extends AppCompatActivity {
         getList3.setAdapter(arrayAdapter3);
         getList4.setAdapter(arrayAdapter4);
 
+
+        managerShop = new SessionManagerShop(getApplicationContext());
+        shopId = managerShop.getShopId();
+
+        reference = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
+
+        root = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
+        storageReference = FirebaseStorage.getInstance().getReference("ShopImages").child(shopId);
+
         btnChooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +141,8 @@ public class ShopProfile extends AppCompatActivity {
                 startActivity(new Intent(ShopProfile.this,ShopImages.class));
             }
         });
+        dbUpdate();
+
     }
 
     private void chooseImage() {
@@ -206,14 +223,113 @@ public class ShopProfile extends AppCompatActivity {
 
     }
 
-    public void updateData(){
+    public void updateData(View view) {
 
-        managerShop = new SessionManagerShop(getApplicationContext());
-        String shopPhoneNo = managerShop.getPhone();
+        dbUpdate();
 
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Shops").orderByChild("phoneNumber").equalTo(shopPhoneNo);
+        if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged()){
+
+            //managerShop.setDetails("","",_ShopName,"","","","");
+            Toast.makeText(ShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
+        }
+        else Toast.makeText(ShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
+    }
+
+    private void dbUpdate(){
+        Query getShopData = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
+        getShopData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
+                _ShopName = dataSnapshot.child("shopName").getValue(String.class);
+                et_ShopName.getEditText().setText(_ShopName);
+                _category = dataSnapshot.child("category").getValue(String.class);
+                et_category.getEditText().setText(_category);
+                _location = dataSnapshot.child("location").getValue(String.class);
+                et_location.getEditText().setText(_location);
+                _phone = dataSnapshot.child("phoneNumber").getValue(String.class);
+                et_phone.getEditText().setText(_phone);
+                _LicenseNumber = dataSnapshot.child("licenseNumber").getValue(String.class);
+                et_LicenseNumber.getEditText().setText(_LicenseNumber);
+                _email = dataSnapshot.child("email").getValue(String.class);
+                et_email.getEditText().setText(_email);
+                _description = dataSnapshot.child("description").getValue(String.class);
+                et_description.getEditText().setText(_description);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    private boolean isDescriptionChanged() {
+        if (!_description.equals(et_description.getEditText().getText().toString())){
+
+            reference.child("description").setValue(et_description.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isEmailChanged() {
+        if (!_email.equals(et_email.getEditText().getText().toString())){
+
+            reference.child("email").setValue(et_email.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isLicenseChanged() {
+        if (!_LicenseNumber.equals(et_LicenseNumber.getEditText().getText().toString())){
+
+            reference.child("licenseNumber").setValue(et_LicenseNumber.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isPhoneNumberChanged() {
+        if (!_phone.equals(et_phone.getEditText().getText().toString())){
+
+            reference.child("phoneNumber").setValue(et_phone.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+
+    }
+
+    private boolean isLocationChanged() {
+        if (!_location.equals(et_location.getEditText().getText().toString())){
+
+            reference.child("location").setValue(et_location.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isCategoryChanged() {
+        if (!_category.equals(et_category.getEditText().getText().toString())){
+
+            reference.child("category").setValue(et_category.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isNameChanged() {
+        if (!_ShopName.equals(et_ShopName.getEditText().getText().toString())){
+
+            reference.child("shopName").setValue(et_ShopName.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
     }
 
 

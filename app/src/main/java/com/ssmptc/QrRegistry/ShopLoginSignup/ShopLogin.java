@@ -28,7 +28,7 @@ public class ShopLogin extends AppCompatActivity {
     SessionManagerShop managerShop;
 
     EditText et_shopId, et_phoneNumber, et_password;
-    Button b1;
+
     ImageView b2;
 
     ProgressDialog progressDialog;
@@ -41,8 +41,6 @@ public class ShopLogin extends AppCompatActivity {
         et_shopId = findViewById(R.id.login_shopId);
         et_phoneNumber = findViewById(R.id.login_phone);
         et_password = findViewById(R.id.login_password);
-
-        b1 = findViewById(R.id.bt_login);
         b2 = findViewById(R.id.btn_backToCd);
 
 
@@ -109,10 +107,11 @@ public class ShopLogin extends AppCompatActivity {
                                     String _category = dataSnapshot.child("category").getValue(String.class);
                                     String _ownerName = dataSnapshot.child("ownerName").getValue(String.class);
                                     String _password = dataSnapshot.child("password").getValue(String.class);
+                                    String _shopId = dataSnapshot.child("id").getValue(String.class);
 
                                     managerShop.setShopLogin(true);
 
-                                    managerShop.setDetails(_phoneNo, _shopName, _location ,_category,_ownerName, _password);
+                                    managerShop.setDetails(_shopId,_phoneNo, _shopName, _location ,_category,_ownerName, _password);
 
 
 
@@ -146,4 +145,8 @@ public class ShopLogin extends AppCompatActivity {
 
     }
 
+    public void SignUp(View view) {
+        startActivity(new Intent(ShopLogin.this,ShopSignup.class));
+        finish();
+    }
 }
