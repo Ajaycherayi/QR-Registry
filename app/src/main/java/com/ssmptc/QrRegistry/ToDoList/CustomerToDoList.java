@@ -32,8 +32,8 @@ public class CustomerToDoList extends AppCompatActivity {
     EditText et_title,et_desc;
     ImageButton add;
 
-    ///RecyclerView recyclerView;
-    ///TodoAdapter adapter;
+    RecyclerView recyclerView;
+    TodoAdapter adapter;
 
     private DatabaseReference mDatabaseRef;
     private List<TodoModel> todoModels;
@@ -47,18 +47,18 @@ public class CustomerToDoList extends AppCompatActivity {
         et_desc = findViewById(R.id.et_description);
         add  = findViewById(R.id.btn_add);
 
-        //recyclerView = findViewById(R.id.toDoListView);
-       // recyclerView.setHasFixedSize(true);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.toDoListView);
+       recyclerView.setHasFixedSize(true);
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         todoModels = new ArrayList<>();
 
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
         String phone = managerCustomer.getPhone();
 
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Todo");
 
-
-
+        list();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +67,10 @@ public class CustomerToDoList extends AppCompatActivity {
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Todo");
                 TodoModel model = new TodoModel(sTitle,sDesc);
                 db.push().setValue(model);
-
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Todo");
+                todoModels.clear();
+                et_desc.setText("");
+                et_title.setText("");
+                list();
 
 
             }
@@ -79,12 +81,17 @@ public class CustomerToDoList extends AppCompatActivity {
 
     }
 
-   /* private void list() {
+   private void list() {
+
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                todoModels.clear();
+
                 for (DataSnapshot postSnapshot : snapshot.getChildren()){
+
                     TodoModel model = postSnapshot.getValue(TodoModel.class);
                     todoModels.add(model);
                 }
@@ -99,5 +106,5 @@ public class CustomerToDoList extends AppCompatActivity {
                 Toast.makeText(CustomerToDoList.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }*/
+    }
 }

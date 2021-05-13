@@ -3,6 +3,8 @@ package com.ssmptc.QrRegistry.DataBase;
 public class CustomersDataForShops {
     String name,email,phoneNo,currentDate,currentTime;
 
+    public CustomersDataForShops() {
+    }
 
     public CustomersDataForShops(String name, String email, String phoneNo, String currentDate, String currentTime) {
         this.name = name;
