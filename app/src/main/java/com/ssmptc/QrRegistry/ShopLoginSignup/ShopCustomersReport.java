@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -45,6 +47,8 @@ import java.util.Locale;
 public class ShopCustomersReport extends AppCompatActivity {
 
     AutoCompleteTextView getTimeList;
+
+    ImageView btn_back;
 
     Button et_Date;
 
@@ -77,6 +81,8 @@ public class ShopCustomersReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_customers_report);
 
+        btn_back = findViewById(R.id.btn_backToSd);
+
         et_Date = findViewById(R.id.sort_date);
         getTimeList = findViewById(R.id.sort_time);
 
@@ -104,6 +110,14 @@ public class ShopCustomersReport extends AppCompatActivity {
         shopId = managerShop.getShopId();
 
         arrayAdapter =new ArrayAdapter<String>(this,R.layout.shop_time_list,times);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShopCustomersReport.this,ShopDashBoard.class));
+                finish();
+            }
+        });
 
         getTimeList.setAdapter(arrayAdapter);
 

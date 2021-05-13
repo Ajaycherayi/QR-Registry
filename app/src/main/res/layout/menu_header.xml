@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@drawable/bg_primary"
-    android:paddingLeft="20dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="15dp"
+    android:paddingRight="10dp"
+    android:orientation="vertical"
     android:layout_centerVertical="true">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR REGISTRY"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:layout_above="@+id/yrsv"/>
 
     <TextView
         android:id="@+id/yrsv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go YOUR SAFETY"
-        android:textColor="@color/black"
+        android:text="STAY HOME STAY SAFE"
+        android:textSize="15sp"
+        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="USER NAME"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        android:layout_above="@+id/yrsv"/>
 
 
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_qr_code"
+        android:src="@drawable/generated_qr"
         android:layout_above="@+id/urname"
-        app:tint="@color/black"
-        android:layout_marginBottom="20dp"
+        android:layout_gravity="end"
+       android:layout_marginTop="-35dp"
         tools:ignore="UnknownId" />
 
 
-</RelativeLayout>
+</LinearLayout>

@@ -7,26 +7,25 @@
     tools:context=".CustomerLoginSignUp.CustomerDashBoard"
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
-   android:background="@color/white">
+    android:background="@color/Primary"
+    android:fitsSystemWindows="true">
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/navTheme"
-        android:background="#00FFFFFF"
+        android:background="@drawable/bg_white"
         android:layout_gravity="start"
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/main_menu"
         app:itemTextColor="@color/black"
-        app:itemIconSize="40dp"
+        app:itemIconSize="35dp"
         app:itemHorizontalPadding="20dp"
-        app:itemIconPadding="8dp"
+        app:itemIconPadding="15dp"
         app:itemIconTint="@color/black"
-
-
         />
-
 
 
     <LinearLayout
@@ -42,16 +41,24 @@
             android:background="@drawable/bg_primary"
             android:padding="20dp">
 
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/user"/>
+
             <TextView
                 android:id="@+id/get_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
                 android:gravity="center_horizontal"
-                android:text="Registration Using QR Code"
+                android:text="User name"
                 android:textAlignment="center"
-                android:textSize="24sp"
-                android:textColor="@color/black"/>
+                android:textSize="25sp"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/drawer_btn"
@@ -70,24 +77,24 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="generateQR"
-                android:backgroundTint="@color/Primary_light">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_primary">
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/qr_code" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,9 +102,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="My QR"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -107,21 +114,23 @@
             <com.google.android.material.card.MaterialCardView
                 android:onClick="scanQR"
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/barcode_scanner" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -129,9 +138,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="Scan Code"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -149,21 +158,24 @@
             <com.google.android.material.card.MaterialCardView
 
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                android:onClick="ScannedShops"
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/shop" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -171,9 +183,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="Scanned shops"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -183,21 +195,24 @@
             <com.google.android.material.card.MaterialCardView
 
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                android:onClick="mapFind"
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/user" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,9 +220,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="Map"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -225,21 +240,23 @@
             <com.google.android.material.card.MaterialCardView
 
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/user" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -247,9 +264,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="To do List"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -259,21 +276,23 @@
             <com.google.android.material.card.MaterialCardView
 
                 android:layout_width="0dp"
-                android:layout_height="135dp"
+                android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp">
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card">
 
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/user" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -281,9 +300,9 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Generate QR"
+                        android:text="My Profile"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -292,6 +311,8 @@
 
 
         </LinearLayout>
+
+
 
 
     </LinearLayout>

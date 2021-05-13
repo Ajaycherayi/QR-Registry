@@ -39,18 +39,20 @@
 
     <!-- Menu Page -->
 
-    <string name="shopName">Shop Name</string>
-    <string name="category">Category</string>
-    <string name="shopLocation">Location</string>
-    <string name="licenseNo">License Number</string>
-    <string name="shopTime">Open Time</string>
-    <string name="closeTime">Close Time</string>
-    <string name="startDay">Day</string>
-    <string name="closeDay">Day</string>
+    <string name="shopName">Shop Name<font color='#FF0000'>*</font></string>
+    <string name="category">Category<font color='#FF0000'>*</font></string>
+    <string name="shopLocation">Location<font color='#FF0000'>*</font></string>
+    <string name="licenseNo">License Number<font color='#FF0000'>*</font></string>
+    <string name="ownerName">Owner Name<font color='#FF0000'>*</font></string>
+    <string name="workingTime">Working Time</string>
+    <string name="workingDays">Working Days</string>
     <string name="description">Description</string>
+    <string name="required"><font color='#FF0000'>*</font> Required</string>
 
     <!-- Shops Customer Report -->
 
     <string name="time"><b>SELECT TIME</b></string>
+    <string name="google_map_key">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
+
 
 </resources>

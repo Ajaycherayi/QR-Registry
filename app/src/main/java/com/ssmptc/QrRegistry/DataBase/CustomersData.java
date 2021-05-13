@@ -4,8 +4,6 @@ public class CustomersData {
 
     String name,email,phoneNo,password;
 
-    public CustomersData(){}
-
     public CustomersData(String name, String email, String phoneNo, String password) {
         this.name = name;
         this.email = email;

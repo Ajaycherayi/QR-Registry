@@ -8,16 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,9 +42,10 @@ import com.ssmptc.QrRegistry.R;
 
 public class ShopProfile extends AppCompatActivity {
 
-    AutoCompleteTextView getList1,getList2,getList3,getList4;
 
-    private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_phone,et_email, et_openTime,et_closeTime,et_openDay,et_closeDay,et_description;
+    TextView tv_shopName,tv_shopId;
+    ImageView btn_back;
+    private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_ownerName,et_email,et_time,et_days ,et_description;
     private Button btnUpload,btnShowAll;
     private ImageView btnChooseImg;
     private ProgressDialog progressDialog;
@@ -51,7 +55,7 @@ public class ShopProfile extends AppCompatActivity {
     private StorageReference storageReference;
     private Uri filePath;
     private String shopId;
-    private String  _ShopName,_LicenseNumber,_category,_location,_phone,_email,_openTime,_closeTime,_openDay,_closeDay,_description;
+    private String  _ShopName,_LicenseNumber,_category,_location,_ownerName,_email,_time,_days,_description;
     SessionManagerShop managerShop;
 
 
@@ -65,53 +69,45 @@ public class ShopProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_profile);
 
+        tv_shopName = findViewById(R.id.tv_shopName);
+        tv_shopId = findViewById(R.id.tv_shopId);
+        btn_back = findViewById(R.id.btn_backToSd);
 
         btnChooseImg = findViewById(R.id.btn_chooseImage);
         btnUpload= findViewById(R.id.btn_uploadImage);
         btnShowAll= findViewById(R.id.btn_showAllImage);
 
-        getList1 = findViewById(R.id.shop_startTimes);
-        getList2 = findViewById(R.id.shop_endTimes);
-        getList3 = findViewById(R.id.shop_startDay);
-        getList4 = findViewById(R.id.shop_endDay);
 
         // Update Details
         et_ShopName = findViewById(R.id.et_shopName);
         et_LicenseNumber = findViewById(R.id.et_LicenseNumber);
         et_category = findViewById(R.id.et_category);
         et_location = findViewById(R.id.et_shopLocation);
-        et_phone = findViewById(R.id.et_phone2);
+        et_ownerName = findViewById(R.id.et_ownerName);
         et_email = findViewById(R.id.et_email);
-        et_openTime = findViewById(R.id.et_openTime);
-        et_closeTime = findViewById(R.id.et_closeTime);
-        et_openDay = findViewById(R.id.et_openDay);
-        et_closeDay = findViewById(R.id.et_closeDay);
+        et_time = findViewById(R.id.et_time);
+        et_days = findViewById(R.id.et_Days);
         et_description = findViewById(R.id.et_description);
-
-        String [] start = {"7:00 AM" , "8:00 AM" , "9:00 AM" , "10:00 AM"};
-        String [] end = {"5:00 PM" , "6:00 PM" , "7:00 PM" , "8:00 PM" , "9:00 PM" , "10:00 PM"};
-
-        String [] startDay = {"Monday" , "Tuesday" , "Wednesday" , "Thursday", "Friday", "Saturday", "Sunday"};
-        String [] endDay = {"Monday" , "Tuesday" , "Wednesday" , "Thursday", "Friday", "Saturday", "Sunday"};
-
-        ArrayAdapter<String> arrayAdapter1 =new ArrayAdapter<String>(this,R.layout.shop_time_list,start);
-        ArrayAdapter<String> arrayAdapter2 =new ArrayAdapter<String>(this,R.layout.shop_time_list,end);
-        ArrayAdapter<String> arrayAdapter3 =new ArrayAdapter<String>(this,R.layout.shop_time_list,startDay);
-        ArrayAdapter<String> arrayAdapter4 =new ArrayAdapter<String>(this,R.layout.shop_time_list,endDay);
-
-        getList1.setAdapter(arrayAdapter1);
-        getList2.setAdapter(arrayAdapter2);
-        getList3.setAdapter(arrayAdapter3);
-        getList4.setAdapter(arrayAdapter4);
 
 
         managerShop = new SessionManagerShop(getApplicationContext());
         shopId = managerShop.getShopId();
 
+        tv_shopName.setText(managerShop.getShopName());
+        tv_shopId.setText(managerShop.getShopId());
+
         reference = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
 
         root = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
         storageReference = FirebaseStorage.getInstance().getReference("ShopImages").child(shopId);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShopProfile.this,ShopDashBoard.class));
+                finish();
+            }
+        });
 
         btnChooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,15 +221,28 @@ public class ShopProfile extends AppCompatActivity {
 
     public void updateData(View view) {
 
+
+
+
+
+        if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation()) {
+
+            return;
+        }
+
         dbUpdate();
 
-        if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged()){
+
+
+        if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
 
             //managerShop.setDetails("","",_ShopName,"","","","");
             Toast.makeText(ShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
         }
         else Toast.makeText(ShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
     }
+
+
 
     private void dbUpdate(){
         Query getShopData = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
@@ -244,18 +253,25 @@ public class ShopProfile extends AppCompatActivity {
 
                 _ShopName = dataSnapshot.child("shopName").getValue(String.class);
                 et_ShopName.getEditText().setText(_ShopName);
+                tv_shopName.setText(dataSnapshot.child("shopName").getValue(String.class));
                 _category = dataSnapshot.child("category").getValue(String.class);
                 et_category.getEditText().setText(_category);
                 _location = dataSnapshot.child("location").getValue(String.class);
                 et_location.getEditText().setText(_location);
-                _phone = dataSnapshot.child("phoneNumber").getValue(String.class);
-                et_phone.getEditText().setText(_phone);
+                _ownerName = dataSnapshot.child("ownerName").getValue(String.class);
+                et_ownerName.getEditText().setText(_ownerName);
                 _LicenseNumber = dataSnapshot.child("licenseNumber").getValue(String.class);
                 et_LicenseNumber.getEditText().setText(_LicenseNumber);
                 _email = dataSnapshot.child("email").getValue(String.class);
                 et_email.getEditText().setText(_email);
                 _description = dataSnapshot.child("description").getValue(String.class);
                 et_description.getEditText().setText(_description);
+                _time = dataSnapshot.child("working time").getValue(String.class);
+                et_time.getEditText().setText(_time);
+                _days = dataSnapshot.child("working days").getValue(String.class);
+                et_days.getEditText().setText(_days);
+
+
 
             }
 
@@ -267,6 +283,25 @@ public class ShopProfile extends AppCompatActivity {
 
     }
 
+    private boolean isTimeChanged() {
+
+
+        if (!_time.equals(et_time.getEditText().getText().toString())){
+            reference.child("working time").setValue(et_time.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+    }
+
+    private boolean isDayChanged() {
+
+        if (!_days.equals(et_days.getEditText().getText().toString())){
+            reference.child("working days").setValue(et_days.getEditText().getText().toString());
+            return true;
+        }else
+            return false;
+
+    }
 
     private boolean isDescriptionChanged() {
         if (!_description.equals(et_description.getEditText().getText().toString())){
@@ -296,9 +331,9 @@ public class ShopProfile extends AppCompatActivity {
     }
 
     private boolean isPhoneNumberChanged() {
-        if (!_phone.equals(et_phone.getEditText().getText().toString())){
+        if (!_ownerName.equals(et_ownerName.getEditText().getText().toString())){
 
-            reference.child("phoneNumber").setValue(et_phone.getEditText().getText().toString());
+            reference.child("ownerNameNumber").setValue(et_ownerName.getEditText().getText().toString());
             return true;
         }else
             return false;
@@ -333,5 +368,75 @@ public class ShopProfile extends AppCompatActivity {
     }
 
 
+    private boolean validateLicense(){
+        String val1 = et_LicenseNumber.getEditText().getText().toString().trim();
+
+        if (val1.isEmpty()){
+            et_LicenseNumber.setError("Day can not be empty");
+            return false;
+        }
+        else{
+            et_LicenseNumber.setError(null);
+            et_LicenseNumber.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+    private boolean validateShopName(){
+        String val1 = et_ShopName.getEditText().getText().toString().trim();
+
+        if (val1.isEmpty()){
+            et_ShopName.setError("Field can not be empty");
+            return false;
+        }
+        else{
+            et_ShopName.setError(null);
+            et_ShopName.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+    private boolean validateLocation(){
+        String val1 = et_location.getEditText().getText().toString().trim();
+
+        if (val1.isEmpty()){
+            et_location.setError("Field can not be empty");
+            return false;
+        }
+        else{
+            et_location.setError(null);
+            et_location.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+    private boolean validateCategory(){
+        String val1 = et_category.getEditText().getText().toString().trim();
+
+        if (val1.isEmpty()){
+            et_category.setError("Field can not be empty");
+            return false;
+        }
+        else{
+            et_category.setError(null);
+            et_category.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+    private boolean validateOwnerName(){
+        String val1 = et_ownerName.getEditText().getText().toString().trim();
+
+        if (val1.isEmpty()){
+            et_ownerName.setError("Field can not be empty");
+            return false;
+        }
+        else{
+            et_ownerName.setError(null);
+            et_ownerName.setErrorEnabled(false);
+            return true;
+        }
+
+    }
 
 }

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssmptc.QrRegistry">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,13 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRegistry">
-        <activity android:name=".ShopLoginSignup.ShopCustomersReport"></activity>
+        <activity android:name=".ToDoList.CustomerToDoList"></activity>
+        <activity android:name=".ToDoList.TodoList" />
+        <activity android:name=".CustomerLoginSignUp.CustomerMapFind" />
+        <activity android:name=".ShopLoginSignup.ShopCustomersReport" />
         <activity android:name=".ShopLoginSignup.ShopCustomersList" />
         <activity android:name=".ShopLoginSignup.ShopImages" />
         <activity android:name=".ShopLoginSignup.ShopProfile" />
         <activity android:name=".ShopLoginSignup.ShopQRCode" />
         <activity android:name=".ShopLoginSignup.ShopDashBoard" />
-        <activity android:name=".todoist" />
         <activity android:name=".CustomerLoginSignUp.QRCodeGeneration" />
         <activity android:name=".CustomerLoginSignUp.CustomerDashBoard" />
         <activity android:name=".CustomerLoginSignUp.CustomerVerification" />
@@ -40,6 +43,9 @@
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_key" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

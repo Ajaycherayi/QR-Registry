@@ -6,9 +6,6 @@ public class CustomersModel {
 
     private boolean expandable;
 
-    CustomersModel(){
-        
-    }
 
     public boolean isExpandable() {
         return expandable;

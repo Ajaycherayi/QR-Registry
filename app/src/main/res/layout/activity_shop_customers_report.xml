@@ -9,15 +9,26 @@
     android:background="@color/white"
     tools:context=".ShopLoginSignup.ShopCustomersList">
 
+    <ImageView
+        android:id="@+id/btn_backToSd"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/back_arrow"
+        app:tint="@color/black" />
     <TextView
         android:id="@+id/show_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
         android:text="All Customers"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="-45dp"
         android:textSize="30dp" />
     <View
         android:layout_width="match_parent"

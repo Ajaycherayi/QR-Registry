@@ -145,7 +145,6 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_login"
                 android:layout_width="350dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -162,7 +161,6 @@
                 tools:targetApi="lollipop" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_toSignUp"
                 android:layout_width="350dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"

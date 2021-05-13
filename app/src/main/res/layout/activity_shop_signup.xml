@@ -220,7 +220,6 @@
                </com.google.android.material.textfield.TextInputLayout>
 
                <com.google.android.material.button.MaterialButton
-                   android:id="@+id/bt_signUp"
                    android:layout_width="345dp"
                    android:layout_height="60dp"
                    android:layout_gravity="center"
@@ -237,7 +236,6 @@
                    tools:targetApi="lollipop" />
 
                <com.google.android.material.button.MaterialButton
-                   android:id="@+id/bt_toLogin"
                    android:layout_width="345dp"
                    android:layout_height="60dp"
                    android:layout_gravity="center"

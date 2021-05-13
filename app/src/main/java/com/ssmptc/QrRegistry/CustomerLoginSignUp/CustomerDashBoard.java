@@ -42,6 +42,7 @@ import com.ssmptc.QrRegistry.ShopLoginSignup.QRCodeScanner;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopSignup;
+import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -368,5 +369,18 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         }
 
 
+    }
+
+    public void ScannedShops(View view) {
+    }
+
+    public void mapFind(View view) {
+        startActivity(new Intent(CustomerDashBoard.this,CustomerMapFind.class));
+        finish();
+    }
+
+    public void TodoList(View view) {
+        startActivity(new Intent(CustomerDashBoard.this, CustomerToDoList.class));
+        finish();
     }
 }
