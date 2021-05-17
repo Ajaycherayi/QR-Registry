@@ -81,7 +81,6 @@ public class CustomerAdapter  extends RecyclerView.Adapter<CustomerAdapter.Textv
 
         }
 
-
     }
 }
 

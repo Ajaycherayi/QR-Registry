@@ -1,39 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@color/black"
-    android:elevation="5dp"
+    app:cardCornerRadius="5dp"
+    android:elevation="4dp"
+    android:padding="10dp"
     app:cardUseCompatPadding="true"
-    android:layout_marginHorizontal="8dp">
+    app:cardBackgroundColor="@color/black"
+    android:layout_marginHorizontal="5dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/bg_todolist"
         android:orientation="vertical"
-        android:id="@+id/linear_layout"
-        android:padding="15dp">
+        android:padding="13dp">
 
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="This is Demo Name"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:text="This is Demo Name"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_description"
+                android:text="This is Course Name"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"/>
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btn_edit"
+                android:src="@drawable/ic_edit"
+                android:layout_marginBottom="-10dp"
+                app:tint="@color/black"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="-20dp"
+                android:id="@+id/btn_delete"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/red"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                tools:targetApi="lollipop" />
 
 
     </LinearLayout>

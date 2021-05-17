@@ -4,89 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Primary"
+    android:background="@color/Primary_ExtraLight"
     tools:context=".ToDoList.CustomerToDoList"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/bg_upper"
+        android:layout_marginHorizontal="10dp"
         android:id="@+id/app_bar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/btn_backToCd"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/back_arrow"
+            app:tint="@color/black" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To Do List"
-                android:textColor="@color/black"
+                android:layout_marginTop="-40dp"
+                android:text="To-do List"
+                android:textStyle="bold"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 android:layout_gravity="center_horizontal"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_title"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:inputType="textCapSentences"
+               android:layout_marginHorizontal="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="50dp"
                 android:hint="Title"
-                android:layout_marginTop="10dp"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
+                app:boxStrokeWidth="2dp"
+                app:helperTextTextColor="@color/black"
+                android:textColorHint="@color/white"
+                app:boxStrokeColor="@color/white"
+                app:hintTextColor="@color/white"
                 android:textSize="30sp"
-                android:singleLine="true"/>
+                android:singleLine="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_title"
+                    android:textSize="20dp"
+                    android:inputType="textCapSentences"/>
+            </com.google.android.material.textfield.TextInputLayout>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/et_description"
-                android:layout_marginLeft="15dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="15dp"
                 android:inputType="textMultiLine"
+                android:maxLength="240"
+                android:maxLines="1"
+                android:maxHeight="20dp"
                 android:hint="Description"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="50dp"/>
 
-        </LinearLayout>
 
-        <ImageButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="6dp"
-            android:src="@drawable/ic_arrow_down"
-            app:backgroundTint="@color/black"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|right"
-            app:pressedTranslationZ="12dp"
+            android:src="@drawable/ic_done"
+            app:backgroundTint="@color/white"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="-20dp"
             android:layout_gravity="bottom|end"
             app:fabSize="normal"
             android:contentDescription="TODO" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="10dp"
+    android:background="@drawable/bg_lower"
+    android:layout_marginTop="10dp">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/toDoListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginRight="1dp" />
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>
+
 
 </LinearLayout>

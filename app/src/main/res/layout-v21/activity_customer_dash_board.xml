@@ -257,7 +257,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/user" />
+                        android:src="@drawable/todo" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -280,6 +280,7 @@
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="CustomerProfile"
                 app:cardElevation="10dp"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
@@ -293,7 +294,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/user" />
+                        android:src="@drawable/update_profile" />
 
                     <TextView
                         android:layout_width="wrap_content"

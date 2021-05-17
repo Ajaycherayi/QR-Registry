@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     Animation bottom,side;
 
-    private static int SPLASH_TIMER = 4000;
+    private static int SPLASH_TIMER = 2000;
 
     ImageView qr_img;
     TextView wcm,qr,powered;
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         qr_img=findViewById(R.id.qr_img);
@@ -43,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         bottom= AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
 
         //Set The Animation
-        qr.setAnimation(bottom);
-        qr_img.setAnimation(bottom);
-        powered.setAnimation(side);
+        //qr.setAnimation(bottom);
+       // qr_img.setAnimation(bottom);
+        powered.setAnimation(bottom);
 
         new Handler().postDelayed(new Runnable() {
             @Override

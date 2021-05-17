@@ -376,11 +376,16 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
     public void mapFind(View view) {
         startActivity(new Intent(CustomerDashBoard.this,CustomerMapFind.class));
-        finish();
+
     }
 
     public void TodoList(View view) {
         startActivity(new Intent(CustomerDashBoard.this, CustomerToDoList.class));
-        finish();
+
+    }
+
+    public void CustomerProfile(View view) {
+        startActivity(new Intent(CustomerDashBoard.this, CustomerProfile.class));
+
     }
 }

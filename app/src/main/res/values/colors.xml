@@ -2,7 +2,7 @@
 <resources>
     <color name="Primary">#008FFF</color>
     <color name="Primary_light">#44ADFF</color>
-    <color name="Primary_ExtraLight">#CFEAFF</color>
+    <color name="Primary_ExtraLight">#B8C4CB</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -11,6 +11,6 @@
     <color name="transparent">#00000000</color>
     <color name="light_red">#EF5C5B</color>
     <color name="light_green">#2BDC8B</color>
-
-
+    <color name="red">#FF0000</color>
+    <color name="blue">#00FF00</color>
 </resources>

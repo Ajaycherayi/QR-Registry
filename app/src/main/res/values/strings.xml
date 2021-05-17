@@ -54,5 +54,10 @@
     <string name="time"><b>SELECT TIME</b></string>
     <string name="google_map_key">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
 
+    <!-- Customer Details Page -->
+
+    <string name="userName">Name<font color='#FF0000'>*</font></string>
+    <string name="userEmail">Email<font color='#FF0000'>*</font></string>
+    <string name="address">Address</string>
 
 </resources>

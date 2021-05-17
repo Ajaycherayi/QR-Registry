@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRegistry">
-        <activity android:name=".ToDoList.CustomerToDoList"></activity>
+        <activity android:name=".CustomerLoginSignUp.CustomerProfile"></activity>
+        <activity android:name=".ToDoList.CustomerToDoList" />
         <activity android:name=".ToDoList.TodoList" />
         <activity android:name=".CustomerLoginSignUp.CustomerMapFind" />
         <activity android:name=".ShopLoginSignup.ShopCustomersReport" />
