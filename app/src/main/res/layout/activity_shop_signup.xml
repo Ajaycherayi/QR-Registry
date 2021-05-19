@@ -220,6 +220,7 @@
                </com.google.android.material.textfield.TextInputLayout>
 
                <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btn_getOtp"
                    android:layout_width="345dp"
                    android:layout_height="60dp"
                    android:layout_gravity="center"
@@ -228,8 +229,7 @@
                    android:gravity="center"
                    android:backgroundTint="@color/Primary"
                    app:cornerRadius="5dp"
-                   android:text="@string/SignUp"
-                   android:onClick="ShopSignUp"
+                   android:text="get otp"
                    android:textColor="@color/white"
                    android:textSize="25sp"
                    android:transitionName="transition_signUp"

@@ -19,7 +19,7 @@
 
     <!-- Verification Page -->
     <string name="otpVerification"><b>OTP Verification</b></string>
-    <string name="noOtp">Did\'t Receive The OTP</string>
+    <string name="noOtp">Didn\'t receive OTP?</string>
     <string name="resend"><b>RESEND OTP</b></string>
 
     <!-- Menu Page -->

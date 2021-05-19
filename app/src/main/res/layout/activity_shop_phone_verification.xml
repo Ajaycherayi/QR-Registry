@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ShopLoginSignup.ShopPhoneVerification">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Primary"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/btn_backSignUpPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            app:tint="@color/white"
+            android:contentDescription="@string/todo"
+            android:layout_marginLeft="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/otpVerification"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="80dp"/>
+        <TextView
+            android:id="@+id/tv_phoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginBottom="100dp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_lower"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+
+
+                <EditText
+                    android:id="@+id/et_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:inputType="number"
+                    android:hint="######"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/bg_todolist"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:textColorHint="@color/hintBlack"
+                    android:fontFamily="@font/wayfinding_sans_number"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:maxLength="6" />
+            <TextView
+                android:id="@+id/tv_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Count"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textColor="@color/light_green"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/tv_resend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="@string/noOtp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/btn_resend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Resend"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/wayfinding_sans_number"
+                    android:textSize="15sp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_signUp"
+                android:layout_width="345dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/astronaut"
+                android:gravity="center"
+                android:backgroundTint="@color/Primary"
+                app:cornerRadius="5dp"
+                android:text="Sign Up"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:transitionName="transition_signUp"
+                tools:targetApi="lollipop" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -27,7 +27,6 @@ public class CustomerLogin extends AppCompatActivity {
     SessionManagerCustomer managerCustomer;
 
     EditText phoneNumber, password;
-    ImageView b1;
     Button b2,b3;
 
     ProgressDialog progressDialog;
@@ -40,19 +39,13 @@ public class CustomerLogin extends AppCompatActivity {
         phoneNumber = findViewById(R.id.log_phone);
         password = findViewById(R.id.log_password);
 
-        b1 = findViewById(R.id.btn_backToSignUp);
         b2 = findViewById(R.id.btn_login);
 
         b3 = findViewById(R.id.btn_callSignUp);
         //Create a Session
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),CustomerSignup.class));
-            }
-        });
+
 
         b3.setOnClickListener(new View.OnClickListener() {
             @Override

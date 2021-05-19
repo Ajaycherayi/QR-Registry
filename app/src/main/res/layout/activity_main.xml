@@ -26,27 +26,27 @@
             android:textColor="@color/white"
             android:textSize="50sp" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/drawer_btn"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/home_page" />
+
         <TextView
             android:id="@+id/qr_txt"
             android:layout_width="292dp"
-            android:layout_height="wrap_content"
+            android:layout_height="166dp"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/astronaut"
+            android:gravity="center"
             android:text="@string/qr_registry"
             android:textColor="@color/white"
             android:textSize="80sp" />
 
-        <ImageView
-            android:id="@+id/qr_img"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/qr_scan_icon"
-            app:tint="@color/black"
-            tools:ignore="ContentDescription" />
+
 
         <TextView
             android:id="@+id/powered"

@@ -57,7 +57,7 @@ public class CustomerSignup extends AppCompatActivity {
         _password = findViewById(R.id.et_password);
         _phone = findViewById(R.id.te_phone);
 
-        ImageButton getOtp = findViewById(R.id.get_Otp);
+        Button getOtp = findViewById(R.id.get_Otp);
         Button login = findViewById(R.id.btn_callLogin);
         auth = FirebaseAuth.getInstance();
 

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.ShopLoginSignup.ShopPhoneVerification;
+import com.ssmptc.QrRegistry.ShopLoginSignup.ShopSignup;
 import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
 
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     Animation bottom,side;
 
-    private static int SPLASH_TIMER = 2000;
+    private static int SPLASH_TIMER = 3400;
 
     ImageView qr_img;
     TextView wcm,qr,powered;
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        qr_img=findViewById(R.id.qr_img);
         qr=findViewById(R.id.qr_txt);
         powered=findViewById(R.id.powered);
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
+              //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
                 //Initialize SessionManager
                 managerCustomer = new SessionManagerCustomer(getApplicationContext());
 

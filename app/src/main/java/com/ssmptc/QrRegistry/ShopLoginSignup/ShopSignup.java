@@ -16,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -36,16 +39,18 @@ import java.util.concurrent.TimeUnit;
 
 public class ShopSignup extends AppCompatActivity {
 
-    SessionManagerShop managerShop;
+   private FirebaseAuth firebaseAuth;
+   private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
+   String codeSend,shopName,location,category,ownerName,password,cPhoneNumber;
+
+
+
+    Button btn_getOtp;
     ImageView b1;
-    long node = 0;
-    private String nodeId;
 
     //Variables
     private TextInputLayout et_shopLocation,et_shopCategory,et_ownerName,et_password,et_shopName,et_phoneNumber;
-    private String phoneNo,sName;
-    TextView showPhoneNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +64,17 @@ public class ShopSignup extends AppCompatActivity {
         et_password = findViewById(R.id.et_shopPassword);
         et_phoneNumber = findViewById(R.id.et_phone);
 
+        btn_getOtp = findViewById(R.id.btn_getOtp);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         b1 = findViewById(R.id.btn_backToCd);
 
 
 
-       managerShop = new SessionManagerShop(getApplicationContext());
 
-       phoneNo = getIntent().getStringExtra("phone");
+
 
 
 
@@ -80,7 +87,66 @@ public class ShopSignup extends AppCompatActivity {
             }
         });
 
-        setNode();
+        btn_getOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() ) {
+
+                    return;
+                }
+
+                shopName = et_shopName.getEditText().getText().toString();
+                location = et_shopLocation.getEditText().getText().toString();
+                category = et_shopCategory.getEditText().getText().toString();
+                ownerName = et_ownerName.getEditText().getText().toString();
+                password = et_password.getEditText().getText().toString();
+                String phoneNumber = et_phoneNumber.getEditText().getText().toString();
+
+                cPhoneNumber = "+91"+phoneNumber;
+
+                PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                        .setPhoneNumber(cPhoneNumber)
+                        .setTimeout(60L,TimeUnit.SECONDS) //Time Out Set
+                        .setActivity(ShopSignup.this)
+                        .setCallbacks(mCallbacks)
+                        .build();
+
+                PhoneAuthProvider.verifyPhoneNumber(options);
+
+            }
+        });
+
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                // Automatic Verification
+            }
+
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+
+                Toast.makeText(ShopSignup.this, "OTP is Send", Toast.LENGTH_SHORT).show();
+                codeSend = s;
+
+                Intent intent = new Intent(ShopSignup.this,ShopPhoneVerification.class);
+                intent.putExtra("otp",codeSend);
+                intent.putExtra("shopName",shopName);
+                intent.putExtra("location",location);
+                intent.putExtra("category",category);
+                intent.putExtra("ownerName",ownerName);
+                intent.putExtra("password",password);
+                intent.putExtra("phoneNumber",cPhoneNumber);
+                startActivity(intent);
+            }
+        };
+
 
 
     }
@@ -91,137 +157,6 @@ public class ShopSignup extends AppCompatActivity {
         finish();
 
     }
-
-    public void setNode(){
-
-        DatabaseReference rff;
-        rff = FirebaseDatabase.getInstance().getReference().child("Shops");
-        rff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    node = (snapshot.getChildrenCount());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    public void ShopSignUp(View view) {
-
-
-        if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() ) {
-
-            return;
-        }
-
-        setNode();
-        DatabaseReference rff;
-        rff = FirebaseDatabase.getInstance().getReference().child("Shops");
-
-        String shopName = et_shopName.getEditText().getText().toString();
-        String location = et_shopLocation.getEditText().getText().toString();
-        String category = et_shopCategory.getEditText().getText().toString();
-        String ownerName = et_ownerName.getEditText().getText().toString();
-        String password = et_password.getEditText().getText().toString();
-        String phoneNumber = et_phoneNumber.getEditText().getText().toString();
-
-
-        nodeId = String.valueOf(node+1000);
-
-
-        Dialog dialog = new Dialog(ShopSignup.this);
-        dialog.setContentView(R.layout.alert_dialog);
-        CheckBox checkBox = dialog.findViewById(R.id.check_box);
-        Button btCancel = dialog.findViewById(R.id.bt_cancel);
-        Button btOk = dialog.findViewById(R.id.bt_ok);
-        TextView shopId = dialog.findViewById(R.id.tv_shopId);
-
-        shopId.setText(nodeId);
-
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
-        btOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBox.isChecked()){
-
-                    btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
-                    btOk.setEnabled(true);
-                    btOk.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
-                            ShopsData addNewShop = new ShopsData(nodeId,phoneNumber, shopName, location, category, ownerName, password);
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("licenseNumber").setValue("");
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("email").setValue("");
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("description").setValue("");
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working time").setValue("open time-close time");
-                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working days").setValue("day-day");
-
-
-                            Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");
-
-                            shopData.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshotData) {
-
-                                    String _shopName = snapshotData.child("shopName").getValue(String.class);
-                                    String _category = snapshotData.child("category").getValue(String.class);
-                                    String _location = snapshotData.child("location").getValue(String.class);
-                                    String _phoneNo = snapshotData.child("phoneNumber").getValue(String.class);
-                                    String _ownerName = snapshotData.child("ownerName").getValue(String.class);
-                                    String _password = snapshotData.child("password").getValue(String.class);
-                                    String _shopId = snapshotData.child("id").getValue(String.class);
-
-                                    managerShop.setShopLogin(true);
-                                    managerShop.setDetails(_shopId,_phoneNo, _shopName, _location, _category, _ownerName, _password);
-
-                                    startActivity(new Intent(ShopSignup.this, ShopDashBoard.class));
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
-                            dialog.dismiss();
-                        }
-                    });
-
-                }else {
-                    btOk.setEnabled(false);
-                    btOk.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-                }
-            }
-        });
-        dialog.show();
-
-
-
-    }
-
-
-
 
   /*  private boolean validateAll(){
         String val = et_shopName.getText().toString().trim();
