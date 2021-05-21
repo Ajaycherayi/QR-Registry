@@ -58,19 +58,36 @@ public class ShopQRCode extends AppCompatActivity {
         getShopData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                
-                String shopLicense = snapshot.child("licenseNumber").getValue(String.class);
+
+                String appName = "QrRegistryShop";
                 String ownerName = snapshot.child("ownerName").getValue(String.class);
+                String category = snapshot.child("category").getValue(String.class);
                 String location = snapshot.child("location").getValue(String.class);
-                String email = snapshot.child("location").getValue(String.class);
-                String wTime = snapshot.child("working time").getValue(String.class);
+                String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                String email = snapshot.child("email").getValue(String.class);
                 String wDays = snapshot.child("working days").getValue(String.class);
+                String wTime = snapshot.child("working time").getValue(String.class);
                 String description = snapshot.child("description").getValue(String.class);
+
+
+                if (email != null && email.isEmpty()) {
+                    email = " ";
+                }
+                if (wDays != null && wDays.isEmpty()) {
+                    wDays = " ";
+                }
+                if (wTime != null && wTime.isEmpty()) {
+                    wTime = " ";
+                }
+                if (description != null && description.isEmpty()) {
+                    description = " ";
+                }
+                //if (sImages.isEmpty()){ sImages = "";}
 
                 MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix = writer.encode( shopName + ":" + category + ":" + shopLicense + ":" + ownerName
-                            + ":" + location + ":" + email + ":" + wDays + ":" + wTime + ":" + description + ":" + shopId,
+                    BitMatrix matrix = writer.encode( appName + ":" + shopName + ":" + category + ":" + ownerName + ":" + location + ":" + phoneNumber
+                            + ":" + email + ":" + wDays + ":" + wTime + ":" + description,
                             BarcodeFormat.QR_CODE,350,350);
 
                     BarcodeEncoder encoder =new BarcodeEncoder();

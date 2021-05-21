@@ -167,8 +167,8 @@ public class ShopPhoneVerification extends AppCompatActivity {
                                                             rff.child(String.valueOf(node+1000)).child("Shop Profile").child("licenseNumber").setValue("");
                                                             rff.child(String.valueOf(node+1000)).child("Shop Profile").child("email").setValue("");
                                                             rff.child(String.valueOf(node+1000)).child("Shop Profile").child("description").setValue("");
-                                                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working time").setValue("open time-close time");
-                                                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working days").setValue("day-day");
+                                                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working time").setValue("");
+                                                            rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working days").setValue("");
 
 
                                                             Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");

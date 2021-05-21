@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRegistry">
-        <activity android:name=".ShopLoginSignup.ShopPhoneVerification"></activity>
+        <activity android:name=".CustomerLoginSignUp.ShopDetails" />
+        <activity android:name=".ShopLoginSignup.ShopPhoneVerification" />
         <activity android:name=".CustomerLoginSignUp.CustomerProfile" />
         <activity android:name=".ToDoList.CustomerToDoList" />
         <activity android:name=".ToDoList.TodoList" />
@@ -40,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShopLoginSignup.QRCodeScanner"
+            android:name=".QRCodeScanner"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />

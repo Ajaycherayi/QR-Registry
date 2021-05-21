@@ -18,8 +18,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
 import com.ssmptc.QrRegistry.DataBase.CustomersDataForShops;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
+import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
 
 import java.text.SimpleDateFormat;
@@ -116,8 +116,6 @@ public class ShopDashBoard extends AppCompatActivity {
 
                 FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
                 DatabaseReference reference = rootNode.getReference("Shops");
-
-                //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
 
                 String output = intentResult.getContents();
