@@ -22,8 +22,12 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
@@ -53,6 +57,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     SessionManagerCustomer managerCustomer;
     SessionManagerShop managerShop;
 
+    private String sName,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,11 +214,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 }
             });
             dialog.show();
-
-
         }
-
-
     }
 
     private void logout() {
@@ -310,22 +311,61 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             if (output.startsWith("QrRegistryShop")) {
                 String[] separated = output.split(":");
 
-                String sName = separated[1];
-                String sCategory = separated[2];
-                String sOwnerName = separated[3];
-                String sLocation = separated[4];
-                String sPhoneNumber = separated[5];
-                String sEmail = separated[6];
-                String sDays = separated[7];
-                String sTime = separated[8];
-                String sDescription = separated[9];
-                String sImages = " ";
+                sName = separated[1];
+                sCategory = separated[2];
+                sOwnerName = separated[3];
+                sLocation = separated[4];
+                sPhoneNumber = separated[5];
+                sEmail = separated[6];
+                sDays = separated[7];
+                sTime = separated[8];
+                sDescription = separated[9];
+                sImages = " ";
 
-                String id = reference.push().getKey();
-                ShopsDataForCustomers shopsDataForCustomers = new ShopsDataForCustomers(id,sName, sCategory, sOwnerName, sLocation, sPhoneNumber, sEmail, sDays, sTime, sDescription, sImages);
-                if (id != null){
-                    reference.child(id).setValue(shopsDataForCustomers);
-                }
+                Query checkData = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Shops").orderByChild("phoneNumber").equalTo(sPhoneNumber);
+                checkData.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            String shopName = snapshot.child("shopName").getValue(String.class);
+                            if (sName.equals(shopName)){
+                                String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                                if (sPhoneNumber.equals(phoneNumber)){
+                                    String category = snapshot.child("category").getValue(String.class);
+                                    String ownerName = snapshot.child("ownerName").getValue(String.class);
+                                    String location = snapshot.child("location").getValue(String.class);
+                                    String email = snapshot.child("email").getValue(String.class);
+                                    String description = snapshot.child("description").getValue(String.class);
+                                    String wDays = snapshot.child("working days").getValue(String.class);
+                                    String wTime = snapshot.child("working time").getValue(String.class);
+
+                                    if (sCategory.equals(category) && sOwnerName.equals(ownerName) && sLocation.equals(location) && sEmail.equals(email) && sDescription.equals(description) && sDays.equals(wDays) && sTime.equals(wTime) ){
+                                        Toast.makeText(CustomerDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }else {
+                                Toast.makeText(CustomerDashBoard.this, "Shop Data Updated", Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+
+                            String id = reference.push().getKey();
+                            ShopsDataForCustomers shopsDataForCustomers = new ShopsDataForCustomers(id,sName, sCategory, sOwnerName, sLocation, sPhoneNumber, sEmail, sDays, sTime, sDescription, sImages);
+                            if (id != null){
+                                reference.child(id).setValue(shopsDataForCustomers);
+                            }
+
+
+                            Toast.makeText(CustomerDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
 
 

@@ -11,9 +11,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +44,16 @@ public class ShopDetails extends AppCompatActivity {
 
     String phone,email,shopName,category,location,imageKey;
 
+    ArrayList<String> sName;
+    ArrayList<String> sCategory;
+    ArrayList<String> sLocation;
+
+    //List<ShopsDataForCustomers> searchList = new ArrayList<>();
+    ImageView btn_search;
+    EditText et_search;
+
     RecyclerView recyclerView;
-    ShopDetailsAdapter adapter;
+   private ShopDetailsAdapter adapter;
 
     private DatabaseReference db,mDatabaseRef;
     private List<ShopsDataForCustomers> dataForCustomers;
@@ -53,6 +65,9 @@ public class ShopDetails extends AppCompatActivity {
         setContentView(R.layout.activity_shop_details);
 
 
+        et_search = findViewById(R.id.et_search);
+        btn_search = findViewById(R.id.btn_search);
+
         recyclerView = findViewById(R.id.rv_shopDetails);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,6 +76,38 @@ public class ShopDetails extends AppCompatActivity {
 
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
         phone = managerCustomer.getPhone();
+
+        adapter = new ShopDetailsAdapter(this,dataForCustomers);
+
+        shopList();
+
+
+
+        if (et_search != null){
+
+            et_search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    adapter.Search(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+
+                }
+            });
+
+        }
+
+    }
+
+    private void shopList() {
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops");
 
@@ -75,6 +122,8 @@ public class ShopDetails extends AppCompatActivity {
                     ShopsDataForCustomers model = postSnapshot.getValue(ShopsDataForCustomers.class);
                     dataForCustomers.add(model);
                 }
+
+
 
                 adapter = new ShopDetailsAdapter(ShopDetails.this,dataForCustomers);
                 recyclerView.setAdapter(adapter);
@@ -103,7 +152,9 @@ public class ShopDetails extends AppCompatActivity {
                 Toast.makeText(ShopDetails.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
 
     private void MoreShopDetails(int position) {
 

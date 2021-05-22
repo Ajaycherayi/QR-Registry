@@ -1,6 +1,7 @@
 package com.ssmptc.QrRegistry.DataBase;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,20 @@ import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.ToDoList.TodoAdapter;
 import com.ssmptc.QrRegistry.ToDoList.TodoModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter.ShopDetailsHolder> {
 
     private Context mContext;
     private List<ShopsDataForCustomers> shopsDataForCustomersList;
+    private List<ShopsDataForCustomers> copyList;
     private OnItemClickListener mListener;
+
+
+
+
+
 
     public interface OnItemClickListener{
         void onCallClick(int position);
@@ -38,6 +46,8 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
    public ShopDetailsAdapter(Context context , List<ShopsDataForCustomers> detailsModels){
        mContext = context;
        shopsDataForCustomersList = detailsModels;
+       this.copyList = new ArrayList<>();
+       copyList.addAll(detailsModels);
    }
 
     @NonNull
@@ -116,5 +126,27 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
 
 
         }
+
     }
+
+
+    public void Search(CharSequence txt) {
+
+        List<ShopsDataForCustomers> searchList = new ArrayList<>();
+
+        if (!TextUtils.isEmpty(txt)){
+            for (ShopsDataForCustomers data : shopsDataForCustomersList){
+                if (data.getName().toLowerCase().contains(txt) || data.getLocation().toLowerCase().contains(txt) || data.getCategory().toLowerCase().contains(txt)){
+                    searchList.add(data);
+                }
+            }
+        }else {
+            searchList.addAll(copyList);
+        }
+        shopsDataForCustomersList.clear();
+        shopsDataForCustomersList.addAll(searchList);
+        notifyDataSetChanged();
+        searchList.clear();
+    }
+
 }
