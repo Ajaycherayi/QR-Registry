@@ -2,6 +2,7 @@ package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.common.util.AndroidUtilsLight;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,25 +42,36 @@ import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
 import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
-public class CustomerDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+ 
+
+public class CustomerDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final float END_SCALE = 0.7f;
+
+    String AES = "AES";
+    private String keyPass = "qrregistry@shop";
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
     TextView user_Name;
 
-    String name,email,phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());;
+    String phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());;
     SessionManagerCustomer managerCustomer;
     SessionManagerShop managerShop;
 
-    private String sName,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
+    private String sName,sId,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +80,6 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
         LottieAnimationView lottieAnimationView1 = findViewById(R.id.drawer_btn);
         //lottieAnimationView1.setSpeed(3f);
-
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -80,7 +93,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
         navigationDrawer();
 
-       // SessionManager sessionManager = new SessionManager(this);
+        // SessionManager sessionManager = new SessionManager(this);
         //HashMap<String,String> userDetails = sessionManager.getUserDetailsFromSession();
 
 
@@ -89,12 +102,12 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(View v) {
 
-                    lottieAnimationView1.playAnimation();
-                    lottieAnimationView1.loop(true);
+                lottieAnimationView1.playAnimation();
+                lottieAnimationView1.loop(true);
 
-                    if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                    else drawerLayout.openDrawer(GravityCompat.START);
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
             }
 
         });
@@ -105,7 +118,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     private void navigationDrawer() {
 
         navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener( this);
+        navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
 
@@ -116,7 +129,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     private void animateNavigationDrawer() {
 
         //Add any color or remove it to use the default one!
-       //drawerLayout.setScrimColor(getResources().getColor(R.color.red));
+        //drawerLayout.setScrimColor(getResources().getColor(R.color.red));
         //To make it transparent use Color.Transparent in side setScrimColor();
         //drawerLayout.setScrimColor(Color.TRANSPARENT);
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
@@ -141,10 +154,10 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
 
-        if (drawerLayout.isDrawerVisible(GravityCompat.START)){
+        if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
 
-        }else
+        } else
             super.onBackPressed();
     }
 
@@ -190,9 +203,9 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         managerShop = new SessionManagerShop(getApplicationContext());
         String nPhone = managerCustomer.getPhone();
 
-        if (managerShop.getShopLogin()){
-            startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
-        }else {
+        if (managerShop.getShopLogin()) {
+            startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+        } else {
 
             Dialog dialog = new Dialog(CustomerDashBoard.this);
             dialog.setContentView(R.layout.login_alert);
@@ -266,14 +279,14 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
 
     public void generateQR(View view) {
-        startActivity(new Intent(getApplicationContext(),QRCodeGeneration.class));
+        startActivity(new Intent(getApplicationContext(), QRCodeGeneration.class));
     }
 
     public void scanQR(View view) {
         scanCode();
     }
 
-    private void scanCode(){
+    private void scanCode() {
         //Initialize intent integrator
         IntentIntegrator intentIntegrator = new IntentIntegrator(CustomerDashBoard.this);
 
@@ -287,6 +300,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -311,65 +325,41 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             if (output.startsWith("QrRegistryShop")) {
                 String[] separated = output.split(":");
 
-                sName = separated[1];
-                sCategory = separated[2];
-                sOwnerName = separated[3];
-                sLocation = separated[4];
-                sPhoneNumber = separated[5];
-                sEmail = separated[6];
-                sDays = separated[7];
-                sTime = separated[8];
-                sDescription = separated[9];
-                sImages = " ";
+                String shopName = separated[1];
+                String shopDetails = separated[2];
 
-                Query checkData = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Shops").orderByChild("phoneNumber").equalTo(sPhoneNumber);
-                checkData.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            String shopName = snapshot.child("shopName").getValue(String.class);
-                            if (sName.equals(shopName)){
-                                String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
-                                if (sPhoneNumber.equals(phoneNumber)){
-                                    String category = snapshot.child("category").getValue(String.class);
-                                    String ownerName = snapshot.child("ownerName").getValue(String.class);
-                                    String location = snapshot.child("location").getValue(String.class);
-                                    String email = snapshot.child("email").getValue(String.class);
-                                    String description = snapshot.child("description").getValue(String.class);
-                                    String wDays = snapshot.child("working days").getValue(String.class);
-                                    String wTime = snapshot.child("working time").getValue(String.class);
+                try {
+                    sId = (String) decrypt(shopDetails);
 
-                                    if (sCategory.equals(category) && sOwnerName.equals(ownerName) && sLocation.equals(location) && sEmail.equals(email) && sDescription.equals(description) && sDays.equals(wDays) && sTime.equals(wTime) ){
-                                        Toast.makeText(CustomerDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
-                                    }
+                    Query checkData = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Shops").orderByChild("shopId").equalTo(sId);
+                    checkData.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
 
-                                }
+                                Toast.makeText(CustomerDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
+
                             }else {
-                                Toast.makeText(CustomerDashBoard.this, "Shop Data Updated", Toast.LENGTH_SHORT).show();
+                                String id = reference.push().getKey();
+                                if (id != null){
+                                    reference.child(id).child("shopId").setValue(sId);
+                                    reference.child(id).child("shopName").setValue(shopName);
+                                    reference.child(id).child("id").setValue(id);
+                                }
+                                Toast.makeText(CustomerDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
-
-                            String id = reference.push().getKey();
-                            ShopsDataForCustomers shopsDataForCustomers = new ShopsDataForCustomers(id,sName, sCategory, sOwnerName, sLocation, sPhoneNumber, sEmail, sDays, sTime, sDescription, sImages);
-                            if (id != null){
-                                reference.child(id).setValue(shopsDataForCustomers);
-                            }
-
-
-                            Toast.makeText(CustomerDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
                         }
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                        }
+                    });
 
 
-
-
-
+                } catch (Exception e) {
+                    Toast.makeText(this, "Wrong Key", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
 
                 //Initialize Dialog box
                 AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
@@ -414,12 +404,31 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private Object decrypt(String shopDetails) throws Exception {
+
+        SecretKeySpec key = generateKey(keyPass);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE,key);
+        byte[] decodeValue = android.util.Base64.decode(shopDetails,android.util.Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodeValue);
+        return new String(decValue);
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private SecretKeySpec generateKey(String keyPass) throws Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = keyPass.getBytes(StandardCharsets.UTF_8);
+        digest.update(bytes,0,bytes.length);
+        byte[] key = digest.digest();
+        return new SecretKeySpec(key,"AES");
+    }
+
     public void ScannedShops(View view) {
-        startActivity(new Intent(CustomerDashBoard.this,ShopDetails.class));
+        startActivity(new Intent(getApplicationContext(),ShopDetails.class));
     }
 
     public void mapFind(View view) {

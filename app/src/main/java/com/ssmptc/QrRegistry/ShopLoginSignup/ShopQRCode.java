@@ -1,12 +1,17 @@
 package com.ssmptc.QrRegistry.ShopLoginSignup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
+import android.provider.ContactsContract;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +31,13 @@ import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 public class ShopQRCode extends AppCompatActivity {
 
     ImageView output;
@@ -33,6 +45,11 @@ public class ShopQRCode extends AppCompatActivity {
     TextView tv_ShoName;
     DatabaseReference reference;
     ProgressDialog progressDialog;
+
+    String AES = "AES";
+    private final String keyPass = "qrregistry@shop";
+    String data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +63,6 @@ public class ShopQRCode extends AppCompatActivity {
         String shopId = managerShop.getShopId();
         String shopName = managerShop.getShopName();
         tv_ShoName.setText(shopName);
-        String category = managerShop.getCategory();
 
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(ShopQRCode.this);
@@ -56,51 +72,40 @@ public class ShopQRCode extends AppCompatActivity {
 
         Query getShopData = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
         getShopData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String appName = "QrRegistryShop";
-                String ownerName = snapshot.child("ownerName").getValue(String.class);
-                String category = snapshot.child("category").getValue(String.class);
-                String location = snapshot.child("location").getValue(String.class);
-                String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
-                String email = snapshot.child("email").getValue(String.class);
-                String wDays = snapshot.child("working days").getValue(String.class);
-                String wTime = snapshot.child("working time").getValue(String.class);
-                String description = snapshot.child("description").getValue(String.class);
+                String  id = snapshot.child("id").getValue(String.class);
+                String shopName  = snapshot.child("shopName").getValue(String.class);
 
-
-                if (email != null && email.isEmpty()) {
-                    email = " ";
-                }
-                if (wDays != null && wDays.isEmpty()) {
-                    wDays = " ";
-                }
-                if (wTime != null && wTime.isEmpty()) {
-                    wTime = " ";
-                }
-                if (description != null && description.isEmpty()) {
-                    description = " ";
-                }
-                //if (sImages.isEmpty()){ sImages = "";}
-
-                MultiFormatWriter writer = new MultiFormatWriter();
                 try {
-                    BitMatrix matrix = writer.encode( appName + ":" + shopName + ":" + category + ":" + ownerName + ":" + location + ":" + phoneNumber
-                            + ":" + email + ":" + wDays + ":" + wTime + ":" + description,
-                            BarcodeFormat.QR_CODE,350,350);
+                    data = encrypt(id);
+                    MultiFormatWriter writer = new MultiFormatWriter();
+                    try {
+                        BitMatrix matrix = writer.encode( appName + ":"+shopName+":"+ data,
+                                BarcodeFormat.QR_CODE,350,350);
 
-                    BarcodeEncoder encoder =new BarcodeEncoder();
+                        BarcodeEncoder encoder =new BarcodeEncoder();
 
-                    Bitmap bitmap = encoder.createBitmap(matrix);
+                        Bitmap bitmap = encoder.createBitmap(matrix);
 
-                    progressDialog.dismiss();
+                        progressDialog.dismiss();
 
-                    output.setImageBitmap(bitmap);
+                        output.setImageBitmap(bitmap);
 
-                } catch (WriterException e) {
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
+
 
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,6 +131,22 @@ public class ShopQRCode extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private String encrypt(String total) throws Exception{
+        SecretKeySpec key = generateKey(keyPass);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.ENCRYPT_MODE,key);
+        byte[] encVal = c.doFinal(total.getBytes());
+        return Base64.encodeToString(encVal,Base64.DEFAULT);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private SecretKeySpec generateKey(String keyPass) throws Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = keyPass.getBytes(StandardCharsets.UTF_8); //"UTF-8"
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        return new SecretKeySpec(key, "AES"); //SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
 
+    }
 }

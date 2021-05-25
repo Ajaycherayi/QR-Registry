@@ -102,8 +102,8 @@ public class ShopCustomersList extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    CustomersModel model = postSnapshot.getValue(CustomersModel.class);
-                    customersModels.add(model);
+                        CustomersModel model = postSnapshot.getValue(CustomersModel.class);
+                        customersModels.add(model);
                 }
 
                 adapter = new CustomerAdapter(ShopCustomersList.this, customersModels);

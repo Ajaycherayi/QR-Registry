@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.ShopDetailsAdapter;
@@ -113,37 +115,61 @@ public class ShopDetails extends AppCompatActivity {
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot idSnapshot) {
 
                 dataForCustomers.clear();
 
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
 
-                    ShopsDataForCustomers model = postSnapshot.getValue(ShopsDataForCustomers.class);
-                    dataForCustomers.add(model);
+                for (DataSnapshot postSnapshot : idSnapshot.getChildren()){
+
+
+
+                    Query shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(postSnapshot.child("shopId").getValue(String.class)).child("Shop Profile");
+                    shopDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            dataForCustomers.add(new ShopsDataForCustomers((postSnapshot.child("id").getValue(String.class)),dataSnapshot.child("id").getValue(String.class),
+                                    dataSnapshot.child("shopName").getValue(String.class),
+                                    dataSnapshot.child("category").getValue(String.class),
+                                    dataSnapshot.child("ownerName").getValue(String.class),
+                                    dataSnapshot.child("location").getValue(String.class),
+                                    dataSnapshot.child("phoneNumber").getValue(String.class),
+                                    dataSnapshot.child("email").getValue(String.class),
+                                    dataSnapshot.child("working days").getValue(String.class),
+                                    dataSnapshot.child("working time").getValue(String.class),
+                                    dataSnapshot.child("description").getValue(String.class),
+                                    dataSnapshot.child("name").getValue(String.class)));
+
+                            adapter = new ShopDetailsAdapter(ShopDetails.this,dataForCustomers);
+                            recyclerView.setAdapter(adapter);
+                            adapter.setOnItemClickListener(new ShopDetailsAdapter.OnItemClickListener(){
+
+                                @Override
+                                public void onCallClick(int position) {
+                                    CallToShop(position);
+                                }
+
+                                @Override
+                                public void onMessageClick(int position) {
+                                    MessageToShop(position);
+                                }
+
+                                @Override
+                                public void onMoreClick(int position) {
+                                    MoreShopDetails(position);
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
-
-
-
-                adapter = new ShopDetailsAdapter(ShopDetails.this,dataForCustomers);
-                recyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener(new ShopDetailsAdapter.OnItemClickListener(){
-
-                    @Override
-                    public void onCallClick(int position) {
-                        CallToShop(position);
-                    }
-
-                    @Override
-                    public void onMessageClick(int position) {
-                        MessageToShop(position);
-                    }
-
-                    @Override
-                    public void onMoreClick(int position) {
-                        MoreShopDetails(position);
-                    }
-                });
 
             }
 
@@ -189,13 +215,14 @@ public class ShopDetails extends AppCompatActivity {
 
 
         ShopsDataForCustomers data = dataForCustomers.get(position);
-        String id = data.getId();
+        String id = data.getShopId();
+        String keyId = data.getId();
 
-        db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(id);
+        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                shopName = snapshot.child("name").getValue(String.class);
+                shopName = snapshot.child("shopName").getValue(String.class);
                 tv_shopName.setText(shopName);
                 category = snapshot.child("category").getValue(String.class);
                 tv_category.setText(category);
@@ -205,8 +232,8 @@ public class ShopDetails extends AppCompatActivity {
                 tv_phoneNumber.setText(snapshot.child("phoneNumber").getValue(String.class));
                 email = snapshot.child("email").getValue(String.class);
                 tv_email.setText(email);
-                tv_wDays.setText(snapshot.child("wDays").getValue(String.class));
-                tv_wTime.setText(snapshot.child("wTime").getValue(String.class));
+                tv_wDays.setText(snapshot.child("working days").getValue(String.class));
+                tv_wTime.setText(snapshot.child("working time").getValue(String.class));
                 tv_description.setText(snapshot.child("description").getValue(String.class));
             }
 
@@ -249,7 +276,7 @@ public class ShopDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(id);
+                db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(keyId);
                 db.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -272,9 +299,9 @@ public class ShopDetails extends AppCompatActivity {
 
     private void MessageToShop(int position) {
         ShopsDataForCustomers data = dataForCustomers.get(position);
-        String id = data.getId();
+        String id = data.getShopId();
 
-        db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(id);
+        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -293,9 +320,9 @@ public class ShopDetails extends AppCompatActivity {
     private void CallToShop(int position) {
 
         ShopsDataForCustomers data = dataForCustomers.get(position);
-        String id = data.getId();
+        String id = data.getShopId();
 
-        db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(id);
+        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
