@@ -83,7 +83,7 @@ public class CustomerVerification extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(CustomerVerification.this,CustomerSignup.class));
+                startActivity(new Intent(CustomerVerification.this, UserSignUp.class));
                 finish();
 
             }
@@ -142,7 +142,7 @@ public class CustomerVerification extends AppCompatActivity {
 
                 managerCustomer.setDetails(_name, _email, _phoneNo, _password);
 
-                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
 

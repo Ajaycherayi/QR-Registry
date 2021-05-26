@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".CustomerLoginSignUp.CustomerLogin"
+    tools:context=".CustomerLoginSignUp.UserLogin"
     android:background="@color/Primary_ExtraLight"
     android:orientation="vertical"
     android:transitionName="transition_login">
@@ -29,12 +29,13 @@
                 android:layout_height="100dp"
                 android:src="@drawable/login"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login With"
+                android:text="@string/loginWith"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:textSize="17sp"
@@ -70,6 +71,7 @@
             android:layout_margin="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -85,7 +87,6 @@
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/log_phone"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:textSize="20sp"
@@ -94,6 +95,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -109,7 +111,6 @@
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/log_password"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:textSize="20sp"
@@ -137,7 +138,7 @@
             tools:targetApi="lollipop" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_callSignUp"
+            android:id="@+id/btn_backSignUp"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:layout_gravity="center"

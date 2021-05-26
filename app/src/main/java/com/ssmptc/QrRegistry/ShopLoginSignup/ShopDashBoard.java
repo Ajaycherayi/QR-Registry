@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.CustomersDataForShops;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
@@ -58,7 +58,7 @@ public class ShopDashBoard extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopDashBoard.this,CustomerDashBoard.class));
+                startActivity(new Intent(ShopDashBoard.this, UserDashBoard.class));
                 finish();
             }
         });
@@ -234,7 +234,7 @@ public class ShopDashBoard extends AppCompatActivity {
                // dialog.dismiss();
 
                 //Finish Activity
-                startActivity(new Intent(getApplicationContext(), CustomerDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+                startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
                 finish();
             }
         });

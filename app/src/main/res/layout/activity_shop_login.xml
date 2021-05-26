@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/PleaseLoginToContinue"
+                    android:text="@string/loginWith"
                     android:textColor="@color/Primary"
                     android:textSize="17sp" />
 

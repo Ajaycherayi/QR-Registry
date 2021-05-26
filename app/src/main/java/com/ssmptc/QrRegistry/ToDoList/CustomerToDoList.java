@@ -8,25 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
-import com.ssmptc.QrRegistry.DataBase.CustomerAdapter;
-import com.ssmptc.QrRegistry.DataBase.CustomersModel;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.R;
-import com.ssmptc.QrRegistry.ShopLoginSignup.ShopImages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +66,7 @@ public class CustomerToDoList extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CustomerToDoList.this, CustomerDashBoard.class));
+                startActivity(new Intent(CustomerToDoList.this, UserDashBoard.class));
                 finish();
             }
         });

@@ -15,15 +15,16 @@ import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.common.util.AndroidUtilsLight;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,59 +34,77 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.ssmptc.QrRegistry.AccountSettings;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
-import com.ssmptc.QrRegistry.DataBase.ShopsDataForCustomers;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
+import com.ssmptc.QrRegistry.R.layout;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
 import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
- 
 
-public class CustomerDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class UserDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final float END_SCALE = 0.7f;
 
     String AES = "AES";
-    private String keyPass = "qrregistry@shop";
+    private final String keyPass = "qrregistry@shop";
+
+    MenuItem  menuItem;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
     TextView user_Name;
+    View nav_headerView;
 
-    String phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());;
+    TextView tv_date;
+    TextClock tv_time;
+
+    String phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());
+    String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
     SessionManagerCustomer managerCustomer;
     SessionManagerShop managerShop;
 
     private String sName,sId,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_dash_board);
+        setContentView(layout.user_dash_board);
 
         LottieAnimationView lottieAnimationView1 = findViewById(R.id.drawer_btn);
         //lottieAnimationView1.setSpeed(3f);
+
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         contentView = findViewById(R.id.linear_content);
         user_Name = findViewById(R.id.get_name);
+
+        Menu menuNav = navigationView.getMenu();
+        MenuItem nav_shop = menuNav.findItem(R.id.nav_shop);
+        nav_shop.setVisible(false);
+
+        nav_headerView = navigationView.inflateHeaderView(layout.menu_header);
+        tv_date = nav_headerView.findViewById(R.id.tv_date);
+        tv_time = nav_headerView.findViewById(R.id.tv_time);
+        tv_date.setText(view_date);
+        tv_time.setFormat12Hour("hh:mm:ss a");
+        tv_time.setFormat24Hour(null);
 
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
         String sName = managerCustomer.getName();
@@ -179,12 +198,17 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.profile:
+            case R.id.nav_contactUs:
                 Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.details:
+            case R.id.nav_share:
                 Toast.makeText(getApplicationContext(), "Details", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.account:
+                Toast.makeText(getApplicationContext(), "Account", Toast.LENGTH_SHORT).show();
+                accountSettings();
                 break;
 
             case R.id.logout:
@@ -197,6 +221,10 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    private void accountSettings() {
+        startActivity(new Intent(getApplicationContext(), AccountSettings.class));
+    }
+
     private void shopLogin() {
 
         managerCustomer = new SessionManagerCustomer(getApplicationContext());
@@ -207,8 +235,8 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
         } else {
 
-            Dialog dialog = new Dialog(CustomerDashBoard.this);
-            dialog.setContentView(R.layout.login_alert);
+            Dialog dialog = new Dialog(UserDashBoard.this);
+            dialog.setContentView(layout.login_alert);
             Button btCancel = dialog.findViewById(R.id.bt_cancel);
             Button btOk = dialog.findViewById(R.id.bt_ok);
 
@@ -222,7 +250,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 @Override
                 public void onClick(View v) {
 
-                    startActivity(new Intent(CustomerDashBoard.this, ShopLogin.class));
+                    startActivity(new Intent(UserDashBoard.this, ShopLogin.class));
                     dialog.dismiss();
                 }
             });
@@ -259,7 +287,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 dialog.dismiss();
 
                 //Finish Activity
-                startActivity(new Intent(getApplicationContext(), CustomerSignup.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                startActivity(new Intent(getApplicationContext(), UserSignUp.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                finish();
             }
         });
@@ -288,7 +316,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
 
     private void scanCode() {
         //Initialize intent integrator
-        IntentIntegrator intentIntegrator = new IntentIntegrator(CustomerDashBoard.this);
+        IntentIntegrator intentIntegrator = new IntentIntegrator(UserDashBoard.this);
 
         intentIntegrator.setPrompt("For Flash Use Volume Up Key"); //Set Prompt text
         intentIntegrator.setCameraId(0); //set Camera
@@ -337,7 +365,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
 
-                                Toast.makeText(CustomerDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
 
                             }else {
                                 String id = reference.push().getKey();
@@ -346,7 +374,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                                     reference.child(id).child("shopName").setValue(shopName);
                                     reference.child(id).child("id").setValue(id);
                                 }
-                                Toast.makeText(CustomerDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
                             }
                         }
                         @Override
@@ -362,7 +390,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 }
 
                 //Initialize Dialog box
-                AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
 
                 //Set Title
                 builder.setTitle("Result");
@@ -387,7 +415,7 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
                 builder.show();
 
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDashBoard.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
                 builder.setMessage("Wrong QR Code");
                 builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
                     @Override
@@ -432,17 +460,17 @@ public class CustomerDashBoard extends AppCompatActivity implements NavigationVi
     }
 
     public void mapFind(View view) {
-        startActivity(new Intent(CustomerDashBoard.this,CustomerMapFind.class));
+        startActivity(new Intent(UserDashBoard.this,CustomerMapFind.class));
 
     }
 
     public void TodoList(View view) {
-        startActivity(new Intent(CustomerDashBoard.this, CustomerToDoList.class));
+        startActivity(new Intent(UserDashBoard.this, CustomerToDoList.class));
 
     }
 
     public void CustomerProfile(View view) {
-        startActivity(new Intent(CustomerDashBoard.this, CustomerProfile.class));
+        startActivity(new Intent(UserDashBoard.this, CustomerProfile.class));
 
     }
 }

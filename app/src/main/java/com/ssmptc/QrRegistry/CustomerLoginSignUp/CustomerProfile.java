@@ -3,7 +3,6 @@ package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +23,7 @@ public class CustomerProfile extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CustomerProfile.this,CustomerDashBoard.class));
+                startActivity(new Intent(CustomerProfile.this, UserDashBoard.class));
                 finish();
             }
         });

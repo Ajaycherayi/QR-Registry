@@ -6,31 +6,31 @@
 
 
     <!-- Sign Up Page -->
-    <string name="existing_user">Existing User ?</string>
     <string name="login">Login</string>
+    <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
-    <string name="todo">TODO</string>
 
-    <!-- Login Page -->
+    <!--User Login Page -->
     <string name="welcomeTo">Welcome to</string>
-    <string name="PleaseLoginToContinue">Please Login To Continue</string>
-    <string name="or">OR</string>
+    <string name="loginWith">Login With</string>
     <string name="SignUp">Sign Up</string>
+
+    <!-- Menu Page -->
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="shop">Shop</string>
+    <string name="account">Account</string>
+    <string name="logout"><b>Logout</b></string>
+
+    <string name="update">Update</string>
+    <string name="communication"><b>Communication</b></string>
+
 
     <!-- Verification Page -->
     <string name="otpVerification"><b>OTP Verification</b></string>
     <string name="noOtp">Didn\'t receive OTP?</string>
     <string name="resend"><b>RESEND OTP</b></string>
 
-    <!-- Menu Page -->
-    <string name="home">HOME</string>
-    <string name="about">ABOUT</string>
-    <string name="shop">SHOP</string>
-    <string name="Profile"><b>Profile</b></string>
-    <string name="account">Account</string>
-    <string name="update">Update</string>
-    <string name="communication"><b>Communication</b></string>
-    <string name="logout"><b>Logout</b></string>
 
     <string name="name">Name</string>
     <string name="email">E-Mail</string>

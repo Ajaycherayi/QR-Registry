@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ssmptc.QrRegistry.R;
-import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
 
 import java.util.Objects;
 
@@ -31,7 +30,7 @@ public class CustomerMapFind extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CustomerMapFind.this, CustomerDashBoard.class));
+                startActivity(new Intent(CustomerMapFind.this, UserDashBoard.class));
                 finish();
             }
         });

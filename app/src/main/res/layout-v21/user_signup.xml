@@ -4,74 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Primary"
-    tools:context=".CustomerLoginSignUp.CustomerSignup"
-    android:transitionName="transition_signUp"
-    tools:targetApi="lollipop">
+    android:fillViewport="true"
+    android:background="@color/Primary_ExtraLight"
+    tools:context=".CustomerLoginSignUp.UserSignUp"
+    android:transitionName="transition_signUp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Primary"
         android:orientation="vertical">
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="@string/existing_user"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_callLogin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:fontFamily="@font/astronaut"
-            android:gravity="center"
-            android:backgroundTint="@color/white"
-            app:cornerRadius="25dp"
-            android:text="@string/login"
-            android:textColor="@color/Primary"
-            android:textSize="25sp"
-            android:transitionName="transition_login"/>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_white"
-            android:layout_marginTop="80dp"
             android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:background="@drawable/bg_upper"
+            android:layout_marginHorizontal="10dp">
+
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/signup"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@null" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/SignUpWith"
                 android:textSize="20sp"
-                android:textColor="@color/Primary"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp" />
+                android:textColor="@color/white"
+                android:layout_gravity="center" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/app_name"
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textSize="35sp"
-                android:textColor="@color/Primary"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp" />
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+
+</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_lower"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,6 +73,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_userName"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +89,6 @@
                     app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:inputType="text"
@@ -106,6 +98,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,7 +114,6 @@
                     app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:inputType="textEmailAddress"
@@ -131,6 +123,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_phoneNumber"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,7 +139,6 @@
                     app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/te_phone"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:inputType="phone"
@@ -156,6 +148,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_password"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -171,7 +164,6 @@
                     app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:inputType="textPassword"
@@ -182,18 +174,43 @@
 
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/get_Otp"
-                android:layout_width="60dp"
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_getOtp"
+                android:layout_width="345dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_button"
-                android:src="@drawable/ic_next"
-                android:tint="@color/black"
-                android:layout_marginBottom="25dp"
-                android:contentDescription="@string/todo"/>
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/astronaut"
+                android:gravity="center"
+                android:backgroundTint="@color/Primary"
+                app:cornerRadius="5dp"
+                android:text="@string/getOtp"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:transitionName="transition_signUp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_backToLogin"
+                android:layout_width="345dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/astronaut"
+                android:gravity="center"
+                android:backgroundTint="@color/white"
+                app:strokeColor="@color/Primary"
+                app:strokeWidth="2dp"
+                app:cornerRadius="5dp"
+                android:text="@string/login"
+                android:textColor="@color/Primary"
+                android:textSize="25sp"
+                android:transitionName="transition_login"/>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

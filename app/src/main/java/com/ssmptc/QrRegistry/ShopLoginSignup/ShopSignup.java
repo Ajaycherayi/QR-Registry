@@ -3,16 +3,11 @@ package com.ssmptc.QrRegistry.ShopLoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,18 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
-import com.ssmptc.QrRegistry.DataBase.CustomersModel;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
-import com.ssmptc.QrRegistry.DataBase.ShopsData;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.concurrent.TimeUnit;
@@ -81,7 +65,7 @@ public class ShopSignup extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopSignup.this,CustomerDashBoard.class));
+                startActivity(new Intent(ShopSignup.this, UserDashBoard.class));
                 finish();
 
             }

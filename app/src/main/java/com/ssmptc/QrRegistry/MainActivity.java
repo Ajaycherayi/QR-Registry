@@ -5,19 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerDashBoard;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.CustomerSignup;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserSignUp;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
-import com.ssmptc.QrRegistry.ShopLoginSignup.ShopPhoneVerification;
-import com.ssmptc.QrRegistry.ShopLoginSignup.ShopSignup;
-import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 managerCustomer = new SessionManagerCustomer(getApplicationContext());
 
                 if (managerCustomer.getCustomerLogin()){
-                    startActivity(new Intent(getApplicationContext(),CustomerDashBoard.class));
+                    startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
                 }else {
-                    Intent intent = new Intent(MainActivity.this, CustomerSignup.class);
+                    Intent intent = new Intent(MainActivity.this, UserSignUp.class);
                     startActivity(intent);
                 }
                 finish();
