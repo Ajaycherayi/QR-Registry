@@ -21,10 +21,11 @@
         app:menu="@menu/main_menu"
         app:itemTextColor="@color/black"
         app:itemIconSize="35dp"
+        android:clickable="true"
         app:itemHorizontalPadding="20dp"
         app:itemIconPadding="15dp"
         app:itemIconTint="@color/black"
-        />
+        android:focusable="true" />
 
 
     <LinearLayout

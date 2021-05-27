@@ -24,8 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
-import com.ssmptc.QrRegistry.DataBase.CustomersData;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.UserData;
 import com.ssmptc.QrRegistry.R;
 
 public class CustomerVerification extends AppCompatActivity {
@@ -36,9 +36,9 @@ public class CustomerVerification extends AppCompatActivity {
     private TextView show_name;
     private ImageView b1;
 
-    SessionManagerCustomer managerCustomer;
+    SessionManagerUser managerCustomer;
 
-    private String name,email,password,phoneNo;
+    private String name,age,gender,password,phoneNo;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private FirebaseAuth firebaseAuth;
 
@@ -58,12 +58,13 @@ public class CustomerVerification extends AppCompatActivity {
         back_otp = getIntent().getStringExtra("auth");
 
         name = getIntent().getStringExtra("name");
-        email = getIntent().getStringExtra("email");
+        age = getIntent().getStringExtra("age");
+        gender = getIntent().getStringExtra("gender");
         password = getIntent().getStringExtra("password");
         phoneNo = getIntent().getStringExtra("phoneNumber");
         show_name.setText(phoneNo);
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
 
         verify_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +121,11 @@ public class CustomerVerification extends AppCompatActivity {
 
         //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        CustomersData addNewUser = new CustomersData(name,email,phoneNo,password);
-        reference.child(phoneNo).setValue(addNewUser);
+        UserData addNewUser = new UserData(name,phoneNo,age,gender,password);
+        reference.child(phoneNo).child("Profile").setValue(addNewUser);
+        reference.child(phoneNo).child("Profile").child("email").setValue("");
+        reference.child(phoneNo).child("Profile").child("address").setValue("");
+        reference.child(phoneNo).child("phoneNo").setValue(phoneNo);
 
 
 
@@ -132,15 +136,13 @@ public class CustomerVerification extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                String _name = snapshot.child(phoneNo).child("name").getValue(String.class);
-                String _email = snapshot.child(phoneNo).child("email").getValue(String.class);
-                String _phoneNo = snapshot.child(phoneNo).child("phoneNo").getValue(String.class);
-                String _password = snapshot.child(phoneNo).child("password").getValue(String.class);
+                String _name = snapshot.child(phoneNo).child("Profile").child("name").getValue(String.class);
+                String _phoneNo = snapshot.child(phoneNo).child("Profile").child("phoneNumber").getValue(String.class);
+                String _password = snapshot.child(phoneNo).child("Profile").child("password").getValue(String.class);
 
 
                 managerCustomer.setCustomerLogin(true);
-
-                managerCustomer.setDetails(_name, _email, _phoneNo, _password);
+                managerCustomer.setDetails(_name, _phoneNo, _password);
 
                 startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();

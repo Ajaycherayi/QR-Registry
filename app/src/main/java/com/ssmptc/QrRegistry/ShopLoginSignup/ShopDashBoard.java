@@ -1,11 +1,13 @@
 package com.ssmptc.QrRegistry.ShopLoginSignup;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,24 +19,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
-import com.ssmptc.QrRegistry.DataBase.CustomersDataForShops;
+import com.ssmptc.QrRegistry.DataBase.UsersDataForShop;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class ShopDashBoard extends AppCompatActivity {
 
     TextView textView;
     ImageView btn_back;
 
-    String shopId;
-    String name;
-    String email;
-    String phoneNo;
+    String AES = "AES";
+    private final String keyPass = "qrregistry@user";
+
+    String shopId,decodedData;
     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());;
     String currentTime = new SimpleDateFormat("hh:mm aa", Locale.getDefault()).format(new Date());
     SessionManagerShop managerShop;
@@ -75,31 +82,23 @@ public class ShopDashBoard extends AppCompatActivity {
     private void scanCode() {
         //Initialize intent integrator
         IntentIntegrator intentIntegrator = new IntentIntegrator(ShopDashBoard.this);
-
         //Set Prompt text
         intentIntegrator.setPrompt("For Flash Use Volume Up Key");
-
         //set beep
         intentIntegrator.setBeepEnabled(true);
-
         //set Camera
         intentIntegrator.setCameraId(0);
-
         //Locked Orientation
         intentIntegrator.setOrientationLocked(true);
-
-        intentIntegrator.setBarcodeImageEnabled(true);
-
         //Set Capture Activity
         intentIntegrator.setCaptureActivity(QRCodeScanner.class);
-
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-
         //Initiate Scan
         intentIntegrator.initiateScan();
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -110,44 +109,52 @@ public class ShopDashBoard extends AppCompatActivity {
 
 
 
-            //Check Condition
-            if (intentResult.getContents() != null && resultCode==RESULT_OK) {
+        //Check Condition
+        if (intentResult.getContents() != null && resultCode==RESULT_OK) {
+
+            managerShop = new SessionManagerShop(getApplicationContext());
+            shopId = managerShop.getShopId();
+
+            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference reference = rootNode.getReference("Shops").child(shopId).child("Customers");
 
 
-                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                DatabaseReference reference = rootNode.getReference("Shops");
+            String output = intentResult.getContents();
 
+            if (output.startsWith("QrRegistryUser")) {
+                String[] separated = output.split(":");
 
-                String output = intentResult.getContents();
+                String name = separated[1];
+                String userDetails = separated[2];
 
-                if (output.startsWith("QrRegistry")) {
-                    String[] separated = output.split(":");
+                try {
 
-                    managerShop = new SessionManagerShop(getApplicationContext());
-                    shopId = managerShop.getShopId();
-
-                    name = separated[1];
-                    email = separated[2];
-                    phoneNo = separated[3];
-
-
-
+                    decodedData = (String) decrypt(userDetails);
                     String dbTime = new SimpleDateFormat("hh a", Locale.getDefault()).format(new Date());
 
-                    CustomersDataForShops addNewUser = new CustomersDataForShops(name, email, phoneNo, currentDate, currentTime);
+                    String[] separateData = decodedData.split(":");
+                    String phoneNumber = separateData[0];
+                    String age = separateData[1];
+                    String gender = separateData[2];
+                    String email = separateData[3];
+                    String address = separateData[4];
 
-                    reference.child(shopId).child("Customers").child(currentDate).child(dbTime).child(phoneNo).setValue(addNewUser);
+                    UsersDataForShop addNewUser = new UsersDataForShop(name, phoneNumber, age, gender, currentDate, currentTime);
+                    reference.child(currentDate).child(dbTime).child(phoneNumber).setValue(addNewUser);
 
+                    reference.child(currentDate).child(dbTime).child(phoneNumber).child("email").setValue(email);
+                    reference.child(currentDate).child(dbTime).child(phoneNumber).child("address").setValue(address);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
                     //Initialize Dialog box
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
-
                     //Set Title
                     builder.setTitle("Result");
-
                     //Set Message
                     builder.setMessage("Read Successfully");
-
                     //set Positive Button
                     builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
                         @Override
@@ -160,12 +167,10 @@ public class ShopDashBoard extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-
                     //Show Alert Dialog
                     builder.show();
-            } else {
 
-
+                } else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
                     builder.setMessage("Wrong QR Code");
                     builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
@@ -175,18 +180,14 @@ public class ShopDashBoard extends AppCompatActivity {
                         }
                     });
                     builder.show();
+                }
+            } else {
 
+                Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
 
             }
 
-        }
-        else {
-
-                Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
-        }
-
         super.onActivityResult(requestCode, resultCode, data);
-
     }
     
 
@@ -251,4 +252,26 @@ public class ShopDashBoard extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private Object decrypt(String userDetails) throws Exception {
+
+        SecretKeySpec key = generateKey(keyPass);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE,key);
+        byte[] decodeValue = android.util.Base64.decode(userDetails,android.util.Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodeValue);
+        return new String(decValue);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private SecretKeySpec generateKey(String keyPass) throws Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = keyPass.getBytes(StandardCharsets.UTF_8);
+        digest.update(bytes,0,bytes.length);
+        byte[] key = digest.digest();
+        return new SecretKeySpec(key,"AES");
+    }
+
 }

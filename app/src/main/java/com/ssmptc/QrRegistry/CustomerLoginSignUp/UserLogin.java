@@ -18,12 +18,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.R;
 
 public class UserLogin extends AppCompatActivity {
 
-    SessionManagerCustomer managerCustomer;
+    SessionManagerUser managerCustomer;
 
     ProgressDialog progressDialog;
 
@@ -41,7 +41,7 @@ public class UserLogin extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         btn_backSignUp = findViewById(R.id.btn_backSignUp);
         //Create a Session
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
 
 
 
@@ -100,20 +100,19 @@ public class UserLogin extends AppCompatActivity {
                 if (snapshot.exists()) { //Check User
 
                     et_phoneNumber.getEditText().setError(null);
-                    String systemPassword = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
+                    String systemPassword = snapshot.child(_completePhoneNumber).child("Profile").child("password").getValue(String.class);
 
                     if (systemPassword.equals(_password)) {
                         et_phoneNumber.getEditText().setError(null);
 
                         //Get User data From DataBase
-                        String _name = snapshot.child(_completePhoneNumber).child("name").getValue(String.class);
-                        String _email = snapshot.child(_completePhoneNumber).child("email").getValue(String.class);
-                        String _phoneNo = snapshot.child(_completePhoneNumber).child("phoneNo").getValue(String.class);
-                        String _password = snapshot.child(_completePhoneNumber).child("password").getValue(String.class);
+                        String _name = snapshot.child(_completePhoneNumber).child("Profile").child("name").getValue(String.class);
+                        String _phoneNo = snapshot.child(_completePhoneNumber).child("Profile").child("phoneNumber").getValue(String.class);
+                        String _password = snapshot.child(_completePhoneNumber).child("Profile").child("password").getValue(String.class);
 
 
                         managerCustomer.setCustomerLogin(true); //Set User Login Session
-                        managerCustomer.setDetails(_name, _email, _phoneNo, _password); //Add Data To User Session manager
+                        managerCustomer.setDetails(_name, _phoneNo, _password); //Add Data To User Session manager
                         // Intent to Next Activity
                         startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();

@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -30,8 +32,11 @@ import java.util.concurrent.TimeUnit;
 public class UserSignUp extends AppCompatActivity {
 
     //Variable
-    private TextInputLayout et_userName,et_email,et_phoneNumber,et_password;
+    private TextInputLayout et_userName,et_age,et_phoneNumber,et_password;
     Button btn_getOtp,btn_login;
+
+    RadioGroup rg_gender;
+    RadioButton rb_selectedGender;
 
     ProgressDialog progressDialog;
 
@@ -45,9 +50,10 @@ public class UserSignUp extends AppCompatActivity {
         setContentView(R.layout.user_signup);
 
         et_userName = findViewById(R.id.et_userName);
-        et_email = findViewById(R.id.et_email);
+        et_age = findViewById(R.id.et_age);
         et_password = findViewById(R.id.et_password);
         et_phoneNumber = findViewById(R.id.et_phoneNumber);
+        rg_gender = findViewById(R.id.radio_group);
 
         btn_getOtp = findViewById(R.id.btn_getOtp);
         btn_login = findViewById(R.id.btn_backToLogin);
@@ -77,10 +83,13 @@ public class UserSignUp extends AppCompatActivity {
             public void onClick(View v) {
 
                 //EditText Validations
-                if (!validatePhoneNumber()  | !validateUserName() | !validateEmail() | !validatePassword()) {
+                if (!validatePhoneNumber()  | !validateUserName() | !validateAge() | !validatePassword() | !validateGender()) {
 
                     return;
                 }
+
+                rb_selectedGender = findViewById(rg_gender.getCheckedRadioButtonId());
+                String gender =  rb_selectedGender.getText().toString();
 
                 String phone = et_phoneNumber.getEditText().getText().toString();
                 String phoneNumber = "+91" + phone;
@@ -163,10 +172,12 @@ public class UserSignUp extends AppCompatActivity {
                                     otpIntent.putExtra("phoneNumber", phoneNumber);
 
                                     String name = et_userName.getEditText().getText().toString();
-                                    String email = et_email.getEditText().getText().toString();
+                                    String age = et_age.getEditText().getText().toString();
+                                    String gender = rb_selectedGender.getText().toString();
                                     String password = et_password.getEditText().getText().toString();
                                     otpIntent.putExtra("name", name);
-                                    otpIntent.putExtra("email", email);
+                                    otpIntent.putExtra("age", age);
+                                    otpIntent.putExtra("gender", gender);
                                     otpIntent.putExtra("password", password);
                                     startActivity(otpIntent);
                                     finish();
@@ -213,18 +224,18 @@ public class UserSignUp extends AppCompatActivity {
         }
     }
 
-    private boolean validateEmail() {
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        String val = et_email.getEditText().getText().toString().trim();
+    private boolean validateAge() {
+       // String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String val = et_age.getEditText().getText().toString().trim();
 
         if (val.isEmpty()){
-            et_email.setError("Field can not be empty");
+            et_age.setError("Field can not be empty");
             return false;
-        }else if(!val.matches(emailPattern)){
-            et_email.setError("Enter Valid Email");
+        }else if(val.length()>3){
+            et_age.setError("Enter Valid Age");
             return false;
         }else {
-            et_email.setError(null);
+            et_age.setError(null);
             return true;
         }
 
@@ -247,6 +258,15 @@ public class UserSignUp extends AppCompatActivity {
             return true;
         }
 
+    }
+
+    private boolean validateGender(){
+
+        if (rg_gender.getCheckedRadioButtonId() == -1){
+            Toast.makeText(this, "Please Select Gender", Toast.LENGTH_SHORT).show();
+            return false;
+        }else
+            return true;
     }
 }
 

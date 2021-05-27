@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center"
-    android:background="@drawable/bg_card">
+    android:background="#CAECFD">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="360dp"
-        android:layout_height="100dp"
-        android:background="@color/Primary"
-        android:src="@drawable/shop"/>
+            android:layout_width="360dp"
+            android:layout_height="100dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp"
+            android:background="@color/Primary"
+            android:src="@drawable/shop"/>
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,13 +28,37 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:gravity="center_horizontal"
-        android:text="Are You Login For Your Shop."
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/wayfinding_sans_number"
+        android:text="@string/shop_login_create"
         android:textColor="@color/black"
         android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="start"
+        android:gravity="clip_horizontal"
+        android:fontFamily="@font/wayfinding_sans_number"
+        android:text="@string/shop_login_cancel"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/wayfinding_sans_number"
+        android:text="@string/shop_login_disable"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,22 +68,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bt_cancel"
-            android:text="No"
+            android:text="cancel"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/light_red"
+            android:backgroundTint="@color/Primary_light"
             tools:ignore="UnusedAttribute" />
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/bt_ok"
-            android:text="yes"
+            android:id="@+id/btn_disable"
+            android:text="Disable"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/light_red"
+            tools:ignore="UnusedAttribute" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/bt_ok"
+            android:text="create"
+            android:textStyle="bold"
+            android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_margin="10dp"
             android:backgroundTint="@color/light_green"

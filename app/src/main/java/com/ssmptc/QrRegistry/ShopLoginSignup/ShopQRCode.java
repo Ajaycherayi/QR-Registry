@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
-import android.provider.ContactsContract;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -27,13 +24,11 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -43,7 +38,6 @@ public class ShopQRCode extends AppCompatActivity {
     ImageView output;
     ImageView back;
     TextView tv_ShoName;
-    DatabaseReference reference;
     ProgressDialog progressDialog;
 
     String AES = "AES";

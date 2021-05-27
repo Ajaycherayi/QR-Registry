@@ -62,7 +62,7 @@
                     android:inputType="number"
                     android:hint="######"
                     android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/bg_todolist"
+                    android:background="@drawable/bg_todo_list"
                     android:padding="10dp"
                     android:gravity="center"
                     android:textColorHint="@color/hintBlack"

@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -28,21 +25,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.DataBase.ShopDetailsAdapter;
-import com.ssmptc.QrRegistry.DataBase.ShopDetailsModel;
 import com.ssmptc.QrRegistry.DataBase.ShopsDataForCustomers;
 import com.ssmptc.QrRegistry.R;
-import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
-import com.ssmptc.QrRegistry.ToDoList.TodoAdapter;
-import com.ssmptc.QrRegistry.ToDoList.TodoModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDetails extends AppCompatActivity {
 
-    SessionManagerCustomer managerCustomer;
+    SessionManagerUser managerCustomer;
 
     String phone,email,shopName,category,location,imageKey;
 
@@ -51,7 +44,6 @@ public class ShopDetails extends AppCompatActivity {
     ArrayList<String> sLocation;
 
     //List<ShopsDataForCustomers> searchList = new ArrayList<>();
-    ImageView btn_search;
     EditText et_search;
 
     RecyclerView recyclerView;
@@ -64,11 +56,10 @@ public class ShopDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_details);
+        setContentView(R.layout.shop_details);
 
 
         et_search = findViewById(R.id.et_search);
-        btn_search = findViewById(R.id.btn_search);
 
         recyclerView = findViewById(R.id.rv_shopDetails);
         recyclerView.setHasFixedSize(true);
@@ -76,7 +67,7 @@ public class ShopDetails extends AppCompatActivity {
 
         dataForCustomers = new ArrayList<>();
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
         phone = managerCustomer.getPhone();
 
         adapter = new ShopDetailsAdapter(this,dataForCustomers);

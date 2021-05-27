@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ssmptc.QrRegistry">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:preserveLegacyExternalStorage="true"
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.QRRegistry">
+        android:theme="@style/Theme.QRRegistry"
+        tools:targetApi="r">
         <activity android:name=".AccountSettings"></activity>
         <activity android:name=".AboutQrRegistry" />
         <activity android:name=".CustomerLoginSignUp.ShopDetails" />
         <activity android:name=".ShopLoginSignup.ShopPhoneVerification" />
         <activity android:name=".CustomerLoginSignUp.CustomerProfile" />
         <activity android:name=".ToDoList.CustomerToDoList" />
-        <activity android:name=".ToDoList.TodoList" />
         <activity android:name=".CustomerLoginSignUp.CustomerMapFind" />
         <activity android:name=".ShopLoginSignup.ShopCustomersReport" />
         <activity android:name=".ShopLoginSignup.ShopCustomersList" />
@@ -29,7 +35,7 @@
         <activity android:name=".ShopLoginSignup.ShopProfile" />
         <activity android:name=".ShopLoginSignup.ShopQRCode" />
         <activity android:name=".ShopLoginSignup.ShopDashBoard" />
-        <activity android:name=".CustomerLoginSignUp.QRCodeGeneration" />
+        <activity android:name=".CustomerLoginSignUp.UserQrCode" />
         <activity android:name=".CustomerLoginSignUp.UserDashBoard" />
         <activity android:name=".CustomerLoginSignUp.CustomerVerification" />
         <activity android:name=".ShopLoginSignup.ShopSignup" />

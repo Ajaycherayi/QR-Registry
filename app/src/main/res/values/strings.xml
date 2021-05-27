@@ -15,6 +15,17 @@
     <string name="loginWith">Login With</string>
     <string name="SignUp">Sign Up</string>
 
+    <!-- - - - - - - - - - - Dash Board - - - - - - - - - - -->
+
+                        <!-- My QR Code -->
+    <string name="yourQrCode">YOUR QR CODE</string>
+    <string name="TapForScreenShot">Tap For ScreenShot</string>
+
+                    <!-- Shop Details Scanned -->
+    <string name="shops">Shops</string>
+    <string name="searchHint">Search Shop/Location/category</string>
+
+
     <!-- Menu Page -->
     <string name="home">Home</string>
     <string name="about">About</string>
@@ -59,5 +70,9 @@
     <string name="userName">Name<font color='#FF0000'>*</font></string>
     <string name="userEmail">Email<font color='#FF0000'>*</font></string>
     <string name="address">Address</string>
+
+    <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop, join us.<br/>Login or signUp with the CREATE Button.</string>
+    <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br/>hit CANCEL Button.</string>
+    <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br/> hit DISABLE Button.</string>
 
 </resources>

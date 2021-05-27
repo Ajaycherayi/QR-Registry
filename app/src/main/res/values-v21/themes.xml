@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="navTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="navigationViewStyle">@style/navTheme</item>
+        <!-- Text Color -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Background Color -->
+        <item name="colorControlHighlight">@color/Primary_light</item>
+        <item name="listPreferredItemHeightSmall">60dp</item>
+        <item name="fontFamily">@font/wayfinding_sans_number</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="sizePercent">25</item>
+        <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>
+        <item name="paddingTopNoTitle">20dp</item>
+        <item name="android:layout_centerInParent">true</item>
+
+
+        <item name="android:textSize">23sp</item><!-- text size in menu-->
+
+    </style>
+
+</resources>

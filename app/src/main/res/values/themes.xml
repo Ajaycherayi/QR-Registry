@@ -24,9 +24,11 @@
         <item name="navigationViewStyle">@style/navTheme</item>
         <!-- Text Color -->
         <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <!-- Background Color -->
         <item name="colorControlHighlight">@color/Primary_light</item>
-        <item name="statusBarBackground">#00000000</item>
+        <item name="android:textSize">23sp</item>
+        <item name="listPreferredItemHeightSmall">60dp</item>
         <item name="sizePercent">25</item>
         <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>
         <item name="paddingTopNoTitle">20dp</item>
@@ -35,7 +37,7 @@
 
 
 
-        <item name="android:textSize">23sp</item><!-- text size in menu-->
+        <!-- text size in menu-->
 
     </style>
 

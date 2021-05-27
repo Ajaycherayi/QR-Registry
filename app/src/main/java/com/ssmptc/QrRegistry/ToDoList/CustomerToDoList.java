@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class CustomerToDoList extends AppCompatActivity {
 
-    SessionManagerCustomer managerCustomer;
+    SessionManagerUser managerCustomer;
 
     EditText et_title,et_desc;
     FloatingActionButton add;
@@ -58,7 +58,7 @@ public class CustomerToDoList extends AppCompatActivity {
 
         todoModels = new ArrayList<>();
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
         phone = managerCustomer.getPhone();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Todo");

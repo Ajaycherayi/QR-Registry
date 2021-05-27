@@ -34,8 +34,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.AccountSettings;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerCustomer;
+import com.ssmptc.QrRegistry.AboutQrRegistry;
+import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
@@ -59,7 +59,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     static final float END_SCALE = 0.7f;
 
     String AES = "AES";
-    private final String keyPass = "qrregistry@shop";
+    String keyPass = "qrregistry@shop";
 
     MenuItem  menuItem;
 
@@ -72,9 +72,10 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     TextView tv_date;
     TextClock tv_time;
 
+
     String phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());
     String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
-    SessionManagerCustomer managerCustomer;
+    SessionManagerUser managerCustomer;
     SessionManagerShop managerShop;
 
     private String sName,sId,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
@@ -97,7 +98,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         Menu menuNav = navigationView.getMenu();
         MenuItem nav_shop = menuNav.findItem(R.id.nav_shop);
-        nav_shop.setVisible(false);
 
         nav_headerView = navigationView.inflateHeaderView(layout.menu_header);
         tv_date = nav_headerView.findViewById(R.id.tv_date);
@@ -106,11 +106,13 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         tv_time.setFormat12Hour("hh:mm:ss a");
         tv_time.setFormat24Hour(null);
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
         String sName = managerCustomer.getName();
         user_Name.setText(sName);
 
         navigationDrawer();
+
+        nav_shop.setVisible(!managerCustomer.getShopButton());
 
         // SessionManager sessionManager = new SessionManager(this);
         //HashMap<String,String> userDetails = sessionManager.getUserDetailsFromSession();
@@ -206,9 +208,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(getApplicationContext(), "Details", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.account:
+            case R.id.nav_about:
                 Toast.makeText(getApplicationContext(), "Account", Toast.LENGTH_SHORT).show();
-                accountSettings();
+                about();
                 break;
 
             case R.id.logout:
@@ -221,13 +223,14 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    private void accountSettings() {
-        startActivity(new Intent(getApplicationContext(), AccountSettings.class));
+    private void about() {
+        startActivity(new Intent(getApplicationContext(), AboutQrRegistry.class));
     }
+
 
     private void shopLogin() {
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
         managerShop = new SessionManagerShop(getApplicationContext());
         String nPhone = managerCustomer.getPhone();
 
@@ -239,6 +242,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             dialog.setContentView(layout.login_alert);
             Button btCancel = dialog.findViewById(R.id.bt_cancel);
             Button btOk = dialog.findViewById(R.id.bt_ok);
+            Button btn_disable = dialog.findViewById(R.id.btn_disable);
 
             btCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -254,13 +258,23 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                     dialog.dismiss();
                 }
             });
+            btn_disable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Menu menuNav = navigationView.getMenu();
+                    MenuItem nav_shop = menuNav.findItem(R.id.nav_shop);
+                    managerCustomer.setShopButton(true);
+                    nav_shop.setVisible(false);
+                    dialog.dismiss();
+                }
+            });
             dialog.show();
         }
     }
 
     private void logout() {
 
-        managerCustomer = new SessionManagerCustomer(getApplicationContext());
+        managerCustomer = new SessionManagerUser(getApplicationContext());
         managerShop = new SessionManagerShop(getApplicationContext());
 
         //Initialize alert dialog
@@ -278,7 +292,8 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             public void onClick(DialogInterface dialog, int which) {
 
               managerCustomer.setCustomerLogin(false);
-              managerCustomer.setDetails("","","","");
+              managerCustomer.setShopButton(false);
+              managerCustomer.setDetails("","","");
 
               managerShop.setShopLogin(false);
               managerShop.setDetails("","","","","","","");
@@ -307,7 +322,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
 
     public void generateQR(View view) {
-        startActivity(new Intent(getApplicationContext(), QRCodeGeneration.class));
+        startActivity(new Intent(getApplicationContext(), UserQrCode.class));
     }
 
     public void scanQR(View view) {
