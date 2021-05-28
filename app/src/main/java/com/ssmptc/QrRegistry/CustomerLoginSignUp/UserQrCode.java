@@ -81,19 +81,18 @@ public class UserQrCode extends AppCompatActivity {
         //--------------- Internet Checking -----------
         if (!isConnected(UserQrCode.this)){
             showCustomDialog();
-        }else {
-
-
-            //--------------- Initialize ProgressDialog -----------
-            progressDialog = new ProgressDialog(UserQrCode.this);
-            progressDialog.show();
-            progressDialog.setCancelable(false);
-            progressDialog.setContentView(R.layout.progress_dialog);
-            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-            bg_screenShot.setVisibility(View.GONE);
-            txt_screenShot.setVisibility(View.GONE);
         }
+
+        //--------------- Initialize ProgressDialog -----------
+        progressDialog = new ProgressDialog(UserQrCode.this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        bg_screenShot.setVisibility(View.GONE);
+        txt_screenShot.setVisibility(View.GONE);
+
         //--------------- Data Access from User Database -----------
         Query getCustomerDetails = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Profile");
         getCustomerDetails.addListenerForSingleValueEvent(new ValueEventListener() {

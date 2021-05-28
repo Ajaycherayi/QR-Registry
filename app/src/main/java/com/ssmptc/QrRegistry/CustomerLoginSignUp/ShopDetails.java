@@ -1,56 +1,51 @@
 package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.DataBase.ShopDetailsAdapter;
-import com.ssmptc.QrRegistry.DataBase.ShopsDataForCustomers;
+import com.ssmptc.QrRegistry.DataBase.ShopsDataForUser;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDetails extends AppCompatActivity {
 
-    SessionManagerUser managerCustomer;
-
-    String phone,email,shopName,category,location,imageKey;
-
-    ArrayList<String> sName;
-    ArrayList<String> sCategory;
-    ArrayList<String> sLocation;
-
-    //List<ShopsDataForCustomers> searchList = new ArrayList<>();
+    ImageView btn_back;
     EditText et_search;
+    private RecyclerView recyclerView;
+    private ProgressDialog progressDialog;
 
-    RecyclerView recyclerView;
-   private ShopDetailsAdapter adapter;
+    private String phoneNumber;
 
-    private DatabaseReference db,mDatabaseRef;
-    private List<ShopsDataForCustomers> dataForCustomers;
+    SessionManagerUser managerUser;
+    DatabaseReference userDb;
+    private DatabaseReference shopDb;
+    private ShopDetailsAdapter adapter;
+    private List<ShopsDataForUser> dataForUser;
 
 
     @Override
@@ -58,24 +53,36 @@ public class ShopDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_details);
 
-
+        btn_back = findViewById(R.id.btn_back);
         et_search = findViewById(R.id.et_search);
-
         recyclerView = findViewById(R.id.rv_shopDetails);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        dataForCustomers = new ArrayList<>();
+        dataForUser = new ArrayList<>();
 
-        managerCustomer = new SessionManagerUser(getApplicationContext());
-        phone = managerCustomer.getPhone();
+        managerUser = new SessionManagerUser(getApplicationContext());
+        phoneNumber = managerUser.getPhone();
 
-        adapter = new ShopDetailsAdapter(this,dataForCustomers);
+        adapter = new ShopDetailsAdapter(this,dataForUser);
+
+        //--------------- Internet Checking -----------
+        if (!isConnected(ShopDetails.this)){
+            showCustomDialog();
+        }
+
+        //--------------- Initialize ProgressDialog -----------
+        progressDialog = new ProgressDialog(ShopDetails.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
 
         shopList();
 
-
-
+        //----------------------Search Shop Details----------------
         if (et_search != null){
 
             et_search.addTextChangedListener(new TextWatcher() {
@@ -83,44 +90,45 @@ public class ShopDetails extends AppCompatActivity {
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                 }
-
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     adapter.Search(s);
                 }
-
                 @Override
                 public void afterTextChanged(Editable s) {
-
-
                 }
             });
-
         }
 
+        //------------------------back to user dashboard--------------
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShopDetails.this,UserDashBoard.class));
+                finish();
+            }
+        });
     }
 
     private void shopList() {
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops");
+        userDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Shops");
 
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        userDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot idSnapshot) {
 
-                dataForCustomers.clear();
-
+                dataForUser.clear();
 
                 for (DataSnapshot postSnapshot : idSnapshot.getChildren()){
 
-
-
-                    Query shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(postSnapshot.child("shopId").getValue(String.class)).child("Shop Profile");
+                    shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(postSnapshot.child("shopId").getValue(String.class)).child("Shop Profile");
                     shopDb.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            dataForCustomers.add(new ShopsDataForCustomers((postSnapshot.child("id").getValue(String.class)),dataSnapshot.child("id").getValue(String.class),
+                            //--------------- Get data from shop database and put into ShopsDataForCustomers model ------------------------
+                            dataForUser.add(new ShopsDataForUser((postSnapshot.child("id").getValue(String.class)),dataSnapshot.child("id").getValue(String.class),
                                     dataSnapshot.child("shopName").getValue(String.class),
                                     dataSnapshot.child("category").getValue(String.class),
                                     dataSnapshot.child("ownerName").getValue(String.class),
@@ -132,7 +140,7 @@ public class ShopDetails extends AppCompatActivity {
                                     dataSnapshot.child("description").getValue(String.class),
                                     dataSnapshot.child("name").getValue(String.class)));
 
-                            adapter = new ShopDetailsAdapter(ShopDetails.this,dataForCustomers);
+                            adapter = new ShopDetailsAdapter(ShopDetails.this,dataForUser);
                             recyclerView.setAdapter(adapter);
                             adapter.setOnItemClickListener(new ShopDetailsAdapter.OnItemClickListener(){
 
@@ -162,138 +170,41 @@ public class ShopDetails extends AppCompatActivity {
 
                 }
 
-            }
+                progressDialog.dismiss();
 
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ShopDetails.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
+
     }
 
-
+    //------------------------Show More About Shop----------------
     private void MoreShopDetails(int position) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
+        ShopsDataForUser data = dataForUser.get(position);
+        String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers Model
+        String keyId = data.getId(); // Get User DataBase Key
 
-        View view = inflater.inflate(R.layout.shop_more_details,null);
-
-        builder.setView(view);
-
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        Button btn_email,btn_locate,btn_delete,btn_img;
-        TextView tv_shopName,tv_category,tv_ownerName,tv_location,tv_phoneNumber,tv_email,tv_wDays,tv_wTime,tv_description;
-
-
-        btn_email = view.findViewById(R.id.btn_sendMail);
-        btn_locate = view.findViewById(R.id.btn_locate);
-        btn_delete = view.findViewById(R.id.btn_delete);
-        btn_img = view.findViewById(R.id.btn_img);
-
-        tv_shopName = view.findViewById(R.id.tv_shopName);
-        tv_category = view.findViewById(R.id.tv_category);
-        tv_location = view.findViewById(R.id.tv_location);
-        tv_ownerName = view.findViewById(R.id.tv_ownerName);
-        tv_phoneNumber = view.findViewById(R.id.tv_phoneNumber);
-        tv_email = view.findViewById(R.id.tv_email);
-        tv_wDays = view.findViewById(R.id.tv_wDays);
-        tv_wTime = view.findViewById(R.id.tv_wTime);
-        tv_description = view.findViewById(R.id.tv_description);
-
-
-        ShopsDataForCustomers data = dataForCustomers.get(position);
-        String id = data.getShopId();
-        String keyId = data.getId();
-
-        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                shopName = snapshot.child("shopName").getValue(String.class);
-                tv_shopName.setText(shopName);
-                category = snapshot.child("category").getValue(String.class);
-                tv_category.setText(category);
-                location = snapshot.child("location").getValue(String.class);
-                tv_location.setText(location);
-                tv_ownerName.setText(snapshot.child("ownerName").getValue(String.class));
-                tv_phoneNumber.setText(snapshot.child("phoneNumber").getValue(String.class));
-                email = snapshot.child("email").getValue(String.class);
-                tv_email.setText(email);
-                tv_wDays.setText(snapshot.child("working days").getValue(String.class));
-                tv_wTime.setText(snapshot.child("working time").getValue(String.class));
-                tv_description.setText(snapshot.child("description").getValue(String.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        btn_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (email.equals(" ")){
-                    Toast.makeText(ShopDetails.this, "Shop Email Not Provided", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-                    Uri data = Uri.parse("mailto:?subject=" + ""+ "&body=" + "" + "&to=" + email);
-                    emailIntent.setData(data);
-                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-
-                }
-            }
-        });
-
-        btn_locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String strUri = "http://maps.google.com/maps?q=" + shopName + "," + category +  " (" + location + ")";
-
-                Intent locationIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
-
-                locationIntent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-
-                startActivity(locationIntent);
-            }
-        });
-
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                db = FirebaseDatabase.getInstance().getReference("Users").child(phone).child("Shops").child(keyId);
-                db.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        snapshot.getRef().removeValue();
-                        dialog.cancel();
-                        Toast.makeText(ShopDetails.this, "Shop Details Deleted", Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ShopDetails.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
+        Intent intent = new Intent(ShopDetails.this,ShopDetailsSingleView.class);
+        intent.putExtra("shopId",id); // Pass Shop Id value To ShopDetailsSingleView
+        intent.putExtra("key",keyId); // Pass key value To ShopDetailsSingleView
+        startActivity(intent);
+        adapter.notifyDataSetChanged();
 
     }
 
+    //-------------Intent to Massage-------------
     private void MessageToShop(int position) {
-        ShopsDataForCustomers data = dataForCustomers.get(position);
+
+        ShopsDataForUser data = dataForUser.get(position);
         String id = data.getShopId();
 
-        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
-        db.addValueEventListener(new ValueEventListener() {
+        shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
+        shopDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String number = snapshot.child("phoneNumber").getValue(String.class);
@@ -307,14 +218,14 @@ public class ShopDetails extends AppCompatActivity {
             }
         });
     }
-
+    //-------------Intent Dialer With Phone Number------
     private void CallToShop(int position) {
 
-        ShopsDataForCustomers data = dataForCustomers.get(position);
+        ShopsDataForUser data = dataForUser.get(position);
         String id = data.getShopId();
 
-        db = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
-        db.addValueEventListener(new ValueEventListener() {
+        shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
+        shopDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String number = snapshot.child("phoneNumber").getValue(String.class);
@@ -328,8 +239,43 @@ public class ShopDetails extends AppCompatActivity {
 
             }
         });
+    }
 
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
 
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShopDetails.this);
+        builder.setMessage("Please connect to the internet")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(ShopDetails shopDetails) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) shopDetails.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+
+    }
+
+
 }

@@ -10,11 +10,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -326,20 +330,27 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     }
 
     public void scanQR(View view) {
-        scanCode();
+
+        //--------------- Internet Checking -----------
+        if (!isConnected(UserDashBoard.this)){
+            showCustomDialog();
+        }else {
+            scanCode();
+        }
     }
 
     private void scanCode() {
-        //Initialize intent integrator
-        IntentIntegrator intentIntegrator = new IntentIntegrator(UserDashBoard.this);
 
-        intentIntegrator.setPrompt("For Flash Use Volume Up Key"); //Set Prompt text
-        intentIntegrator.setCameraId(0); //set Camera
-        intentIntegrator.setBeepEnabled(true); //set beep
-        intentIntegrator.setOrientationLocked(true);    //Locked Orientation
-        intentIntegrator.setCaptureActivity(QRCodeScanner.class);   //Set Capture Activity
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        intentIntegrator.initiateScan();    //Initiate Scan
+            //Initialize intent integrator
+            IntentIntegrator intentIntegrator = new IntentIntegrator(UserDashBoard.this);
+
+            intentIntegrator.setPrompt("For Flash Use Volume Up Key"); //Set Prompt text
+            intentIntegrator.setCameraId(0); //set Camera
+            intentIntegrator.setBeepEnabled(true); //set beep
+            intentIntegrator.setOrientationLocked(true);    //Locked Orientation
+            intentIntegrator.setCaptureActivity(QRCodeScanner.class);   //Set Capture Activity
+            intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+            intentIntegrator.initiateScan();    //Initiate Scan
 
     }
 
@@ -351,7 +362,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         //Initiate Intent Result
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-//Check Condition
+        //Check Condition
         if (intentResult.getContents() != null && resultCode == RESULT_OK) {
 
             managerShop = new SessionManagerShop(getApplicationContext());
@@ -475,7 +486,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     }
 
     public void mapFind(View view) {
-        startActivity(new Intent(UserDashBoard.this,CustomerMapFind.class));
+        startActivity(new Intent(UserDashBoard.this, FindShops.class));
 
     }
 
@@ -488,4 +499,42 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         startActivity(new Intent(UserDashBoard.this, CustomerProfile.class));
 
     }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserDashBoard.this);
+        builder.setMessage("Please connect to the internet")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
+                        finish();
+                    }
+                });
+        android.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(UserDashBoard userDashBoard) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) userDashBoard.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+
+    }
+
+
 }

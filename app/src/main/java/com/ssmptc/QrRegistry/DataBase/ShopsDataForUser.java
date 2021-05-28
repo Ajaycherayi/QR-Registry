@@ -1,12 +1,12 @@
 package com.ssmptc.QrRegistry.DataBase;
 
-public class ShopsDataForCustomers {
+public class ShopsDataForUser {
     String id,shopId,name,category,ownerName,location,phoneNumber,email,days,time,description,images;
 
-    public ShopsDataForCustomers() {
+    public ShopsDataForUser() {
     }
 
-    public ShopsDataForCustomers(String id, String shopId, String name, String category, String ownerName, String location, String phoneNumber, String email, String days, String time, String description, String images) {
+    public ShopsDataForUser(String id, String shopId, String name, String category, String ownerName, String location, String phoneNumber, String email, String days, String time, String description, String images) {
         this.id = id;
         this.shopId = shopId;
         this.name = name;

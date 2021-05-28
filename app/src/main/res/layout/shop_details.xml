@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/btn_backToUd"
+            android:id="@+id/btn_back"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="30dp"

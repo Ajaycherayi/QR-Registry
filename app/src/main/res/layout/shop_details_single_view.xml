@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerLoginSignUp.ShopDetailsSingleView"
+    android:orientation="vertical"
+    android:background="@color/Primary_ExtraLight">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_upper"
+        android:layout_marginHorizontal="10dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/back_arrow"
+            app:tint="@color/black"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@null" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/shop_details"
+            android:layout_marginTop="-55dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_shopName"
+            android:textAllCaps="true"
+            android:text=""
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/wayfinding_sans_number"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_lower"
+        android:layout_marginHorizontal="10dp"
+        android:padding="15dp"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_category"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                 />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_location"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_owner"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/tv_ownerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_phoneNo"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_email"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_days"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/tv_wDays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_time"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/tv_wTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_desc"
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:fontFamily="@font/wayfinding_sans_number"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/shopImages"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_image"
+            app:iconTint="@color/black"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sendMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="@color/white"
+                app:icon="@drawable/ic_email"
+                app:iconTint="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_locate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/locate"
+                android:textColor="@color/white"
+                app:icon="@drawable/ic_location"
+                app:iconTint="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"
+                android:layout_marginStart="5dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/delete"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/light_red"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"
+                android:layout_marginStart="5dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

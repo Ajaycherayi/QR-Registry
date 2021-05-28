@@ -17,13 +17,41 @@
 
     <!-- - - - - - - - - - - Dash Board - - - - - - - - - - -->
 
-                        <!-- My QR Code -->
+    <!-- My QR Code -->
     <string name="yourQrCode">YOUR QR CODE</string>
     <string name="TapForScreenShot">Tap For ScreenShot</string>
 
-                    <!-- Shop Details Scanned -->
+    <!-- Shop Details Scanned -->
     <string name="shops">Shops</string>
     <string name="searchHint">Search Shop/Location/category</string>
+    <!-- Shop Details list -->
+    <string name="list_category">Category :\t</string>
+    <string name="list_location">Location : \t</string>
+    <string name="list_owner">Owner :\t</string>
+    <string name="list_phoneNo">Phone Number : \t</string>
+    <string name="list_days">Working Days :\t</string>
+    <string name="list_time">Working Time :\t</string>
+    <string name="list_desc">Description :\t</string>
+    <string name="list_email">Email :\t</string>
+    <!-- Shop Details buttons -->
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="showImages">Show shop Images</string>
+    <string name="locate">Locate</string>
+    <string name="delete">Delete</string>
+    <string name="more">More…</string>
+    <string name="shopImages">shop Images</string>
+
+    <!-- Find Shops -->
+    <string name="find">F!ND</string>
+    <string name="hint_category">Stationary</string>
+    <string name="hint_location">Tirur</string>
+    <string name="findShops">find shops</string>
+
+    <!-- To-do List -->
+    <string name="todoList">To-do List</string>
+    <string name="hint_Title">Title</string>
+
 
 
     <!-- Menu Page -->
@@ -71,8 +99,8 @@
     <string name="userEmail">Email<font color='#FF0000'>*</font></string>
     <string name="address">Address</string>
 
-    <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop, join us.<br/>Login or signUp with the CREATE Button.</string>
-    <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br/>hit CANCEL Button.</string>
-    <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br/> hit DISABLE Button.</string>
+    <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop, join us.<br />Login or signUp with the CREATE Button.</string>
+    <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br />hit CANCEL Button.</string>
+    <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br /> hit DISABLE Button.</string>
 
 </resources>

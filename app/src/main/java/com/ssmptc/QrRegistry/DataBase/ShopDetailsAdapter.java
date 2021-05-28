@@ -6,17 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.ShopDetails;
 import com.ssmptc.QrRegistry.R;
-import com.ssmptc.QrRegistry.ToDoList.TodoAdapter;
-import com.ssmptc.QrRegistry.ToDoList.TodoModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +19,8 @@ import java.util.List;
 public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter.ShopDetailsHolder> {
 
     private Context mContext;
-    private List<ShopsDataForCustomers> shopsDataForCustomersList;
-    private List<ShopsDataForCustomers> copyList;
+    private List<ShopsDataForUser> shopsDataForUserList;
+    private List<ShopsDataForUser> copyList;
     private OnItemClickListener mListener;
 
 
@@ -43,9 +38,9 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
         mListener = listener;
     }
 
-   public ShopDetailsAdapter(Context context , List<ShopsDataForCustomers> detailsModels){
+   public ShopDetailsAdapter(Context context , List<ShopsDataForUser> detailsModels){
        mContext = context;
-       shopsDataForCustomersList = detailsModels;
+       shopsDataForUserList = detailsModels;
        this.copyList = new ArrayList<>();
        copyList.addAll(detailsModels);
    }
@@ -54,14 +49,14 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
     @Override
     public ShopDetailsAdapter.ShopDetailsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-       View v = LayoutInflater.from(mContext).inflate(R.layout.list_shop_details,parent,false);
+       View v = LayoutInflater.from(mContext).inflate(R.layout.shop_details_list,parent,false);
        return new ShopDetailsHolder(v,mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShopDetailsAdapter.ShopDetailsHolder holder, int position) {
 
-       ShopsDataForCustomers data = shopsDataForCustomersList.get(position);
+       ShopsDataForUser data = shopsDataForUserList.get(position);
        holder.sName.setText(data.getName());
        holder.sCategory.setText(data.getCategory());
        holder.sLocation.setText(data.getLocation());
@@ -69,7 +64,7 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
 
     @Override
     public int getItemCount() {
-        return shopsDataForCustomersList.size();
+        return shopsDataForUserList.size();
     }
 
     static public class ShopDetailsHolder extends RecyclerView.ViewHolder{
@@ -132,10 +127,10 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
 
     public void Search(CharSequence txt) {
 
-        List<ShopsDataForCustomers> searchList = new ArrayList<>();
+        List<ShopsDataForUser> searchList = new ArrayList<>();
 
         if (!TextUtils.isEmpty(txt)){
-            for (ShopsDataForCustomers data : shopsDataForCustomersList){
+            for (ShopsDataForUser data : shopsDataForUserList){
                 if (data.getName().toLowerCase().contains(txt) || data.getLocation().toLowerCase().contains(txt) || data.getCategory().toLowerCase().contains(txt)){
                     searchList.add(data);
                 }
@@ -143,8 +138,8 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
         }else {
             searchList.addAll(copyList);
         }
-        shopsDataForCustomersList.clear();
-        shopsDataForCustomersList.addAll(searchList);
+        shopsDataForUserList.clear();
+        shopsDataForUserList.addAll(searchList);
         notifyDataSetChanged();
         searchList.clear();
     }
