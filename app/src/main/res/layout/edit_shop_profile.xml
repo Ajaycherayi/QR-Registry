@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopLoginSignup.ShopProfile"
+    tools:context=".ShopLoginSignup.EditShopProfile"
     android:background="@color/Primary">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,32 +15,36 @@
             android:id="@+id/btn_backToSd"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:src="@drawable/back_arrow"
-            app:tint="@color/black" />
+            app:tint="@color/black"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="20dp" />
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/shop_details"
             android:layout_marginTop="-55dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@null" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_shopName"
             android:textAllCaps="true"
-            android:text="Shop Name"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/astronaut"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="30sp"
             android:layout_marginBottom="20dp"
             android:textColor="@color/white"
             android:gravity="center_horizontal"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,13 +54,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
-                android:text="ID : "
+                android:text="@string/id"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:id="@+id/tv_shopId"
@@ -64,11 +69,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="1000"
+                android:layout_marginRight="20dp"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginEnd="20dp" />
         </LinearLayout>
 
 
@@ -76,20 +82,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/bg_white"
+            android:background="@drawable/bg_lower"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update shop datas"
+                android:text="@string/updateShop"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/Primary"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp" />
 
             <TextView
                 android:layout_width="96dp"
@@ -98,7 +104,8 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/required"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_marginStart="10dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_shopName"
@@ -120,7 +127,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="Enter shop name"
+                    android:hint="@string/hint_enterShopName"
                     android:inputType="textCapCharacters"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -147,7 +154,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="Enter shop category"
+                    android:hint="@string/hint_shopCategory"
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -174,7 +181,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="Shop category license"
+                    android:hint="@string/hint_license"
                     android:inputType="text"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -190,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Contact Details"
+                    android:text="@string/contactDetails"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -225,7 +232,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="eg. John"
+                    android:hint="@string/hint_ownerName"
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -252,7 +259,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="eg: Bypass road, calicut"
+                    android:hint="@string/hint_shopLocation"
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -279,7 +286,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="example@gmail.com"
+                    android:hint="@string/hint_email"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -295,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Working Days and Times"
+                    android:text="@string/workDayTime"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -330,7 +337,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@null"
-                    android:hint="7:00 am - 5:00 pm"
+                    android:hint="@string/hint_time"
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -358,7 +365,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@null"
-                    android:hint="Monday - Friday"
+                    android:hint="@string/hint_days"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
                     android:textColor="@color/black"
@@ -376,7 +383,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="About Shop and Images"
+                    android:text="@string/shopAbout"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -411,7 +418,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="We have quality prodects...etc"
+                    android:hint="@string/hint_desc"
                     android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -424,8 +431,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
                 android:onClick="updateData"
-                android:text="Update"
+                android:text="@string/update"
                 android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/astronaut"
                 android:textStyle="bold"
                 app:strokeColor="@color/black"
                 app:strokeWidth="2dp" />
@@ -436,7 +445,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Upload Shop Photos or Images"
+                android:text="@string/uploadImages"
                 android:textColor="@color/Primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -447,7 +456,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="30dp"
-                android:src="@drawable/add_image1" />
+                android:src="@drawable/add_image1"
+                android:contentDescription="@null" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -458,9 +468,10 @@
                     android:id="@+id/btn_uploadImage"
                     android:layout_width="180dp"
                     android:layout_height="60dp"
-                    android:backgroundTint="@color/light_green"
-                    android:text="Upload"
+                    app:backgroundTint="@color/light_green"
+                    android:text="@string/upload"
                     android:textSize="20sp"
+                    android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     app:strokeWidth="2dp" />
 
@@ -469,17 +480,15 @@
                     android:layout_width="180dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="20dp"
-                    android:backgroundTint="@color/light_red"
-                    android:text="Show All"
+                    app:backgroundTint="@color/light_red"
+                    android:text="@string/showAll"
                     android:textSize="20sp"
+                    android:textColor="@color/black"
                     app:strokeColor="@color/black"
-                    app:strokeWidth="2dp" />
-
+                    app:strokeWidth="2dp"
+                    android:layout_marginStart="20dp" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
 
 </ScrollView>

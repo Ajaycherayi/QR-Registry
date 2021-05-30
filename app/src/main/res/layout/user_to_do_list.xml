@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Primary_ExtraLight"
-    tools:context=".ToDoList.CustomerToDoList"
+    tools:context=".ToDoList.UserToDoList"
     android:orientation="vertical">
 
     <LinearLayout
@@ -42,11 +42,12 @@
                 android:layout_gravity="center_horizontal"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="20dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:hint="@string/hint_Title"
                 app:boxStrokeWidth="2dp"
                 app:helperTextTextColor="@color/black"
@@ -58,7 +59,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_title"
                     android:textSize="20sp"
                     android:inputType="textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -77,8 +77,24 @@
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:layout_marginBottom="50dp"
                 android:importantForAutofill="no" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_selectDate"
+            android:layout_width="185dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_selectDate"
+            android:textColorHint="@color/Primary"
+            android:textColor="@color/Primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="5dp"
+            app:startIconTint="@color/black"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            android:layout_marginStart="20dp" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -89,7 +105,7 @@
             app:backgroundTint="@color/white"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="-20dp"
+            android:layout_marginTop="-60dp"
             android:layout_gravity="bottom|end"
             app:fabSize="normal"
             android:contentDescription="@null"

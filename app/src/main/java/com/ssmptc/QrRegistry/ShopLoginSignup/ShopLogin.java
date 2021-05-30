@@ -3,19 +3,26 @@ package com.ssmptc.QrRegistry.ShopLoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ssmptc.QrRegistry.CustomerLoginSignUp.FindShops;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
@@ -23,28 +30,29 @@ import com.ssmptc.QrRegistry.R;
 public class ShopLogin extends AppCompatActivity {
 
     SessionManagerShop managerShop;
+    ImageView btn_back;
 
-    EditText et_shopId, et_phoneNumber, et_password;
+    private TextInputLayout et_shopId, et_phoneNumber, et_password;
+    private ProgressDialog progressDialog;
 
-    ImageView b2;
-
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_login);
+        setContentView(R.layout.shop_login);
 
         et_shopId = findViewById(R.id.login_shopId);
         et_phoneNumber = findViewById(R.id.login_phone);
         et_password = findViewById(R.id.login_password);
-        b2 = findViewById(R.id.btn_backToCd);
-
+        btn_back = findViewById(R.id.btn_backToCd);
 
        managerShop = new SessionManagerShop(getApplicationContext());
-        //String sName = sessionManager.getShopName();
 
-        b2.setOnClickListener(new View.OnClickListener() {
+        if (!isConnected(ShopLogin.this)){
+            showCustomDialog();
+        }
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShopLogin.this, UserDashBoard.class));
@@ -52,15 +60,25 @@ public class ShopLogin extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void login(View view) {
 
 
-        String _shopId = et_shopId.getText().toString().trim();
-        String _phoneNumber = et_phoneNumber.getText().toString().trim();
-        String _password = et_password.getText().toString().trim();
+        if (!validateShopId() | !validatePhoneNumber() | !validatePassword()) {
+
+            return;
+        }
+
+        //Initialize ProgressDialog
+        progressDialog = new ProgressDialog(ShopLogin.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        String _shopId = et_shopId.getEditText().getText().toString().trim();
+        String _phoneNumber = et_phoneNumber.getEditText().getText().toString().trim();
+        String _password = et_password.getEditText().getText().toString().trim();
 
         if (_phoneNumber.charAt(0) == '0') {
 
@@ -78,7 +96,6 @@ public class ShopLogin extends AppCompatActivity {
                 if (snapshot.exists()) {
 
                     Query checkShop = FirebaseDatabase.getInstance().getReference("Shops").child(_shopId).child("Shop Profile");
-
                     checkShop.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -92,12 +109,6 @@ public class ShopLogin extends AppCompatActivity {
                                 if (systemPassword.equals(_password)) {
                                     et_password.setError(null);
 
-                                    //Initialize ProgressDialog
-                                    progressDialog = new ProgressDialog(ShopLogin.this);
-                                    progressDialog.show();
-                                    progressDialog.setContentView(R.layout.progress_dialog);
-                                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
                                     String _phoneNo = dataSnapshot.child("category").getValue(String.class);
                                     String _shopName = dataSnapshot.child("shopName").getValue(String.class);
                                     String _location = dataSnapshot.child("location").getValue(String.class);
@@ -110,15 +121,15 @@ public class ShopLogin extends AppCompatActivity {
 
                                     managerShop.setDetails(_shopId,_phoneNo, _shopName, _location ,_category,_ownerName, _password);
 
-
-
                                     startActivity(new Intent(getApplicationContext(), ShopDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
 
                                 } else {
+                                    progressDialog.dismiss();
                                     Toast.makeText(ShopLogin.this, "Password Doesn't Match!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
+                                progressDialog.dismiss();
                                 Toast.makeText(ShopLogin.this, "Phone Number Incorrect!", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -128,15 +139,14 @@ public class ShopLogin extends AppCompatActivity {
                     });
 
                 } else {
+                    progressDialog.dismiss();
                    Toast.makeText(ShopLogin.this, "User Does Not Exist!", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(ShopLogin.this, "The User Does Not Exist", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -146,4 +156,94 @@ public class ShopLogin extends AppCompatActivity {
         startActivity(new Intent(ShopLogin.this,ShopSignup.class));
         finish();
     }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopLogin.this);
+        builder.setMessage("Please connect to the internet")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(ShopLogin shopLogin) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) shopLogin.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+
+    }
+
+    private boolean validatePassword(){
+        String val = et_password.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_password.setError("Field can not be empty");
+            return false;
+        }else if(val.length() < 8 ){
+            et_password.setError("password should contain 8 characters!");
+            return false;
+        }else {
+            et_password.setError(null);
+            et_password.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean validateShopId(){
+        String val = et_shopId.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_shopId.setError("Field can not be empty");
+            return false;
+        }else if(val.length()>10){
+            et_shopId.setError("Please Enter 10 Digit Phone Number");
+            return false;
+        }else if (!val.matches("\\w*")){
+            et_shopId.setError("White spaces not allowed");
+            return false;
+        }else {
+            et_shopId.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePhoneNumber(){
+        String val = et_phoneNumber.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_phoneNumber.setError("Field can not be empty");
+            return false;
+        }else if(val.length()>10 | val.length()<10){
+            et_phoneNumber.setError("Please Enter 10 Digit Phone Number");
+            return false;
+        }else if (!val.matches("\\w*")){
+            et_phoneNumber.setError("White spaces not allowed");
+            return false;
+        }else {
+            et_phoneNumber.setError(null);
+            return true;
+        }
+    }
+
 }

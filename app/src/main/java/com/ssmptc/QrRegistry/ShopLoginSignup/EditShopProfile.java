@@ -4,25 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.browse.MediaBrowser;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -40,14 +39,15 @@ import com.ssmptc.QrRegistry.DataBase.Model;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
-public class ShopProfile extends AppCompatActivity {
+public class EditShopProfile extends AppCompatActivity {
 
 
     TextView tv_shopName,tv_shopId;
     ImageView btn_back;
+    Button btn_upload,btn_showAll;
+
     private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_ownerName,et_email,et_time,et_days ,et_description;
-    private Button btnUpload,btnShowAll;
-    private ImageView btnChooseImg;
+    private ImageView btn_chooseImg;
     private ProgressDialog progressDialog;
 
     //vars
@@ -59,24 +59,20 @@ public class ShopProfile extends AppCompatActivity {
     SessionManagerShop managerShop;
 
 
-
-    EditText desc;
-
     // Minimum Android Version jellybean
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_profile);
+        setContentView(R.layout.edit_shop_profile);
 
         tv_shopName = findViewById(R.id.tv_shopName);
         tv_shopId = findViewById(R.id.tv_shopId);
         btn_back = findViewById(R.id.btn_backToSd);
 
-        btnChooseImg = findViewById(R.id.btn_chooseImage);
-        btnUpload= findViewById(R.id.btn_uploadImage);
-        btnShowAll= findViewById(R.id.btn_showAllImage);
-
+        btn_chooseImg = findViewById(R.id.btn_chooseImage);
+        btn_upload= findViewById(R.id.btn_uploadImage);
+        btn_showAll= findViewById(R.id.btn_showAllImage);
 
         // Update Details
         et_ShopName = findViewById(R.id.et_shopName);
@@ -89,6 +85,10 @@ public class ShopProfile extends AppCompatActivity {
         et_days = findViewById(R.id.et_Days);
         et_description = findViewById(R.id.et_description);
 
+        //--------------- Internet Checking -----------
+        if (!isConnected(EditShopProfile.this)){
+            showCustomDialog();
+        }
 
         managerShop = new SessionManagerShop(getApplicationContext());
         shopId = managerShop.getShopId();
@@ -104,43 +104,55 @@ public class ShopProfile extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopProfile.this,ShopDashBoard.class));
+                startActivity(new Intent(EditShopProfile.this,ShopDashBoard.class));
                 finish();
             }
         });
 
-        btnChooseImg.setOnClickListener(new View.OnClickListener() {
+        btn_chooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 chooseImage();
-
             }
         });
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+        btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (filePath!= null){
                     uploadImage(filePath);
                 }else{
-                    Toast.makeText(ShopProfile.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditShopProfile.this, "Please Select Image", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
-        btnShowAll.setOnClickListener(new View.OnClickListener() {
+        btn_showAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopProfile.this,ShopImages.class));
+                startActivity(new Intent(EditShopProfile.this,ShopImages.class));
             }
         });
+
+        loadProgressDialog();
+
         dbUpdate();
 
     }
 
+    //-----------------------Progrsss Dialog-------------------
+    private void loadProgressDialog() {
+
+        //Initialize ProgressDialog
+        progressDialog = new ProgressDialog(EditShopProfile.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+    }
+
+    //---------------------Choose Image -----------------------
     private void chooseImage() {
 
         Intent galleryIntent = new Intent();
@@ -153,28 +165,22 @@ public class ShopProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            // checking request code and result code
-            // if request code is PICK_IMAGE_REQUEST and
-            // resultCode is RESULT_OK
-            // then set image in the image view
-            if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
+//-- checking request code and result code if request code is PICK_IMAGE_REQUEST and resultCode is RESULT_OK then set image in the image view--
+
+            if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
                 // Get the Uri of data
                 filePath = data.getData();
-                btnChooseImg.setImageURI(filePath);
+                btn_chooseImg.setImageURI(filePath);
 
             }
 
         }
 
     // UploadImage method
-    private void uploadImage(Uri uri)
-    {
-        //Initialize ProgressDialog
-        progressDialog = new ProgressDialog(ShopProfile.this);
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog);
-        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    private void uploadImage(Uri uri) {
+
+        loadProgressDialog();
 
         final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
 
@@ -185,15 +191,16 @@ public class ShopProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        progressDialog.dismiss();
-
                         Model model = new Model(uri.toString());
                         String modelId = root.push().getKey();
                         if (modelId != null) {
                             root.child(modelId).setValue(model);
                         }
-                        Toast.makeText(ShopProfile.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        btnChooseImg.setImageResource(R.drawable.add_image1);
+
+                        progressDialog.dismiss();
+                        Toast.makeText(EditShopProfile.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        filePath = null;
+                        btn_chooseImg.setImageResource(R.drawable.add_image1);
                     }
                 });
             }
@@ -206,11 +213,12 @@ public class ShopProfile extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(ShopProfile.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditShopProfile.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //--------------------Get image file extension------------------
     private String getFileExtension(Uri mUri){
 
         ContentResolver cr = getContentResolver();
@@ -221,9 +229,7 @@ public class ShopProfile extends AppCompatActivity {
 
     public void updateData(View view) {
 
-
-
-
+        loadProgressDialog();
 
         if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation()) {
 
@@ -232,19 +238,18 @@ public class ShopProfile extends AppCompatActivity {
 
         dbUpdate();
 
-
-
         if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
 
-            //managerShop.setDetails("","",_ShopName,"","","","");
-            Toast.makeText(ShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
         }
-        else Toast.makeText(ShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(EditShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
     }
 
-
-
     private void dbUpdate(){
+
+        progressDialog.setCancelable(false);
+
         Query getShopData = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
         getShopData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -271,7 +276,7 @@ public class ShopProfile extends AppCompatActivity {
                 _days = dataSnapshot.child("working days").getValue(String.class);
                 et_days.getEditText().setText(_days);
 
-
+                progressDialog.dismiss();
 
             }
 
@@ -283,8 +288,8 @@ public class ShopProfile extends AppCompatActivity {
 
     }
 
+    //-----------------------------Check data are changed or updated --------------------------
     private boolean isTimeChanged() {
-
 
         if (!_time.equals(et_time.getEditText().getText().toString())){
             reference.child("working time").setValue(et_time.getEditText().getText().toString());
@@ -292,7 +297,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isDayChanged() {
 
         if (!_days.equals(et_days.getEditText().getText().toString())){
@@ -302,7 +306,6 @@ public class ShopProfile extends AppCompatActivity {
             return false;
 
     }
-
     private boolean isDescriptionChanged() {
         if (!_description.equals(et_description.getEditText().getText().toString())){
 
@@ -311,7 +314,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isEmailChanged() {
         if (!_email.equals(et_email.getEditText().getText().toString())){
 
@@ -320,7 +322,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isLicenseChanged() {
         if (!_LicenseNumber.equals(et_LicenseNumber.getEditText().getText().toString())){
 
@@ -329,7 +330,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isPhoneNumberChanged() {
         if (!_ownerName.equals(et_ownerName.getEditText().getText().toString())){
 
@@ -339,7 +339,6 @@ public class ShopProfile extends AppCompatActivity {
             return false;
 
     }
-
     private boolean isLocationChanged() {
         if (!_location.equals(et_location.getEditText().getText().toString())){
 
@@ -348,7 +347,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isCategoryChanged() {
         if (!_category.equals(et_category.getEditText().getText().toString())){
 
@@ -357,7 +355,6 @@ public class ShopProfile extends AppCompatActivity {
         }else
             return false;
     }
-
     private boolean isNameChanged() {
         if (!_ShopName.equals(et_ShopName.getEditText().getText().toString())){
 
@@ -367,7 +364,7 @@ public class ShopProfile extends AppCompatActivity {
             return false;
     }
 
-
+    //----------------------------- Validate input Text Required ------------------------------
     private boolean validateLicense(){
         String val1 = et_LicenseNumber.getEditText().getText().toString().trim();
 
@@ -436,6 +433,42 @@ public class ShopProfile extends AppCompatActivity {
             et_ownerName.setErrorEnabled(false);
             return true;
         }
+
+    }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditShopProfile.this);
+        builder.setMessage("Please connect to the internet")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(EditShopProfile editShopProfile) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) editShopProfile.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
 
     }
 

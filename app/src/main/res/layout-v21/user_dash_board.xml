@@ -87,7 +87,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"
@@ -123,7 +123,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"
@@ -168,7 +168,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"
@@ -205,7 +205,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"
@@ -250,7 +250,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"
@@ -287,7 +287,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_card">
+                    android:background="@drawable/bg_card_user">
 
                     <ImageView
                         android:layout_width="65dp"

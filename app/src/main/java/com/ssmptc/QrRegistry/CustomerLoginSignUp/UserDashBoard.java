@@ -46,7 +46,7 @@ import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.R.layout;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
 import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
-import com.ssmptc.QrRegistry.ToDoList.CustomerToDoList;
+import com.ssmptc.QrRegistry.ToDoList.UserToDoList;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -491,12 +491,12 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     }
 
     public void TodoList(View view) {
-        startActivity(new Intent(UserDashBoard.this, CustomerToDoList.class));
+        startActivity(new Intent(UserDashBoard.this, UserToDoList.class));
 
     }
 
     public void CustomerProfile(View view) {
-        startActivity(new Intent(UserDashBoard.this, CustomerProfile.class));
+        startActivity(new Intent(UserDashBoard.this, EditUserProfile.class));
 
     }
 

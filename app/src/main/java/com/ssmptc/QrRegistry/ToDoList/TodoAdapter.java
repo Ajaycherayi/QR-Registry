@@ -4,26 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.ssmptc.QrRegistry.DataBase.CustomersModel;
-import com.ssmptc.QrRegistry.DataBase.ShopAdapter;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.List;
 
-public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.Todoviewholder>{
+public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder>{
 
-    private Context mContext;
-    private List<TodoModel> todoList;
+    private final Context mContext;
+    private final List<TodoModel> todoList;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener{
@@ -42,19 +34,45 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.Todoviewholder
     }
     @NonNull
     @Override
-    public Todoviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TodoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.list_todo,parent,false);
-        return new Todoviewholder(v,mListener,todoList);
+        return new TodoViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Todoviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
 
         TodoModel model = todoList.get(position);
-        holder.title.setText(model.getTitle());
-        holder.description.setText(model.getDescription());
 
+        holder.tv_title.setText(model.getTitle());
+        holder.tv_description.setText(model.getDescription());
+        holder.tv_day.setText(model.getDay());
+        holder.tv_month.setText(model.getMonth());
+        holder.tv_year.setText(model.getYear());
 
+        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    if (position != RecyclerView.NO_POSITION){
+                        mListener.onDeleteClick(position);
+                    }
+                }
+
+            }
+        });
+
+        holder.btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    if (position != RecyclerView.NO_POSITION){
+                        mListener.onEditClick(position);
+                    }
+                }
+
+            }
+        });
     }
 
     @Override
@@ -62,51 +80,24 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.Todoviewholder
         return todoList.size();
     }
 
-   public class Todoviewholder extends RecyclerView.ViewHolder {
+    public static class TodoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,description;
-        ImageView btn_edit,btn_delete;
+        TextView tv_title,tv_description,tv_day,tv_month,tv_year;
+        ImageView btn_delete;
+        LinearLayout btn_edit;
 
-        public Todoviewholder(View itemView, OnItemClickListener listener, List<TodoModel> todoList) {
+        public TodoViewHolder(View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.tv_title);
-            description = itemView.findViewById(R.id.tv_description);
+            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_description = itemView.findViewById(R.id.tv_description);
+            tv_day = itemView.findViewById(R.id.tv_day);
+            tv_month = itemView.findViewById(R.id.tv_month);
+            tv_year = itemView.findViewById(R.id.tv_year);
 
 
             btn_edit = itemView.findViewById(R.id.btn_edit);
             btn_delete = itemView.findViewById(R.id.btn_delete);
-
-
-          btn_edit.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  if (listener != null){
-                      int position = getAdapterPosition();
-                      if (position != RecyclerView.NO_POSITION){
-                          listener.onEditClick(position);
-                      }
-                  }
-
-              }
-          });
-
-          btn_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null){
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
-                            listener.onDeleteClick(position);
-                        }
-                    }
-
-                }
-            });
-
         }
-
-
    }
-
 }

@@ -3,17 +3,28 @@ package com.ssmptc.QrRegistry.ShopLoginSignup;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.app.ActivityCompat;
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,38 +38,70 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class ShopQRCode extends AppCompatActivity {
 
-    ImageView output;
-    ImageView back;
+
+    ImageView btn_back,btn_screenshot;
     TextView tv_ShoName;
-    ProgressDialog progressDialog;
 
+    private ProgressDialog progressDialog;
+    private LinearLayout layout_qrCode,bg_screenShot;
+    private ImageView qr_output;
+    private TextView txt_screenShot;
+
+    //--------------- Encryption Variables -----------
     String AES = "AES";
-    private final String keyPass = "qrregistry@shop";
-    String data;
-
+    final String keyPass = "qrregistry@shop";
+    private String data;
+    //------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_q_r_code);
+        setContentView(R.layout.shop_qr_code);
 
-        output = findViewById(R.id.iv_output);
-        back = findViewById(R.id.btn_backToSd);
+        qr_output = findViewById(R.id.qr_output);
+        btn_back = findViewById(R.id.btn_backToSd);
         tv_ShoName = findViewById(R.id.tv_shopName);
+        layout_qrCode = findViewById(R.id.layout_qrCode);
+        btn_screenshot = findViewById(R.id.btn_screenshot);
+        bg_screenShot = findViewById(R.id.bg_screenShot);
+        txt_screenShot = findViewById(R.id.txt_screenShot);
+
         SessionManagerShop managerShop = new SessionManagerShop(getApplicationContext());
         String shopId = managerShop.getShopId();
         String shopName = managerShop.getShopName();
         tv_ShoName.setText(shopName);
 
-        //Initialize ProgressDialog
+        layout_qrCode.setVisibility(View.GONE);
+        bg_screenShot.setVisibility(View.GONE);
+        txt_screenShot.setVisibility(View.GONE);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
+                finish();
+            }
+        });
+
+        //--------------- Internet Checking -----------
+        if (!isConnected(ShopQRCode.this)){
+            showCustomDialog();
+        }
+
+        //--------------- Initialize ProgressDialog -----------
         progressDialog = new ProgressDialog(ShopQRCode.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
@@ -70,11 +113,13 @@ public class ShopQRCode extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                //--------------- Access shop Id to Strings -----------
                 String appName = "QrRegistryShop";
                 String  id = snapshot.child("id").getValue(String.class);
                 String shopName  = snapshot.child("shopName").getValue(String.class);
 
                 try {
+                    assert id != null;
                     data = encrypt(id);
                     MultiFormatWriter writer = new MultiFormatWriter();
                     try {
@@ -87,7 +132,11 @@ public class ShopQRCode extends AppCompatActivity {
 
                         progressDialog.dismiss();
 
-                        output.setImageBitmap(bitmap);
+                        layout_qrCode.setVisibility(View.VISIBLE);
+                        bg_screenShot.setVisibility(View.VISIBLE);
+                        txt_screenShot.setVisibility(View.VISIBLE);
+
+                        qr_output.setImageBitmap(bitmap);
 
                     } catch (WriterException e) {
                         e.printStackTrace();
@@ -96,19 +145,6 @@ public class ShopQRCode extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
-                back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
-                        finish();
-                    }
-                });
-
             }
 
             @Override
@@ -117,14 +153,18 @@ public class ShopQRCode extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
+        //--------------- Button for Screen Shot -----------
+        btn_screenshot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyStoragePermission(ShopQRCode.this);
+                takeScreenshot();
+            }
+        });
 
     }
 
+    //--------------- Encode Data -----------
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private String encrypt(String total) throws Exception{
         SecretKeySpec key = generateKey(keyPass);
@@ -143,4 +183,90 @@ public class ShopQRCode extends AppCompatActivity {
         return new SecretKeySpec(key, "AES"); //SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
 
     }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopQRCode.this);
+        builder.setMessage("Please connect to the internet")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(ShopQRCode shopQRCode) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) shopQRCode.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+
+    }
+
+    //--------------- Screen Shot Function -----------
+    private void takeScreenshot() {
+        String currentDate = new SimpleDateFormat("d-MMM-yy_HH-mm", Locale.getDefault()).format(new Date());
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/"+ "QrRegistry_" + currentDate + ".jpeg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            Toast.makeText(ShopQRCode.this, "Screen Shot Saved in Download Folder", Toast.LENGTH_SHORT).show();
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //--------------- Permission for write screenshot to storage -----------
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static final String [] PERMISSION_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+    public static void verifyStoragePermission(Activity activity){
+
+        int permission = ActivityCompat.checkSelfPermission(activity,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+        if (permission != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(activity,PERMISSION_STORAGE,REQUEST_EXTERNAL_STORAGE);
+        }
+
+
+    }
+
 }

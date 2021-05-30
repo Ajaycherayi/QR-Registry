@@ -166,7 +166,7 @@ public class UserSignUp extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                                    Intent otpIntent = new Intent(UserSignUp.this, CustomerVerification.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    Intent otpIntent = new Intent(UserSignUp.this, UserPhoneNumberVerification.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     otpIntent.putExtra("auth", s);
                                     String phoneNumber = "+91" + et_phoneNumber.getEditText().getText().toString();
                                     otpIntent.putExtra("phoneNumber", phoneNumber);

@@ -28,7 +28,7 @@ import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
 import com.ssmptc.QrRegistry.DataBase.UserData;
 import com.ssmptc.QrRegistry.R;
 
-public class CustomerVerification extends AppCompatActivity {
+public class UserPhoneNumberVerification extends AppCompatActivity {
 
     private PinView get_otp;
     private Button verify_Btn;
@@ -45,7 +45,7 @@ public class CustomerVerification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_verification);
+        setContentView(R.layout.user_phone_number_verification);
 
         get_otp = findViewById(R.id.input_pin);
         verify_Btn = findViewById(R.id.submit_btn);
@@ -75,7 +75,7 @@ public class CustomerVerification extends AppCompatActivity {
                     signInWithPhoneAuthCredential(credential);
                 }else {
 
-                    Toast.makeText(CustomerVerification.this, "Please Enter oTp", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserPhoneNumberVerification.this, "Please Enter oTp", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,7 +84,7 @@ public class CustomerVerification extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(CustomerVerification.this, UserSignUp.class));
+                startActivity(new Intent(UserPhoneNumberVerification.this, UserSignUp.class));
                 finish();
 
             }
@@ -105,7 +105,7 @@ public class CustomerVerification extends AppCompatActivity {
 
                         } else {
 
-                            Toast.makeText(CustomerVerification.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserPhoneNumberVerification.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
 

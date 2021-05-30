@@ -197,7 +197,7 @@ public class ShopDashBoard extends AppCompatActivity {
     }
 
     public void UpdateShopProfile(View view) {
-        startActivity(new Intent(getApplicationContext(),ShopProfile.class));
+        startActivity(new Intent(getApplicationContext(), EditShopProfile.class));
     }
 
     public void CustomerList(View view) {
