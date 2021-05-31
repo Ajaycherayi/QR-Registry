@@ -32,7 +32,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/shop_signup"
+            android:src="@drawable/shop_sign_up"
             android:layout_gravity="center"
             android:layout_marginTop="-40dp"
             android:contentDescription="@null" />
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/phone"
+                android:hint="@string/ownerPhone"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="2dp"
@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/password"
+                android:hint="@string/shopPassword"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="2dp"

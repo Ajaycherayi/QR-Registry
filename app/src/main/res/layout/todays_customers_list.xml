@@ -47,7 +47,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:text="@string/toDay"
-        android:fontFamily="@font/wayfinding_sans_number"
+        android:fontFamily="@font/my_fav_sans_number"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="35sp"

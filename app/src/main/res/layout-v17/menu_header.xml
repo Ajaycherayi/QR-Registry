@@ -4,27 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@drawable/bg_primary"
-    android:paddingLeft="15dp"
+    android:paddingStart="15dp"
     android:paddingTop="15dp"
-    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
     android:orientation="vertical"
     android:layout_centerVertical="true">
-
-
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QR REGISTRY"
+        android:text="@string/app_name"
         android:textStyle="bold"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="35sp"/>
 
     <TextView
-        android:id="@+id/yrsv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STAY HOME STAY SAFE"
+        android:text="@string/stayHome"
         android:textSize="15sp"
         android:textColor="@color/white"
         android:layout_marginBottom="10dp" />
@@ -34,30 +32,26 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:textSize="30sp"
+        android:layout_marginStart="50dp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:fontFamily="@font/wayfinding_sans_number"
+        android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white" />
+
     <TextClock
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:layout_marginLeft="75dp"
-        android:fontFamily="@font/wayfinding_sans_number"
+        android:layout_marginStart="70dp"
+        android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"/>
-
-
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/generated_qr"
-        android:layout_above="@+id/urname"
         android:layout_gravity="end"
        android:layout_marginTop="-115dp"
         android:contentDescription="@null" />
-
-
 </LinearLayout>

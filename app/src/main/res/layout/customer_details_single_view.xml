@@ -30,7 +30,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="283dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:text="@string/name"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -41,7 +41,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:text="@string/list_age"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -67,7 +67,7 @@
                 android:id="@+id/tv_age"
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textColor="@color/black"
                 android:maxLines="1"
                 android:textSize="20sp" />
@@ -76,7 +76,7 @@
                 android:id="@+id/tv_date"
                 android:layout_width="124dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:gravity="end"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -95,14 +95,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_gender"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="261dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -147,7 +147,7 @@
                         android:id="@+id/tv_phoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/wayfinding_sans_number"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="20sp" />

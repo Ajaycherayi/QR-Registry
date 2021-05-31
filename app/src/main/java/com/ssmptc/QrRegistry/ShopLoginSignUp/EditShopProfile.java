@@ -29,8 +29,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.ssmptc.QrRegistry.DataBase.Model;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.Objects;
@@ -197,10 +197,10 @@ public class EditShopProfile extends AppCompatActivity {
 
         fileReference.putFile(uri).addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri1 -> {
 
-            Model model = new Model(uri1.toString());
+            ShopImageUrl shopImageUrl = new ShopImageUrl(uri1.toString());
             String modelId = root.push().getKey();
             if (modelId != null) {
-                root.child(modelId).setValue(model);
+                root.child(modelId).setValue(shopImageUrl);
             }
 
             progressDialog.dismiss();

@@ -21,22 +21,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.ssmptc.QrRegistry.DataBase.Model;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
-import com.ssmptc.QrRegistry.DataBase.ShopAdapter;
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageAdapter;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.ArrayList;
 
-public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemClickListener {
+public class ShopImages extends AppCompatActivity implements ShopImageAdapter.OnItemClickListener {
 
     RecyclerView recyclerView;
     private ProgressDialog progressDialog;
 
     SessionManagerShop managerShop;
 
-    private ArrayList<Model> list;
-    private ShopAdapter shopAdapter;
+    private ArrayList<ShopImageUrl> list;
+    private ShopImageAdapter shopImageAdapter;
     private FirebaseStorage ImgStorage;
     private DatabaseReference shopDb ;
 
@@ -71,11 +71,11 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
 
         list = new ArrayList<>();
 
-        shopAdapter = new ShopAdapter(ShopImages.this,list);
+        shopImageAdapter = new ShopImageAdapter(ShopImages.this,list);
 
-        recyclerView.setAdapter(shopAdapter);
+        recyclerView.setAdapter(shopImageAdapter);
 
-        shopAdapter.setOnItemClickListener(ShopImages.this);
+        shopImageAdapter.setOnItemClickListener(ShopImages.this);
 
         mDBListener = shopDb.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,14 +85,14 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    Model model = dataSnapshot.getValue(Model.class);
-                    assert model != null;
-                    model.setKey(dataSnapshot.getKey());
-                    list.add(model);
+                    ShopImageUrl shopImageUrl = dataSnapshot.getValue(ShopImageUrl.class);
+                    assert shopImageUrl != null;
+                    shopImageUrl.setKey(dataSnapshot.getKey());
+                    list.add(shopImageUrl);
 
                 }
 
-                shopAdapter.notifyDataSetChanged();
+                shopImageAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
             }
 
@@ -115,7 +115,7 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
     @Override
     public void onDeleteClick(int position) {
         Toast.makeText(this, "Delete Click", Toast.LENGTH_SHORT).show();
-        Model selectedItem = list.get(position);
+        ShopImageUrl selectedItem = list.get(position);
         String selectedKey = selectedItem.getKey();
 
         StorageReference imageRef = ImgStorage.getReferenceFromUrl(selectedItem.getImageUrl());

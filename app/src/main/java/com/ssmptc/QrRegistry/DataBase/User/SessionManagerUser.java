@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.User;
 
 import android.content.Context;
 import android.content.SharedPreferences;

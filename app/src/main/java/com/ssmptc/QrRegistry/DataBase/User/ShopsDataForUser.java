@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.User;
 
 public class ShopsDataForUser {
     String id,shopId,name,category,ownerName,location,phoneNumber,email,days,time,description,images;

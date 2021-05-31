@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.User;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,31 +8,32 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.List;
 
-public class ShowImageAdapter extends RecyclerView.Adapter<ShowImageAdapter.ImageViewHolder> {
+public class ShowImageInUserAdapter extends RecyclerView.Adapter<ShowImageInUserAdapter.ImageViewHolder> {
 
     private final Context mContext;
-    private final List<Model> modelList;
+    private final List<ShopImageUrl> shopImageUrlList;
 
-    public ShowImageAdapter(Context context,List<Model> models) {
+    public ShowImageInUserAdapter(Context context, List<ShopImageUrl> shopImageUrls) {
         mContext = context;
-        modelList = models;
+        shopImageUrlList = shopImageUrls;
     }
 
     @NonNull
     @Override
-    public ShowImageAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShowImageInUserAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.shop_image_list,parent,false);
         return new ImageViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShowImageAdapter.ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShowImageInUserAdapter.ImageViewHolder holder, int position) {
 
-        Model uploadCurrent = modelList.get(position);
+        ShopImageUrl uploadCurrent = shopImageUrlList.get(position);
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
                 .placeholder(R.mipmap.ic_launcher)
@@ -44,7 +45,7 @@ public class ShowImageAdapter extends RecyclerView.Adapter<ShowImageAdapter.Imag
 
     @Override
     public int getItemCount() {
-        return modelList.size();
+        return shopImageUrlList.size();
     }
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {

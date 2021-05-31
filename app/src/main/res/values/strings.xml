@@ -3,13 +3,15 @@
     <string name="welcome">W E L C O M E</string>
     <string name="qr_registry"><b> QR CODE  REGISTRY</b></string>
     <string name="powered_by">Powered by Ajay</string>
+    <string name="qrCode">QR CODE</string>
+    <string name="registry">REGISTRY</string>
 
 
     <!-- - - - - - - - - - - Sign Up Page - - - - - - - - - -->
     <string name="login">Login</string>
     <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
-    <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</string>
+    <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
 
     <!--User Login Page -->
     <string name="welcomeTo">Welcome to</string>
@@ -18,11 +20,17 @@
 
     <!-- - - - - - - - - - - Dash Board - - - - - - - - - - -->
 
+    <string name="stayHome">STAY HOME STAY SAFE</string>
+
     <!-- My QR Code -->
+    <string name="myQr">My QR</string>
     <string name="yourQrCode">YOUR QR CODE</string>
     <string name="TapForScreenShot">Tap For ScreenShot</string>
 
+    <string name="scanCode">Scan Code</string>
+
     <!-- Shop Details Scanned -->
+    <string name="scannedShop">Scanned shops</string>
     <string name="shops">Shops</string>
     <string name="searchHint">Search Shop/Location/category</string>
     <!-- Shop Details list -->
@@ -44,6 +52,7 @@
     <string name="shopImages">shop Images</string>
 
     <!-- Find Shops -->
+    <string name="findShop">Find Shop</string>
     <string name="find">F!ND</string>
     <string name="hint_category">Stationary</string>
     <string name="hint_location">Tirur</string>
@@ -55,6 +64,7 @@
     <string name="hint_selectDate">Select date</string>
 
     <!-- Edit Profile -->
+    <string name="editProfile">Edit Profile</string>
     <string name="update_user">Update your details</string>
     <string name="userName">Name<font color='#FF0000'>*</font></string>
     <string name="age">Age<font color='#FF0000'>*</font></string>
@@ -77,7 +87,20 @@
     <string name="shopPassword">Password<font color='#FF0000'>*</font></string>
 
     <!-- - - - - - - - - - - Login Page - - - - - - - - - -->
-    <string name="shopId">Shop ID</string>
+    <string name="shopId">Shop ID<font color='#FF0000'>*</font></string>
+    <!-- - - - - - Login Alert - - - - -->
+    <string name="shopLogin">Shop Login</string>
+    <string name="login_cancel">Cancel</string>
+    <string name="login_disable">Disable</string>
+    <string name="login_login">Login</string>
+
+    <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop, join us.<br />Login or signUp with the LOGIN Button.</string>
+    <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br />hit CANCEL Button.</string>
+    <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br /> hit DISABLE Button.</string>
+    <!-- - - - - - Login Alert - - - - -->
+    <string name="idAlert">I Will Remember This.</string>
+    <string name="ok">Ok</string>
+
 
     <!-- - - - - - - - - - - Phone number verification- - - - - - - - - -->
     <string name="hint_otp">######</string>
@@ -85,6 +108,9 @@
 
     <!-- - - - - - - - - - - Shop Dash Board - - - - - - - - - - -->
     <string name="qrCodeOf">QR CODE OF</string>
+    <string name="scanQr">Scan QR</string>
+    <string name="shopCode">Shop QR Code</string>
+    <string name="updateProfile">Update Profile</string>
 
     <!-- Edit Profile -->
     <string name="id">ID : </string>
@@ -105,7 +131,7 @@
     <string name="showAll">Show All</string>
 
     <!-- Today's Customers List -->
-    <string name="toDay">Today s customers</string>
+    <string name="toDay">Today\'s  customers</string>
     <string name="list_age">Age :\t</string>
     <string name="list_gender">Gender :\t</string>
     <string name="list_phone">Phone Number :\t</string>
@@ -114,7 +140,10 @@
     <!-- all Customers List -->
     <string name="allCustomers">All customers</string>
     <string name="selectDate">select Date</string>
+    <string name="search">Search Customers</string>
 
+    <!-- LogOut -->
+    <string name="logOut">Logout Shop</string>
 
 
     <!-- Menu Page -->
@@ -150,17 +179,16 @@
     <string name="description">Description</string>
     <string name="required"><font color='#FF0000'>*</font> Required</string>
 
-    <!-- Shops Customer Report -->
 
     <string name="time"><b>SELECT TIME</b></string>
     <string name="google_map_key">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
 
-    <!-- Customer Details Page -->
+    <!-- - - - - - - - - - - About - - - - - - - - - -->
+    <string name="version">Version 1.0</string>
+    <string name="coming">Coming Soon…</string>
 
 
 
-    <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop, join us.<br />Login or signUp with the CREATE Button.</string>
-    <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br />hit CANCEL Button.</string>
-    <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br /> hit DISABLE Button.</string>
+
 
 </resources>

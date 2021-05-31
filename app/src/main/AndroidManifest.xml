@@ -4,6 +4,7 @@
     package="com.ssmptc.QrRegistry">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
@@ -21,10 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRegistry"
-        tools:targetApi="r">
+        tools:targetApi="LOLLIPOP">
         <activity android:name=".CustomerLoginSignUp.ShopDetailsSingleView"></activity>
         <activity android:name=".CustomerLoginSignUp.ShowShopImages" />
-        <activity android:name=".AccountSettings" />
+        <activity android:name=".ContactUs" />
         <activity android:name=".AboutQrRegistry" />
         <activity android:name=".CustomerLoginSignUp.ShopDetails" />
         <activity android:name=".ShopLoginSignUp.ShopPhoneNumberVerification" />

@@ -39,8 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ssmptc.QrRegistry.AboutQrRegistry;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
+import com.ssmptc.QrRegistry.ContactUs;
+import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.R.layout;
@@ -196,7 +197,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         switch (id){
 
             case R.id.nav_shop:
-                Toast.makeText(getApplicationContext(), "Switch", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Shop", Toast.LENGTH_SHORT).show();
                 shopLogin();
                 break;
 
@@ -205,26 +206,53 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.nav_contactUs:
-                Toast.makeText(getApplicationContext(), "Profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Contact Us", Toast.LENGTH_SHORT).show();
+                contactUs();
                 break;
 
             case R.id.nav_share:
-                Toast.makeText(getApplicationContext(), "Details", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
+                share();
                 break;
 
             case R.id.nav_about:
-                Toast.makeText(getApplicationContext(), "Account", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
                 about();
                 break;
 
             case R.id.logout:
                 logout();
                 break;
+
+            case R.id.exit:
+                finish();
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void share() {
+
+        try {
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT,"QR Registry");
+            i.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName());
+            startActivity(Intent.createChooser(i,"Share With"));
+
+        }catch (Exception e){
+            Toast.makeText(this, "Unable to share this app.", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private void contactUs() {
+        startActivity(new Intent(getApplicationContext(), ContactUs.class));
     }
 
     private void about() {
@@ -505,7 +533,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserDashBoard.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
+                //.setCancelable(false)
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -531,8 +559,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

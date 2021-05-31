@@ -1,7 +1,6 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.Shop;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,19 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.ssmptc.QrRegistry.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ImageViewHolder> {
+public class ShopImageAdapter extends RecyclerView.Adapter<ShopImageAdapter.ImageViewHolder> {
 
     private Context mContext;
-    private List<Model> modelList;
+    private List<ShopImageUrl> shopImageUrlList;
     private OnItemClickListener mListener;
 
-    public ShopAdapter(Context context,List<Model> models) {
+    public ShopImageAdapter(Context context, List<ShopImageUrl> shopImageUrls) {
 
         mContext = context;
-        modelList = models;
+        shopImageUrlList = shopImageUrls;
 
     }
 
@@ -43,7 +41,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ImageViewHolde
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
 
-        Model uploadCurrent = modelList.get(position);
+        ShopImageUrl uploadCurrent = shopImageUrlList.get(position);
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
                 .placeholder(R.mipmap.ic_launcher)
@@ -55,7 +53,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ImageViewHolde
 
     @Override
     public int getItemCount() {
-        return modelList.size();
+        return shopImageUrlList.size();
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,

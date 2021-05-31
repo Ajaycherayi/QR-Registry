@@ -28,20 +28,20 @@
             android:id="@+id/nav_share"
             android:enabled="true"
             android:title="Share"
-            android:icon="@drawable/ic_update"/>
+            android:icon="@drawable/ic_share"/>
 
 
         <item
             android:id="@+id/logout"
             android:enabled="true"
-            android:title="@string/logout"
+            android:title="Logout"
             android:icon="@drawable/ic_logout"/>
 
         <item
             android:id="@+id/exit"
             android:enabled="true"
             android:title="Exit"
-            android:icon="@drawable/ic_logout"/>
+            android:icon="@drawable/ic_exit"/>
 
     </group>
 

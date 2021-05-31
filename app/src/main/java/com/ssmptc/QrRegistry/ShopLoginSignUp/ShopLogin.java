@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 import java.util.Objects;
 
@@ -56,6 +56,11 @@ public class ShopLogin extends AppCompatActivity {
     }
 
     public void login(View view) {
+
+        if (!isConnected(ShopLogin.this)){
+            showCustomDialog();
+        }
+
 
 
         if (!validateShopId() | !validatePhoneNumber() | !validatePassword()) {

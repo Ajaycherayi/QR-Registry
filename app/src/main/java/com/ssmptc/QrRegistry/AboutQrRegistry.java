@@ -9,6 +9,6 @@ public class AboutQrRegistry extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_qr_registry);
+        setContentView(R.layout.about_qr_registry);
     }
 }

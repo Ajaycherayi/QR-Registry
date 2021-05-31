@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,11 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -37,8 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
-import com.ssmptc.QrRegistry.DataBase.ShopsData;
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopsData;
 import com.ssmptc.QrRegistry.R;
 
 import java.util.concurrent.TimeUnit;
@@ -101,12 +96,9 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
         mobile = mobile.substring(0, 3) + "*****" + mobile.substring(9);
         tv_phoneNo.setText(mobile);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShopPhoneNumberVerification.this, ShopSignUp.class));
-                finish();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(ShopPhoneNumberVerification.this, ShopSignUp.class));
+            finish();
         });
 
         CountTimer();
@@ -131,143 +123,127 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
         //**********************************************************************************//
 
 
-        btn_signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_signUp.setOnClickListener(v -> {
 
 
-                if (!validateOtp()) {
-                    return;
-                }
+            if (!validateOtp()) {
+                return;
+            }
 
-                //Initialize ProgressDialog
-                progressDialog = new ProgressDialog(ShopPhoneNumberVerification.this);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            //Initialize ProgressDialog
+            progressDialog = new ProgressDialog(ShopPhoneNumberVerification.this);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                String enteredOtp = et_otp.getText().toString();
+            String enteredOtp = et_otp.getText().toString();
 
-                if(getOtp != null){
+            /*                if(getOtp != null){
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
                     FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 nodeId = String.valueOf(node+1000);
+            */
 
-                                Dialog dialog = new Dialog(ShopPhoneNumberVerification.this);
-                                dialog.setContentView(R.layout.alert_dialog);
-                                CheckBox checkBox = dialog.findViewById(R.id.check_box);
-                                Button btCancel = dialog.findViewById(R.id.bt_cancel);
-                                Button btOk = dialog.findViewById(R.id.bt_ok);
-                                TextView shopId = dialog.findViewById(R.id.tv_shopId);
+            if(getOtp != null){
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        nodeId = String.valueOf(node+1000);
 
-                                shopId.setText(nodeId);
+                        Dialog dialog = new Dialog(ShopPhoneNumberVerification.this);
+                        dialog.setContentView(R.layout.id_alert_dialog);
+                        CheckBox checkBox = dialog.findViewById(R.id.check_box);
+                        Button btCancel = dialog.findViewById(R.id.bt_cancel);
+                        Button btOk = dialog.findViewById(R.id.bt_ok);
+                        TextView shopId = dialog.findViewById(R.id.tv_shopId);
 
-                                btCancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                                dialog.cancel();
-                                            }
-                                });
-                                btOk.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                                dialog.dismiss();
-                                            }
-                                });
-                                checkBox.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (checkBox.isChecked()){
+                        shopId.setText(nodeId);
 
-                                            btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
-                                            btOk.setEnabled(true);
-                                            btOk.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
+                        btCancel.setOnClickListener(v1 -> dialog.cancel());
+                        btOk.setOnClickListener(v1 -> dialog.dismiss());
+                        checkBox.setOnClickListener(v1 -> {
+                            if (checkBox.isChecked()){
 
-                                                    DatabaseReference rff;
-                                                    rff = FirebaseDatabase.getInstance().getReference().child("Shops");
+                                btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
+                                btOk.setEnabled(true);
+                                btOk.setOnClickListener(v11 -> {
 
-                                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
-                                                    ShopsData addNewShop = new ShopsData(nodeId,phoneNumber, shopName, location, category, ownerName, password);
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").child("licenseNumber").setValue("");
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").child("email").setValue("");
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").child("description").setValue("");
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working time").setValue("");
-                                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").child("working days").setValue("");
+                                    DatabaseReference rff;
+                                    rff = FirebaseDatabase.getInstance().getReference().child("Shops");
 
-                                                    Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");
+                                    String email = "";
+                                    String licenseNumber = "";
+                                    String description = "";
+                                    String workingTime = "";
+                                    String workingDays = "";
 
-                                                    shopData.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(@NonNull DataSnapshot snapshotData) {
+                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
+                                    ShopsData addNewShop = new ShopsData(nodeId,shopName,category,location,ownerName,phoneNumber,password,email,licenseNumber,description,workingTime,workingDays);
+                                    rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
 
-                                                            String _shopName = snapshotData.child("shopName").getValue(String.class);
-                                                            String _phoneNo = snapshotData.child("phoneNumber").getValue(String.class);
-                                                            String _password = snapshotData.child("password").getValue(String.class);
-                                                            String _shopId = snapshotData.child("id").getValue(String.class);
+                                    Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");
 
-                                                            managerShop.setShopLogin(true);
-                                                            managerShop.setDetails(_shopId, _shopName, _password);
+                                    shopData.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshotData) {
 
-                                                            progressDialog.dismiss();
+                                            String _shopName = snapshotData.child("shopName").getValue(String.class);
+                                            String _password = snapshotData.child("password").getValue(String.class);
+                                            String _shopId = snapshotData.child("id").getValue(String.class);
 
-                                                            Intent intent = new Intent(getApplicationContext(),ShopDashBoard.class);
-                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                            startActivity(intent);
-                                                        }
+                                            managerShop.setShopLogin(true);
+                                            managerShop.setDetails(_shopId, _shopName, _password);
 
-                                                        @Override
-                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            progressDialog.dismiss();
 
-                                                                }
-                                                    });
+                                            Intent intent = new Intent(getApplicationContext(),ShopDashBoard.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        }
 
-                                                    dialog.dismiss();
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
                                                 }
-                                            });
+                                    });
 
-                                        }else {
-                                            btOk.setEnabled(false);
-                                            btOk.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-                                        }
-                                    }
+                                    dialog.dismiss();
+
                                 });
 
-                                dialog.show();
-
                             }else {
-                                progressDialog.dismiss();
-                                Toast.makeText(ShopPhoneNumberVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
+                                btOk.setEnabled(false);
+                                btOk.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                             }
-                        }
-                    });
-                }
+                        });
 
+                        dialog.show();
+
+                    }else {
+                        progressDialog.dismiss();
+                        Toast.makeText(ShopPhoneNumberVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
+
         });
 
-        btn_resend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_resend.setOnClickListener(v -> {
 
-                PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
-                        .setPhoneNumber(phoneNumber)
-                        .setTimeout(60L,TimeUnit.SECONDS) //Time Out Set
-                        .setActivity(ShopPhoneNumberVerification.this)
-                        .setCallbacks(mCallbacks)
-                        .build();
+            PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                    .setPhoneNumber(phoneNumber)
+                    .setTimeout(60L,TimeUnit.SECONDS) //Time Out Set
+                    .setActivity(ShopPhoneNumberVerification.this)
+                    .setCallbacks(mCallbacks)
+                    .build();
 
-                PhoneAuthProvider.verifyPhoneNumber(options);
+            PhoneAuthProvider.verifyPhoneNumber(options);
 
-                CountTimer();
-            }
+            CountTimer();
         });
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -315,10 +291,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ShopPhoneNumberVerification.this);
-        builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+        /*                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -330,6 +303,15 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), ShopSignUp.class));
                         finish();
                     }
+    */
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopPhoneNumberVerification.this);
+        builder.setMessage("Please connect to the internet")
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), ShopSignUp.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -343,8 +325,9 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

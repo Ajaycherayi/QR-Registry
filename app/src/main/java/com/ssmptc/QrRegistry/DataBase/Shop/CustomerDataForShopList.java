@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.Shop;
 
 public class CustomerDataForShopList {
 

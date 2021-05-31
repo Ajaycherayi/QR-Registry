@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
 import com.ssmptc.QrRegistry.R;
 import java.util.ArrayList;
 import java.util.Calendar;

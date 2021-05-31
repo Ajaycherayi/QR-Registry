@@ -44,7 +44,7 @@
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:textSize="25sp"
-            android:fontFamily="@font/wayfinding_sans_number"
+            android:fontFamily="@font/my_fav_sans_number"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"/>
 

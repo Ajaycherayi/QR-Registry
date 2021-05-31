@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.Shop;
 
 import android.content.Context;
 import android.text.TextUtils;

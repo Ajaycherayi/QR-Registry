@@ -9,7 +9,7 @@
         <!-- Background Color -->
         <item name="colorControlHighlight">@color/Primary_light</item>
         <item name="listPreferredItemHeightSmall">60dp</item>
-        <item name="fontFamily">@font/wayfinding_sans_number</item>
+        <item name="fontFamily">@font/my_fav_sans_number</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="sizePercent">25</item>
         <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>

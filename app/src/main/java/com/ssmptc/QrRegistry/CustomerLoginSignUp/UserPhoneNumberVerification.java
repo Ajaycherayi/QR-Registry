@@ -3,20 +3,26 @@ package com.ssmptc.QrRegistry.CustomerLoginSignUp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.chaos.view.PinView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,96 +30,228 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
-import com.ssmptc.QrRegistry.DataBase.UserData;
+import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.User.UserData;
 import com.ssmptc.QrRegistry.R;
+import java.util.concurrent.TimeUnit;
 
 public class UserPhoneNumberVerification extends AppCompatActivity {
 
-    private PinView get_otp;
-    private Button verify_Btn;
-    private String back_otp;
-    private TextView show_name;
-    private ImageView b1;
+    Button btn_signUp;
+    TextView tv_phoneNo;
+    ImageView btn_back;
 
     SessionManagerUser managerCustomer;
 
-    private String name,age,gender,password,phoneNo,location,email,address;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
+    private TextView btn_resend,tv_counter,tv_resend;
+    private EditText et_otp;
+    private ProgressDialog progressDialog;
+
+    private String name,age,gender,password,phoneNumber,location,getOtp;
     private FirebaseAuth firebaseAuth;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_phone_number_verification);
 
-        get_otp = findViewById(R.id.input_pin);
-        verify_Btn = findViewById(R.id.submit_btn);
-        show_name = findViewById(R.id.show);
-        b1 = findViewById(R.id.btn_backSignUpPage);
+        et_otp = findViewById(R.id.et_otp);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        btn_back = findViewById(R.id.btn_back);
+        btn_signUp = findViewById(R.id.btn_signUp);
+        btn_resend = findViewById(R.id.btn_resend);
 
-       // String phone_No = getIntent().getStringExtra("phoneNo");
-        back_otp = getIntent().getStringExtra("auth");
+        tv_counter = findViewById(R.id.tv_counter);
+        tv_resend = findViewById(R.id.tv_resend);
+        tv_phoneNo = findViewById(R.id.tv_phoneNo);
 
+        getOtp = getIntent().getStringExtra("auth");
         name = getIntent().getStringExtra("name");
         location = getIntent().getStringExtra("location");
         age = getIntent().getStringExtra("age");
         gender = getIntent().getStringExtra("gender");
         password = getIntent().getStringExtra("password");
-        phoneNo = getIntent().getStringExtra("phoneNumber");
-        show_name.setText(phoneNo);
-        email = "";
-        address = "";
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
+
+        btn_resend.setVisibility(View.INVISIBLE);
+        tv_resend.setVisibility(View.INVISIBLE);
+
+        if (!isConnected(UserPhoneNumberVerification.this)){
+            showCustomDialog();
+        }
 
         managerCustomer = new SessionManagerUser(getApplicationContext());
 
-        verify_Btn.setOnClickListener(new View.OnClickListener() {
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        String mobile = phoneNumber;
+        mobile = mobile.substring(0, 3) + "*****" + mobile.substring(9);
+        tv_phoneNo.setText(mobile);
+
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(UserPhoneNumberVerification.this, UserSignUp.class));
+            finish();
+        });
+
+        CountTimer();
+
+        btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ver_code = get_otp.getText().toString();
-                if (!ver_code.isEmpty()){
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(back_otp,ver_code);
-                    signInWithPhoneAuthCredential(credential);
-                }else {
 
-                    Toast.makeText(UserPhoneNumberVerification.this, "Please Enter oTp", Toast.LENGTH_SHORT).show();
+                if (!validateOtp()) {
+                    return;
                 }
-            }
-        });
+                //Initialize ProgressDialog
+                progressDialog = new ProgressDialog(UserPhoneNumberVerification.this);
+                progressDialog.show();
+                progressDialog.setCancelable(false);
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                String enteredOtp = et_otp.getText().toString();
 
-                startActivity(new Intent(UserPhoneNumberVerification.this, UserSignUp.class));
-                finish();
+                /*                if(getOtp != null){
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
+                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                nodeId = String.valueOf(node+1000);
+            */
 
-            }
-        });
-
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                if (getOtp != null) {
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
+                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
 
                             storeNewUserData();
 
                         } else {
-
-                            Toast.makeText(UserPhoneNumberVerification.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                            progressDialog.dismiss();
+                            Toast.makeText(UserPhoneNumberVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
                         }
 
+                    });
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(UserPhoneNumberVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btn_resend.setOnClickListener(v -> {
+
+            PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                    .setPhoneNumber(phoneNumber)
+                    .setTimeout(60L, TimeUnit.SECONDS) //Time Out Set
+                    .setActivity(UserPhoneNumberVerification.this)
+                    .setCallbacks(mCallbacks)
+                    .build();
+
+            PhoneAuthProvider.verifyPhoneNumber(options);
+
+            CountTimer();
+        });
+
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                // Automatic Verification
+            }
+
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+                getOtp = s;
+                Toast.makeText(UserPhoneNumberVerification.this, "OTP Send Successfully", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+    }
+
+    private void CountTimer() {
+        new CountDownTimer(60000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                long counter = millisUntilFinished / 1000;
+                tv_counter.setText( counter + " Sec");
+                if (counter<15){
+                    tv_counter.setTextColor(getResources().getColor(R.color.light_red));
+                }
+            }
+
+            public void onFinish() {
+
+                tv_counter.setVisibility(View.INVISIBLE);
+                btn_resend.setVisibility(View.VISIBLE);
+                tv_resend.setVisibility(View.VISIBLE);
+            }
+
+        }.start();
+    }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        /*                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                     }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), ShopSignUp.class));
+                        finish();
+                    }
+                */
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserPhoneNumberVerification.this);
+        builder.setMessage("Please connect to the internet")
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), UserSignUp.class));
+                    finish();
                 });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(UserPhoneNumberVerification verification) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) verification.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
+    }
+
+    private boolean validateOtp(){
+        String val = et_otp.getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_otp.setError("Field can not be empty");
+            return false;
+        }else {
+            et_otp.setError(null);
+            return true;
+        }
+
     }
 
 
@@ -122,28 +260,27 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Users");
 
-        //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        String email = "";
+        String address = "";
 
-        UserData addNewUser = new UserData(name,phoneNo,age,gender,password,location,email,address);
-        reference.child(phoneNo).child("Profile").setValue(addNewUser);
-        reference.child(phoneNo).child("phoneNo").setValue(phoneNo);
+        UserData addNewUser = new UserData(name,phoneNumber,age,gender,password,location,email,address);
+        reference.child(phoneNumber).child("Profile").setValue(addNewUser);
+        reference.child(phoneNumber).child("phoneNumber").setValue(phoneNumber);
 
-
-
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(phoneNo);
+        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
-                String _name = snapshot.child(phoneNo).child("Profile").child("name").getValue(String.class);
-                String _phoneNo = snapshot.child(phoneNo).child("Profile").child("phoneNumber").getValue(String.class);
-                String _password = snapshot.child(phoneNo).child("Profile").child("password").getValue(String.class);
-
+                String _name = snapshot.child(phoneNumber).child("Profile").child("name").getValue(String.class);
+                String _phoneNo = snapshot.child(phoneNumber).child("Profile").child("phoneNumber").getValue(String.class);
+                String _password = snapshot.child(phoneNumber).child("Profile").child("password").getValue(String.class);
 
                 managerCustomer.setCustomerLogin(true);
                 managerCustomer.setDetails(_name, _phoneNo, _password);
+
+                progressDialog.dismiss();
 
                 startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();

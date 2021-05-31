@@ -25,9 +25,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
-import com.ssmptc.QrRegistry.DataBase.ShopDetailsAdapter;
-import com.ssmptc.QrRegistry.DataBase.ShopsDataForUser;
+import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.User.ShopDetailsAdapter;
+import com.ssmptc.QrRegistry.DataBase.User.ShopsDataForUser;
 import com.ssmptc.QrRegistry.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,7 +186,7 @@ public class ShopDetails extends AppCompatActivity {
     private void MoreShopDetails(int position) {
 
         ShopsDataForUser data = dataForUser.get(position);
-        String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers Model
+        String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers ShopImageUrl
         String keyId = data.getId(); // Get User DataBase Key
 
         Intent intent = new Intent(ShopDetails.this,ShopDetailsSingleView.class);
@@ -246,7 +246,7 @@ public class ShopDetails extends AppCompatActivity {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShopDetails.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
+                //.setCancelable(false)
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -272,8 +272,9 @@ public class ShopDetails extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

@@ -18,14 +18,14 @@
         android:theme="@style/navTheme"
         android:background="@drawable/bg_white"
         android:layout_gravity="start"
-        app:headerLayout="@layout/menu_header"
         app:menu="@menu/main_menu"
         app:itemTextColor="@color/black"
         app:itemIconSize="35dp"
+        android:clickable="true"
         app:itemHorizontalPadding="20dp"
         app:itemIconPadding="15dp"
         app:itemIconTint="@color/black"
-        />
+        android:focusable="true" />
 
 
     <LinearLayout
@@ -45,7 +45,8 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/user"/>
+                android:src="@drawable/user"
+                android:contentDescription="@null" />
 
             <TextView
                 android:id="@+id/get_name"
@@ -53,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
                 android:gravity="center_horizontal"
-                android:text="User name"
                 android:textAlignment="center"
                 android:textSize="25sp"
                 android:textAllCaps="true"
@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="generateQR"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -94,7 +94,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/qr_code" />
+                        android:src="@drawable/ic_qr_code2"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -102,9 +103,11 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="My QR"
+                        android:text="@string/myQr"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -118,7 +121,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -130,7 +133,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/barcode_scanner" />
+                        android:src="@drawable/ic_qr_code_scan1"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -138,9 +142,11 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Scan Code"
+                        android:text="@string/scanCode"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -163,7 +169,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="ScannedShops"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -175,7 +181,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/shop"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -183,9 +190,11 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Scanned shops"
+                        android:text="@string/scannedShop"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -200,7 +209,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="mapFind"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -212,7 +221,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/user" />
+                        android:src="@drawable/ic_shop_location"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,9 +230,11 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Map"
+                        android:text="@string/findShops"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -243,8 +255,9 @@
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="TodoList"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -256,7 +269,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/user" />
+                        android:src="@drawable/todo"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -264,9 +278,11 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="To do List"
+                        android:text="@string/todoList"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
 
                 </RelativeLayout>
@@ -279,8 +295,9 @@
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="CustomerProfile"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                app:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -292,7 +309,8 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/user" />
+                        android:src="@drawable/ic_edit_profile"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -300,24 +318,14 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
-                        android:text="My Profile"
+                        android:text="@string/editProfile"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textSize="25sp" />
-
                 </RelativeLayout>
-
             </com.google.android.material.card.MaterialCardView>
-
-
         </LinearLayout>
-
-
-
-
     </LinearLayout>
-
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

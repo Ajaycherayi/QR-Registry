@@ -14,8 +14,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.DataBase.Model;
-import com.ssmptc.QrRegistry.DataBase.ShowImageAdapter;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
+import com.ssmptc.QrRegistry.DataBase.User.ShowImageInUserAdapter;
 import com.ssmptc.QrRegistry.R;
 import java.util.ArrayList;
 
@@ -36,8 +34,8 @@ public class ShowShopImages extends AppCompatActivity {
     String shopId;
     DatabaseReference shopDb ;
 
-    private ArrayList<Model> list;
-    private ShowImageAdapter imageAdapter;
+    private ArrayList<ShopImageUrl> list;
+    private ShowImageInUserAdapter imageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +66,7 @@ public class ShowShopImages extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        imageAdapter = new ShowImageAdapter(ShowShopImages.this,list);
+        imageAdapter = new ShowImageInUserAdapter(ShowShopImages.this,list);
 
         recyclerView.setAdapter(imageAdapter); // Set Adapter Into RecyclerView
 
@@ -81,10 +79,10 @@ public class ShowShopImages extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                    Model model = dataSnapshot.getValue(Model.class);
-                    assert model != null; // Model Not Null
-                    model.setKey(dataSnapshot.getKey());
-                    list.add(model);
+                    ShopImageUrl shopImageUrl = dataSnapshot.getValue(ShopImageUrl.class);
+                    assert shopImageUrl != null; // ShopImageUrl Not Null
+                    shopImageUrl.setKey(dataSnapshot.getKey());
+                    list.add(shopImageUrl);
                 }
                 imageAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
@@ -103,7 +101,7 @@ public class ShowShopImages extends AppCompatActivity {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShowShopImages.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
+                //.setCancelable(false)
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -129,8 +127,9 @@ public class ShowShopImages extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

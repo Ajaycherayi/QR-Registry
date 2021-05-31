@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.User;
 
 public class UserData {
     String name,phoneNumber,age,gender,password,location,email,address;

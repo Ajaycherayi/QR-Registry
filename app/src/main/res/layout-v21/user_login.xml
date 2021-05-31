@@ -154,8 +154,7 @@
             android:transitionName="transition_signUp"
             app:cornerRadius="5dp"
             app:strokeColor="@color/Primary"
-            app:strokeWidth="2dp"
-            tools:targetApi="lollipop" />
+            app:strokeWidth="2dp"/>
 
     </LinearLayout>
 

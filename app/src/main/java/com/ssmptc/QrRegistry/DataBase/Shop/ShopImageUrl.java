@@ -1,15 +1,15 @@
-package com.ssmptc.QrRegistry.DataBase;
+package com.ssmptc.QrRegistry.DataBase.Shop;
 
 import com.google.firebase.database.Exclude;
 
-public class Model {
+public class ShopImageUrl {
 
     private String ImageUrl;
     private String mKey;
-    public Model(){
+    public ShopImageUrl(){
 
     }
-    public Model(String imageUrl){
+    public ShopImageUrl(String imageUrl){
         this.ImageUrl = imageUrl;
     }
 

@@ -45,7 +45,7 @@
             android:text=""
             android:textSize="25sp"
             android:textStyle="bold"
-            android:fontFamily="@font/wayfinding_sans_number"
+            android:fontFamily="@font/my_fav_sans_number"
             android:layout_marginBottom="20dp"
             android:textColor="@color/white"
             android:gravity="center_horizontal"
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/list_category"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                  />
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
         </LinearLayout>
         <LinearLayout
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_location"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
             <TextView
                 android:id="@+id/tv_location"
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
         </LinearLayout>
         <LinearLayout
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_owner"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
             <TextView
                 android:id="@+id/tv_ownerName"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
         </LinearLayout>
         <LinearLayout
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_phoneNo"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
             <TextView
                 android:id="@+id/tv_phoneNumber"
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_email"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
             <TextView
                 android:id="@+id/tv_email"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_days"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
             <TextView
                 android:id="@+id/tv_wDays"
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_time"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
             <TextView
                 android:id="@+id/tv_wTime"
@@ -209,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
@@ -222,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/list_desc"
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp"/>
             <TextView
                 android:id="@+id/tv_description"
@@ -230,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
-                android:fontFamily="@font/wayfinding_sans_number"
+                android:fontFamily="@font/my_fav_sans_number"
                 android:textSize="25sp" />
         </LinearLayout>
         <com.google.android.material.button.MaterialButton

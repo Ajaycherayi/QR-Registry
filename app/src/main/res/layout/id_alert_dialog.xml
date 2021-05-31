@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center"
@@ -13,14 +13,14 @@
         android:layout_width="360dp"
         android:layout_height="100dp"
         android:background="@android:color/holo_red_light"
-        android:src="@drawable/ic_alert"/>
+        android:src="@drawable/ic_alert"
+        android:contentDescription="@null" />
     
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_shopId"
         android:textColor="@color/black"
-        android:text="Readed"
         android:textSize="40sp"
         android:textStyle="bold"/>
 
@@ -30,9 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginLeft="40dp"
-        android:text="I Will Remember This."
+        android:text="@string/idAlert"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginStart="40dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,25 +43,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bt_cancel"
-            android:text="cancel"
+            android:text="@string/login_cancel"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/light_red"
-            tools:ignore="UnusedAttribute" />
+            app:backgroundTint="@color/light_red"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bt_ok"
-            android:text="ok"
+            android:text="@string/ok"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:enabled="false"
             android:backgroundTint="@android:color/primary_text_light"
-            tools:ignore="UnusedAttribute" />
+            tools:ignore="ButtonStyle,UnusedAttribute" />
 
 
     </LinearLayout>

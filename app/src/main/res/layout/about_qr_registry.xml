@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutQrRegistry"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:autoSizeTextType="uniform"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:targetApi="o" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/version"
+        android:autoSizeTextType="uniform"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        tools:targetApi="o" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/generated_qr"
+        android:contentDescription="@null" />
+
+
+
+
+</LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserSignUp;
-import com.ssmptc.QrRegistry.DataBase.SessionManagerUser;
+import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,16 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        qr=findViewById(R.id.qr_txt);
         powered=findViewById(R.id.powered);
 
         //Splash Animation
         side= AnimationUtils.loadAnimation(this,R.anim.side_anim);
         bottom= AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
 
-        //Set The Animation
-        //qr.setAnimation(bottom);
-       // qr_img.setAnimation(bottom);
         powered.setAnimation(bottom);
 
         new Handler().postDelayed(new Runnable() {
