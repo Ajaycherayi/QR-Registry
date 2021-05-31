@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,14 +15,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,19 +28,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.ssmptc.QrRegistry.DataBase.Model;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
+
+import java.util.Objects;
 
 public class EditShopProfile extends AppCompatActivity {
 
 
     TextView tv_shopName,tv_shopId;
     ImageView btn_back;
-    Button btn_upload,btn_showAll;
+    Button btn_upload,btn_showAll,btn_update;
 
     private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_ownerName,et_email,et_time,et_days ,et_description;
     private ImageView btn_chooseImg;
@@ -70,6 +66,7 @@ public class EditShopProfile extends AppCompatActivity {
         tv_shopId = findViewById(R.id.tv_shopId);
         btn_back = findViewById(R.id.btn_backToSd);
 
+        btn_update = findViewById(R.id.btn_update);
         btn_chooseImg = findViewById(R.id.btn_chooseImage);
         btn_upload= findViewById(R.id.btn_uploadImage);
         btn_showAll= findViewById(R.id.btn_showAllImage);
@@ -101,39 +98,43 @@ public class EditShopProfile extends AppCompatActivity {
         root = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
         storageReference = FirebaseStorage.getInstance().getReference("ShopImages").child(shopId);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EditShopProfile.this,ShopDashBoard.class));
-                finish();
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(EditShopProfile.this,ShopDashBoard.class));
+            finish();
+        });
+
+        btn_update.setOnClickListener(v -> {
+
+            loadProgressDialog();
+
+            if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation()) {
+
+                return;
+            }
+
+            dbUpdate();
+
+            if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
+
+                Toast.makeText(EditShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
+            }
+            else Toast.makeText(EditShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+
+        });
+
+        btn_chooseImg.setOnClickListener(v -> chooseImage());
+
+        btn_upload.setOnClickListener(v -> {
+
+            if (filePath!= null){
+                uploadImage(filePath);
+            }else{
+                Toast.makeText(EditShopProfile.this, "Please Select Image", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btn_chooseImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
-
-        btn_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (filePath!= null){
-                    uploadImage(filePath);
-                }else{
-                    Toast.makeText(EditShopProfile.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btn_showAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EditShopProfile.this,ShopImages.class));
-            }
-        });
+        btn_showAll.setOnClickListener(v -> startActivity(new Intent(EditShopProfile.this,ShopImages.class)));
 
         loadProgressDialog();
 
@@ -141,7 +142,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
 
-    //-----------------------Progrsss Dialog-------------------
+    //-----------------------Progress Dialog-------------------
     private void loadProgressDialog() {
 
         //Initialize ProgressDialog
@@ -184,37 +185,40 @@ public class EditShopProfile extends AppCompatActivity {
 
         final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
 
-        fileReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+        /*-----------------------------------------------------------------------------------------------------------------------------
+               fileReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+       -------------------------------------------------------------------------------------------------------------------------------*/
 
-                        Model model = new Model(uri.toString());
-                        String modelId = root.push().getKey();
-                        if (modelId != null) {
-                            root.child(modelId).setValue(model);
-                        }
+        fileReference.putFile(uri).addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri1 -> {
 
-                        progressDialog.dismiss();
-                        Toast.makeText(EditShopProfile.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        filePath = null;
-                        btn_chooseImg.setImageResource(R.drawable.add_image1);
-                    }
-                });
+            Model model = new Model(uri1.toString());
+            String modelId = root.push().getKey();
+            if (modelId != null) {
+                root.child(modelId).setValue(model);
             }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+            progressDialog.dismiss();
+            Toast.makeText(EditShopProfile.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+            filePath = null;
+            btn_chooseImg.setImageResource(R.drawable.add_image1);
+
+            /*-------------------------------------------------------------------------------
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+             -------------------------------------------------------------------------------*/
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Toast.makeText(EditShopProfile.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
-            }
+        })).addOnProgressListener(snapshot -> {
+
+        }).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(EditShopProfile.this, "Uploading Failed !!", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -227,54 +231,43 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
 
-    public void updateData(View view) {
-
-        loadProgressDialog();
-
-        if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation()) {
-
-            return;
-        }
-
-        dbUpdate();
-
-        if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
-
-            Toast.makeText(EditShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
-        }
-        else Toast.makeText(EditShopProfile.this, "Data is same and can not be Updated", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-    }
-
+    //--------------------Update Shop Data------------------
     private void dbUpdate(){
 
-        progressDialog.setCancelable(false);
 
         Query getShopData = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Profile");
         getShopData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
                 _ShopName = dataSnapshot.child("shopName").getValue(String.class);
-                et_ShopName.getEditText().setText(_ShopName);
+                Objects.requireNonNull(et_ShopName.getEditText()).setText(_ShopName);
+
                 tv_shopName.setText(dataSnapshot.child("shopName").getValue(String.class));
                 _category = dataSnapshot.child("category").getValue(String.class);
-                et_category.getEditText().setText(_category);
+
+                Objects.requireNonNull(et_category.getEditText()).setText(_category);
                 _location = dataSnapshot.child("location").getValue(String.class);
-                et_location.getEditText().setText(_location);
+
+                Objects.requireNonNull(et_location.getEditText()).setText(_location);
                 _ownerName = dataSnapshot.child("ownerName").getValue(String.class);
-                et_ownerName.getEditText().setText(_ownerName);
+
+                Objects.requireNonNull(et_ownerName.getEditText()).setText(_ownerName);
                 _LicenseNumber = dataSnapshot.child("licenseNumber").getValue(String.class);
-                et_LicenseNumber.getEditText().setText(_LicenseNumber);
+
+                Objects.requireNonNull(et_LicenseNumber.getEditText()).setText(_LicenseNumber);
                 _email = dataSnapshot.child("email").getValue(String.class);
-                et_email.getEditText().setText(_email);
+
+                Objects.requireNonNull(et_email.getEditText()).setText(_email);
                 _description = dataSnapshot.child("description").getValue(String.class);
-                et_description.getEditText().setText(_description);
+
+                Objects.requireNonNull(et_description.getEditText()).setText(_description);
                 _time = dataSnapshot.child("working time").getValue(String.class);
-                et_time.getEditText().setText(_time);
+
+                Objects.requireNonNull(et_time.getEditText()).setText(_time);
                 _days = dataSnapshot.child("working days").getValue(String.class);
-                et_days.getEditText().setText(_days);
+
+                Objects.requireNonNull(et_days.getEditText()).setText(_days);
 
                 progressDialog.dismiss();
 
@@ -291,7 +284,7 @@ public class EditShopProfile extends AppCompatActivity {
     //-----------------------------Check data are changed or updated --------------------------
     private boolean isTimeChanged() {
 
-        if (!_time.equals(et_time.getEditText().getText().toString())){
+        if (!_time.equals(Objects.requireNonNull(et_time.getEditText()).getText().toString())){
             reference.child("working time").setValue(et_time.getEditText().getText().toString());
             return true;
         }else
@@ -299,7 +292,7 @@ public class EditShopProfile extends AppCompatActivity {
     }
     private boolean isDayChanged() {
 
-        if (!_days.equals(et_days.getEditText().getText().toString())){
+        if (!_days.equals(Objects.requireNonNull(et_days.getEditText()).getText().toString())){
             reference.child("working days").setValue(et_days.getEditText().getText().toString());
             return true;
         }else
@@ -307,7 +300,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean isDescriptionChanged() {
-        if (!_description.equals(et_description.getEditText().getText().toString())){
+        if (!_description.equals(Objects.requireNonNull(et_description.getEditText()).getText().toString())){
 
             reference.child("description").setValue(et_description.getEditText().getText().toString());
             return true;
@@ -315,7 +308,8 @@ public class EditShopProfile extends AppCompatActivity {
             return false;
     }
     private boolean isEmailChanged() {
-        if (!_email.equals(et_email.getEditText().getText().toString())){
+
+        if (!_email.equals(Objects.requireNonNull(et_email.getEditText()).getText().toString())){
 
             reference.child("email").setValue(et_email.getEditText().getText().toString());
             return true;
@@ -323,7 +317,7 @@ public class EditShopProfile extends AppCompatActivity {
             return false;
     }
     private boolean isLicenseChanged() {
-        if (!_LicenseNumber.equals(et_LicenseNumber.getEditText().getText().toString())){
+        if (!_LicenseNumber.equals(Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString())){
 
             reference.child("licenseNumber").setValue(et_LicenseNumber.getEditText().getText().toString());
             return true;
@@ -331,7 +325,7 @@ public class EditShopProfile extends AppCompatActivity {
             return false;
     }
     private boolean isPhoneNumberChanged() {
-        if (!_ownerName.equals(et_ownerName.getEditText().getText().toString())){
+        if (!_ownerName.equals(Objects.requireNonNull(et_ownerName.getEditText()).getText().toString())){
 
             reference.child("ownerNameNumber").setValue(et_ownerName.getEditText().getText().toString());
             return true;
@@ -340,7 +334,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean isLocationChanged() {
-        if (!_location.equals(et_location.getEditText().getText().toString())){
+        if (!_location.equals(Objects.requireNonNull(et_location.getEditText()).getText().toString())){
 
             reference.child("location").setValue(et_location.getEditText().getText().toString());
             return true;
@@ -348,7 +342,7 @@ public class EditShopProfile extends AppCompatActivity {
             return false;
     }
     private boolean isCategoryChanged() {
-        if (!_category.equals(et_category.getEditText().getText().toString())){
+        if (!_category.equals(Objects.requireNonNull(et_category.getEditText()).getText().toString())){
 
             reference.child("category").setValue(et_category.getEditText().getText().toString());
             return true;
@@ -356,7 +350,7 @@ public class EditShopProfile extends AppCompatActivity {
             return false;
     }
     private boolean isNameChanged() {
-        if (!_ShopName.equals(et_ShopName.getEditText().getText().toString())){
+        if (!_ShopName.equals(Objects.requireNonNull(et_ShopName.getEditText()).getText().toString())){
 
             reference.child("shopName").setValue(et_ShopName.getEditText().getText().toString());
             return true;
@@ -366,7 +360,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     //----------------------------- Validate input Text Required ------------------------------
     private boolean validateLicense(){
-        String val1 = et_LicenseNumber.getEditText().getText().toString().trim();
+        String val1 = Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString().trim();
 
         if (val1.isEmpty()){
             et_LicenseNumber.setError("Day can not be empty");
@@ -380,7 +374,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean validateShopName(){
-        String val1 = et_ShopName.getEditText().getText().toString().trim();
+        String val1 = Objects.requireNonNull(et_ShopName.getEditText()).getText().toString().trim();
 
         if (val1.isEmpty()){
             et_ShopName.setError("Field can not be empty");
@@ -394,7 +388,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean validateLocation(){
-        String val1 = et_location.getEditText().getText().toString().trim();
+        String val1 = Objects.requireNonNull(et_location.getEditText()).getText().toString().trim();
 
         if (val1.isEmpty()){
             et_location.setError("Field can not be empty");
@@ -408,7 +402,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean validateCategory(){
-        String val1 = et_category.getEditText().getText().toString().trim();
+        String val1 = Objects.requireNonNull(et_category.getEditText()).getText().toString().trim();
 
         if (val1.isEmpty()){
             et_category.setError("Field can not be empty");
@@ -422,7 +416,7 @@ public class EditShopProfile extends AppCompatActivity {
 
     }
     private boolean validateOwnerName(){
-        String val1 = et_ownerName.getEditText().getText().toString().trim();
+        String val1 = Objects.requireNonNull(et_ownerName.getEditText()).getText().toString().trim();
 
         if (val1.isEmpty()){
             et_ownerName.setError("Field can not be empty");
@@ -441,19 +435,11 @@ public class EditShopProfile extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditShopProfile.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
-                        finish();
-                    }
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -467,8 +453,9 @@ public class EditShopProfile extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

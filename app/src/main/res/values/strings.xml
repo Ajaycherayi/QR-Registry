@@ -9,6 +9,7 @@
     <string name="login">Login</string>
     <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
+    <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</string>
 
     <!--User Login Page -->
     <string name="welcomeTo">Welcome to</string>
@@ -103,6 +104,16 @@
     <string name="upload">Upload</string>
     <string name="showAll">Show All</string>
 
+    <!-- Today's Customers List -->
+    <string name="toDay">Today s customers</string>
+    <string name="list_age">Age :\t</string>
+    <string name="list_gender">Gender :\t</string>
+    <string name="list_phone">Phone Number :\t</string>
+    <string name="list_address">Address :\t</string>
+
+    <!-- all Customers List -->
+    <string name="allCustomers">All customers</string>
+    <string name="selectDate">select Date</string>
 
 
 

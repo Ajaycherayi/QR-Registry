@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class UserSignUp extends AppCompatActivity {
 
     //Variable
-    private TextInputLayout et_userName,et_age,et_phoneNumber,et_password;
+    private TextInputLayout et_userName,et_age,et_phoneNumber,et_password,et_location;
     Button btn_getOtp,btn_login;
 
     RadioGroup rg_gender;
@@ -50,6 +50,7 @@ public class UserSignUp extends AppCompatActivity {
         setContentView(R.layout.user_signup);
 
         et_userName = findViewById(R.id.et_userName);
+        et_location = findViewById(R.id.et_location);
         et_age = findViewById(R.id.et_age);
         et_password = findViewById(R.id.et_password);
         et_phoneNumber = findViewById(R.id.et_phoneNumber);
@@ -83,7 +84,7 @@ public class UserSignUp extends AppCompatActivity {
             public void onClick(View v) {
 
                 //EditText Validations
-                if (!validatePhoneNumber()  | !validateUserName() | !validateAge() | !validatePassword() | !validateGender()) {
+                if (!validatePhoneNumber()  | !validateUserName() | !validateAge() | !validatePassword() | !validateGender() | !validateLocation()) {
 
                     return;
                 }
@@ -172,10 +173,12 @@ public class UserSignUp extends AppCompatActivity {
                                     otpIntent.putExtra("phoneNumber", phoneNumber);
 
                                     String name = et_userName.getEditText().getText().toString();
+                                    String location = et_location.getEditText().getText().toString();
                                     String age = et_age.getEditText().getText().toString();
                                     String gender = rb_selectedGender.getText().toString();
                                     String password = et_password.getEditText().getText().toString();
                                     otpIntent.putExtra("name", name);
+                                    otpIntent.putExtra("location", location);
                                     otpIntent.putExtra("age", age);
                                     otpIntent.putExtra("gender", gender);
                                     otpIntent.putExtra("password", password);
@@ -205,6 +208,18 @@ public class UserSignUp extends AppCompatActivity {
             return false;
         }else {
             et_phoneNumber.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateLocation() {
+        String val = et_location.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_location.setError("Field can not be empty");
+            return false;
+        }else {
+            et_location.setError(null);
             return true;
         }
     }

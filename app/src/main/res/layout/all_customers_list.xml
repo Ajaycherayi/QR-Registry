@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:backgroundTint="@color/Primary"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".ShopLoginSignup.ShopCustomersList">
+    android:background="@color/Primary"
+    tools:context=".ShopLoginSignUp.TodayCustomers">
 
     <ImageView
         android:id="@+id/btn_backToSd"
@@ -23,6 +22,7 @@
         android:contentDescription="@null"
         android:focusable="true"
         android:layout_marginStart="20dp" />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -30,6 +30,7 @@
         android:layout_marginTop="-55dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@null" />
+
     <View
         android:layout_width="150dp"
         android:layout_height="2dp"
@@ -43,36 +44,68 @@
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
-        android:text="Today's customers"
+        android:text="@string/allCustomers"
         android:fontFamily="@font/wayfinding_sans_number"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="35sp"
         tools:ignore="MissingConstraints" />
-    <View
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sort_date"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"/>
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="80dp"
+        android:fontFamily="@font/wayfinding_sans_number"
+        android:hint="@string/selectDate"
+        android:textColorHint="@color/black"
+        android:textColor="@color/Primary"
+        android:textSize="20sp"
+        app:backgroundTint="@color/white"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black"
+        app:cornerRadius="5dp"
+        app:startIconTint="@color/black" />
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/bg_todo_list"
+        android:hint="@string/searchHint"
+        android:inputType="text"
+        android:maxHeight="20dp"
+        android:maxLength="100"
+        android:maxLines="1"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintBlack"
+        android:textSize="20sp"
+        android:importantForAutofill="no" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/customersView"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginRight="1dp" />
+        android:background="@drawable/bg_lower"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:paddingTop="30dp"
+        android:layout_marginHorizontal="5dp">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/customersView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

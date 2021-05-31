@@ -1,17 +1,20 @@
 package com.ssmptc.QrRegistry.DataBase;
 
 public class UserData {
-    String name,phoneNumber,age,gender,password;
+    String name,phoneNumber,age,gender,password,location,email,address;
 
     public UserData() {
     }
 
-    public UserData(String name, String phoneNumber, String age, String gender, String password) {
+    public UserData(String name, String phoneNumber, String age, String gender, String password, String location, String email, String address) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.age = age;
         this.gender = gender;
         this.password = password;
+        this.location = location;
+        this.email = email;
+        this.address = address;
     }
 
     public String getName() {
@@ -52,5 +55,29 @@ public class UserData {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

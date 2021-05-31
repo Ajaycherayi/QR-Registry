@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -62,7 +61,6 @@ public class ShopQRCode extends AppCompatActivity {
 
     //--------------- Encryption Variables -----------
     String AES = "AES";
-    final String keyPass = "qrregistry@shop";
     private String data;
     //------------------------------------------------
 
@@ -88,12 +86,9 @@ public class ShopQRCode extends AppCompatActivity {
         bg_screenShot.setVisibility(View.GONE);
         txt_screenShot.setVisibility(View.GONE);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
-                finish();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
+            finish();
         });
 
         //--------------- Internet Checking -----------
@@ -154,12 +149,9 @@ public class ShopQRCode extends AppCompatActivity {
         });
 
         //--------------- Button for Screen Shot -----------
-        btn_screenshot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyStoragePermission(ShopQRCode.this);
-                takeScreenshot();
-            }
+        btn_screenshot.setOnClickListener(v -> {
+            verifyStoragePermission(ShopQRCode.this);
+            takeScreenshot();
         });
 
     }
@@ -167,6 +159,7 @@ public class ShopQRCode extends AppCompatActivity {
     //--------------- Encode Data -----------
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private String encrypt(String total) throws Exception{
+        String keyPass = "qrregistry@shop";
         SecretKeySpec key = generateKey(keyPass);
         Cipher c = Cipher.getInstance(AES);
         c.init(Cipher.ENCRYPT_MODE,key);
@@ -189,19 +182,11 @@ public class ShopQRCode extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ShopQRCode.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
-                        finish();
-                    }
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -215,8 +200,9 @@ public class ShopQRCode extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 
@@ -260,12 +246,10 @@ public class ShopQRCode extends AppCompatActivity {
 
         int permission = ActivityCompat.checkSelfPermission(activity,Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-
         if (permission != PackageManager.PERMISSION_GRANTED){
 
             ActivityCompat.requestPermissions(activity,PERMISSION_STORAGE,REQUEST_EXTERNAL_STORAGE);
         }
-
 
     }
 

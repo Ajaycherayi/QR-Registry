@@ -1,12 +1,10 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +23,10 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.R;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ShopSignup extends AppCompatActivity {
+public class ShopSignUp extends AppCompatActivity {
 
    private FirebaseAuth firebaseAuth;
    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -62,52 +60,46 @@ public class ShopSignup extends AppCompatActivity {
 
         btn_back = findViewById(R.id.btn_backToCd);
 
-        if (!isConnected(ShopSignup.this)){
+        if (!isConnected(ShopSignUp.this)){
             showCustomDialog();
         }
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShopSignup.this, UserDashBoard.class));
-                finish();
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(ShopSignUp.this, UserDashBoard.class));
+            finish();
 
-            }
         });
 
-        btn_getOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_getOtp.setOnClickListener(v -> {
 
-                if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() | !validatePassword() | !validatePhoneNumber()) {
+            if (!validateShopName() | !validateShopCategory() | !validateShopLocation() | !validateOwnerName() | !validatePassword() | !validatePhoneNumber()) {
 
-                    return;
-                }
-
-                //Initialize ProgressDialog
-                progressDialog = new ProgressDialog(ShopSignup.this);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                shopName = et_shopName.getEditText().getText().toString();
-                location = et_shopLocation.getEditText().getText().toString();
-                category = et_shopCategory.getEditText().getText().toString();
-                ownerName = et_ownerName.getEditText().getText().toString();
-                password = et_password.getEditText().getText().toString();
-                String phoneNumber = et_phoneNumber.getEditText().getText().toString();
-
-                cPhoneNumber = "+91"+phoneNumber;
-
-                PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
-                        .setPhoneNumber(cPhoneNumber)
-                        .setTimeout(60L,TimeUnit.SECONDS) //Time Out Set
-                        .setActivity(ShopSignup.this)
-                        .setCallbacks(mCallbacks)
-                        .build();
-
-                PhoneAuthProvider.verifyPhoneNumber(options);
+                return;
             }
+
+            //Initialize ProgressDialog
+            progressDialog = new ProgressDialog(ShopSignUp.this);
+            progressDialog.show();
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+            shopName = Objects.requireNonNull(et_shopName.getEditText()).getText().toString();
+            location = Objects.requireNonNull(et_shopLocation.getEditText()).getText().toString();
+            category = Objects.requireNonNull(et_shopCategory.getEditText()).getText().toString();
+            ownerName = Objects.requireNonNull(et_ownerName.getEditText()).getText().toString();
+            password = Objects.requireNonNull(et_password.getEditText()).getText().toString();
+            String phoneNumber = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString();
+
+            cPhoneNumber = "+91"+phoneNumber;
+
+            PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                    .setPhoneNumber(cPhoneNumber)
+                    .setTimeout(60L,TimeUnit.SECONDS) //Time Out Set
+                    .setActivity(ShopSignUp.this)
+                    .setCallbacks(mCallbacks)
+                    .build();
+
+            PhoneAuthProvider.verifyPhoneNumber(options);
         });
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -125,12 +117,12 @@ public class ShopSignup extends AppCompatActivity {
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
 
-                Toast.makeText(ShopSignup.this, "OTP is Send", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopSignUp.this, "OTP is Send", Toast.LENGTH_SHORT).show();
                 codeSend = s;
 
                 progressDialog.dismiss();
 
-                Intent intent = new Intent(ShopSignup.this, ShopPhoneNumberVerification.class);
+                Intent intent = new Intent(ShopSignUp.this, ShopPhoneNumberVerification.class);
                 intent.putExtra("otp",codeSend);
                 intent.putExtra("shopName",shopName);
                 intent.putExtra("location",location);
@@ -146,32 +138,13 @@ public class ShopSignup extends AppCompatActivity {
 
     public void ToLogin(View view) {
 
-        startActivity(new Intent(ShopSignup.this,ShopLogin.class));
+        startActivity(new Intent(ShopSignUp.this,ShopLogin.class));
         finish();
 
     }
 
-  private boolean validateAll(){
-        String val = et_phoneNumber.getEditText().getText().toString().trim();
-        String checkspaces = "\\A\\w{4,20}\\z";
-
-        if (val.isEmpty()){
-            et_shopName.setError("Field can not be empty");
-            return false;
-        }else if(val.length()>25){
-            et_shopName.setError("ShopName is too large!");
-            return false;
-        }else if (!val.matches(checkspaces)){
-            et_shopName.setError("White spaces not allowed");
-         return false;
-        }else {
-            et_shopName.setError(null);
-            return true;
-        }
-
-    }
     private boolean validateShopName(){
-        String val = et_shopName.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_shopName.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_shopName.setError("Field can not be empty");
@@ -187,7 +160,7 @@ public class ShopSignup extends AppCompatActivity {
 
     }
     private boolean validateShopLocation(){
-        String val = et_shopLocation.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_shopLocation.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_shopLocation.setError("Field can not be empty");
@@ -200,7 +173,7 @@ public class ShopSignup extends AppCompatActivity {
 
     }
     private boolean validateShopCategory(){
-        String val = et_shopCategory.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_shopCategory.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_shopCategory.setError("Field can not be empty");
@@ -213,7 +186,7 @@ public class ShopSignup extends AppCompatActivity {
 
     }
     private boolean validatePhoneNumber(){
-        String val = et_phoneNumber.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_phoneNumber.setError("Field can not be empty");
@@ -230,7 +203,7 @@ public class ShopSignup extends AppCompatActivity {
         }
     }
     private boolean validateOwnerName(){
-        String val = et_ownerName.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_ownerName.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_ownerName.setError("Field can not be empty");
@@ -243,7 +216,7 @@ public class ShopSignup extends AppCompatActivity {
 
     }
     private boolean validatePassword(){
-        String val = et_password.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_password.setError("Field can not be empty");
@@ -262,21 +235,13 @@ public class ShopSignup extends AppCompatActivity {
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ShopSignup.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopSignUp.this);
         builder.setMessage("Please connect to the internet")
                 .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),ShopLogin.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -284,14 +249,15 @@ public class ShopSignup extends AppCompatActivity {
     }
 
     //--------------- Check Internet Is Connected -----------
-    private boolean isConnected(ShopSignup shopSignup) {
+    private boolean isConnected(ShopSignUp shopSignup) {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) shopSignup.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.FindShops;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.ShopsData;
 import com.ssmptc.QrRegistry.R;
@@ -105,7 +104,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopPhoneNumberVerification.this,ShopSignup.class));
+                startActivity(new Intent(ShopPhoneNumberVerification.this, ShopSignUp.class));
                 finish();
             }
         });
@@ -209,15 +208,12 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                                                         public void onDataChange(@NonNull DataSnapshot snapshotData) {
 
                                                             String _shopName = snapshotData.child("shopName").getValue(String.class);
-                                                            String _category = snapshotData.child("category").getValue(String.class);
-                                                            String _location = snapshotData.child("location").getValue(String.class);
                                                             String _phoneNo = snapshotData.child("phoneNumber").getValue(String.class);
-                                                            String _ownerName = snapshotData.child("ownerName").getValue(String.class);
                                                             String _password = snapshotData.child("password").getValue(String.class);
                                                             String _shopId = snapshotData.child("id").getValue(String.class);
 
                                                             managerShop.setShopLogin(true);
-                                                            managerShop.setDetails(_shopId,_phoneNo, _shopName, _location, _category, _ownerName, _password);
+                                                            managerShop.setDetails(_shopId, _shopName, _password);
 
                                                             progressDialog.dismiss();
 
@@ -331,7 +327,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), ShopSignup.class));
+                        startActivity(new Intent(getApplicationContext(), ShopSignUp.class));
                         finish();
                     }
                 });

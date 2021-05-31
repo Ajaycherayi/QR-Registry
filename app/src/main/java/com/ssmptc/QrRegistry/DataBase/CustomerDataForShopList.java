@@ -1,18 +1,41 @@
 package com.ssmptc.QrRegistry.DataBase;
 
-public class UsersDataForShop {
-    String name,phoneNumber,age,gender,currentDate,currentTime;
+public class CustomerDataForShopList {
 
-    public UsersDataForShop() {
+    String id,name,phoneNumber,email,age,gender,address,currentDate,currentTime;
+
+    private boolean expandable;
+
+    public CustomerDataForShopList() {
     }
 
-    public UsersDataForShop(String name, String phoneNumber, String age, String gender, String currentDate, String currentTime) {
+    public boolean isExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        this.expandable = expandable;
+    }
+
+    public CustomerDataForShopList(String id, String name, String phoneNumber, String email, String age, String gender, String address, String currentDate, String currentTime) {
+        this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.email = email;
         this.age = age;
         this.gender = gender;
+        this.address = address;
         this.currentDate = currentDate;
         this.currentTime = currentTime;
+        this.expandable = false;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,6 +54,14 @@ public class UsersDataForShop {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getAge() {
         return age;
     }
@@ -45,6 +76,14 @@ public class UsersDataForShop {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCurrentDate() {

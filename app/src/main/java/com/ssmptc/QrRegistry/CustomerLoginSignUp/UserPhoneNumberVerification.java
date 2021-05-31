@@ -38,7 +38,7 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
 
     SessionManagerUser managerCustomer;
 
-    private String name,age,gender,password,phoneNo;
+    private String name,age,gender,password,phoneNo,location,email,address;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private FirebaseAuth firebaseAuth;
 
@@ -58,11 +58,14 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
         back_otp = getIntent().getStringExtra("auth");
 
         name = getIntent().getStringExtra("name");
+        location = getIntent().getStringExtra("location");
         age = getIntent().getStringExtra("age");
         gender = getIntent().getStringExtra("gender");
         password = getIntent().getStringExtra("password");
         phoneNo = getIntent().getStringExtra("phoneNumber");
         show_name.setText(phoneNo);
+        email = "";
+        address = "";
 
         managerCustomer = new SessionManagerUser(getApplicationContext());
 
@@ -121,10 +124,8 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
 
         //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        UserData addNewUser = new UserData(name,phoneNo,age,gender,password);
+        UserData addNewUser = new UserData(name,phoneNo,age,gender,password,location,email,address);
         reference.child(phoneNo).child("Profile").setValue(addNewUser);
-        reference.child(phoneNo).child("Profile").child("email").setValue("");
-        reference.child(phoneNo).child("Profile").child("address").setValue("");
         reference.child(phoneNo).child("phoneNo").setValue(phoneNo);
 
 

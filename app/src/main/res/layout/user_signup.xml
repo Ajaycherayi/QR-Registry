@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/signup"
+                android:src="@drawable/sign_up"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:contentDescription="@null" />

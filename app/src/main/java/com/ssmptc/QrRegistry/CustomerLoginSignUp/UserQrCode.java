@@ -86,7 +86,7 @@ public class UserQrCode extends AppCompatActivity {
         //--------------- Initialize ProgressDialog -----------
         progressDialog = new ProgressDialog(UserQrCode.this);
         progressDialog.show();
-        progressDialog.setCancelable(false);
+        //progressDialog.setCancelable(false);
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -104,23 +104,11 @@ public class UserQrCode extends AppCompatActivity {
                 String appName = "QrRegistryUser";
                 String name = snapshot.child("name").getValue(String.class);
                 String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
-                String age = snapshot.child("age").getValue(String.class);
-                String gender = snapshot.child("gender").getValue(String.class);
-                String email = snapshot.child("email").getValue(String.class);
-                String address = snapshot.child("address").getValue(String.class);
-
-                if (email.equals("")){ // if email is empty
-                    email = " ";
-                }
-                if (address.equals("")){ // if address is empty
-                    address = " ";
-                }
-
-                String forEncode = phoneNumber + ":" + age + ":" + gender + ":" + email + ":" + address;
 
                 //--------------- Encoding Data -----------
                 try {
-                    String encodedData = encrypt(forEncode);
+                   // assert phoneNumber != null;
+                    String encodedData = encrypt(phoneNumber);
                     MultiFormatWriter writer = new MultiFormatWriter();
 
                     //--------------- Create QR code -----------
@@ -176,7 +164,7 @@ public class UserQrCode extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UserQrCode.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
+             //   .setCancelable(false)
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -202,8 +190,9 @@ public class UserQrCode extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

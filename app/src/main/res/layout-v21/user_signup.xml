@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/Primary_ExtraLight"
+    android:background="@color/Primary"
     tools:context=".CustomerLoginSignUp.UserSignUp"
     android:transitionName="transition_signUp">
 
@@ -25,15 +25,15 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/signup"
+                android:src="@drawable/sign_up"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/SignUpWith"
                 android:textSize="20sp"
                 android:textColor="@color/white"
@@ -60,8 +60,7 @@
             android:background="@drawable/bg_lower"
             android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:layout_marginHorizontal="15dp">
 
 
 
@@ -69,7 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:layout_margin="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -77,8 +77,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/name"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/userName"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="1dp"
@@ -91,10 +91,36 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:digits="@string/allowedName"/>
 
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_location"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/shopLocation"
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="2dp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:hintTextColor="@color/black"
+                    app:startIconDrawable="@drawable/ic_location"
+                    app:startIconTint="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintBlack"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -102,15 +128,15 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="Age"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/age"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="1dp"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/black"
                     app:hintTextColor="@color/black"
-                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconDrawable="@drawable/ic_age"
                     app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -125,10 +151,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose Gender"
+                    android:text="@string/gender"
                     android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="15dp"/>
 
                 <RadioGroup
                     android:id="@+id/radio_group"
@@ -142,23 +168,26 @@
                         android:id="@+id/radio_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Male"
+                        android:text="@string/male"
+                        android:buttonTint="@color/Primary"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/radio_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Female"
-                        android:layout_marginLeft="10dp"
+                        android:text="@string/female"
+                        android:layout_marginStart="10dp"
+                        android:buttonTint="@color/Primary"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/radio_other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Other"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/other"
+                        android:buttonTint="@color/Primary"
                         android:textColor="@color/black" />
 
 
@@ -176,8 +205,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/phone"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/ownerPhone"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="1dp"
@@ -201,8 +230,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/password"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/shopPassword"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="1dp"

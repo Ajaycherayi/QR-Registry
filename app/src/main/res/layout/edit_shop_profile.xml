@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopLoginSignup.EditShopProfile"
+    tools:context=".ShopLoginSignUp.EditShopProfile"
     android:background="@color/Primary">
     <LinearLayout
         android:layout_width="match_parent"
@@ -426,11 +426,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
-                android:onClick="updateData"
                 android:text="@string/update"
                 android:textSize="20sp"
                 android:textColor="@color/white"

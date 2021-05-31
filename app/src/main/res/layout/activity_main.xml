@@ -32,7 +32,7 @@
             android:layout_height="180dp"
             android:layout_gravity="center"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/home_page" />
+            app:lottie_rawRes="@raw/progress_code" />
 
         <TextView
             android:id="@+id/qr_txt"

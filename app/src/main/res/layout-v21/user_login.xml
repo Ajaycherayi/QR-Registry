@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".CustomerLoginSignUp.UserLogin"
-    android:background="@color/Primary_ExtraLight"
+    android:background="@color/Primary"
     android:orientation="vertical"
     android:transitionName="transition_login">
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/Primary_ExtraLight">
+        android:background="@color/Primary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="15dp"
         android:background="@drawable/bg_lower">
 
         <LinearLayout
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/phone"
+                android:hint="@string/ownerPhone"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/password"
+                android:hint="@string/shopPassword"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"

@@ -251,6 +251,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_sendMail"
                 android:layout_width="wrap_content"
@@ -260,7 +261,8 @@
                 app:icon="@drawable/ic_email"
                 app:iconTint="@color/black"
                 app:strokeColor="@color/black"
-                app:strokeWidth="2dp"/>
+                app:strokeWidth="2dp" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_locate"
                 android:layout_width="wrap_content"

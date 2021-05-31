@@ -23,11 +23,6 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
     private List<ShopsDataForUser> copyList;
     private OnItemClickListener mListener;
 
-
-
-
-
-
     public interface OnItemClickListener{
         void onCallClick(int position);
         void onMessageClick(int position);

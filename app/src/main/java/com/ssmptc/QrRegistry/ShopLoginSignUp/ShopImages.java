@@ -1,16 +1,19 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.AdapterView;
+import android.provider.Settings;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,16 +30,15 @@ import java.util.ArrayList;
 
 public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemClickListener {
 
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
+    private ProgressDialog progressDialog;
+
+    SessionManagerShop managerShop;
+
     private ArrayList<Model> list;
     private ShopAdapter shopAdapter;
-    private SessionManagerShop managerShop;
-    private String shopId;
-    ProgressDialog progressDialog;
-
-
-    private FirebaseStorage mStorage;
-    private DatabaseReference root ;
+    private FirebaseStorage ImgStorage;
+    private DatabaseReference shopDb ;
 
     private ValueEventListener mDBListener;
 
@@ -45,6 +47,12 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_images);
 
+        //--------------- Internet Checking -----------
+        if (!isConnected(ShopImages.this)){
+            showCustomDialog();
+        }
+
+
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(ShopImages.this);
         progressDialog.show();
@@ -52,10 +60,10 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         managerShop = new SessionManagerShop(getApplicationContext());
-        shopId = managerShop.getShopId();
+        String shopId = managerShop.getShopId();
 
-        mStorage= FirebaseStorage.getInstance();
-        root = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
+        ImgStorage= FirebaseStorage.getInstance();
+        shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
 
         recyclerView = findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
@@ -69,11 +77,7 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
 
         shopAdapter.setOnItemClickListener(ShopImages.this);
 
-
-        //shopAdapter = new ShopAdapter(this,list);
-
-
-       mDBListener = root.addValueEventListener(new ValueEventListener() {
+        mDBListener = shopDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -82,17 +86,14 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
                     Model model = dataSnapshot.getValue(Model.class);
+                    assert model != null;
                     model.setKey(dataSnapshot.getKey());
                     list.add(model);
 
                 }
 
                 shopAdapter.notifyDataSetChanged();
-
-
-
                 progressDialog.dismiss();
-
             }
 
             @Override
@@ -101,10 +102,8 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
                 progressDialog.dismiss();
 
                 Toast.makeText(ShopImages.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
-
 
     }
 
@@ -119,16 +118,13 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
         Model selectedItem = list.get(position);
         String selectedKey = selectedItem.getKey();
 
-        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
+        StorageReference imageRef = ImgStorage.getReferenceFromUrl(selectedItem.getImageUrl());
 
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
+        imageRef.delete().addOnSuccessListener(aVoid -> {
 
-                root.child(selectedKey).removeValue();
-                Toast.makeText(ShopImages.this, "Item Deleted..", Toast.LENGTH_SHORT).show();
+            shopDb.child(selectedKey).removeValue();
+            Toast.makeText(ShopImages.this, "Item Deleted..", Toast.LENGTH_SHORT).show();
 
-            }
         });
 
     }
@@ -136,6 +132,37 @@ public class ShopImages extends AppCompatActivity implements ShopAdapter.OnItemC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        root.removeEventListener(mDBListener);
+        shopDb.removeEventListener(mDBListener);
     }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopImages.this);
+        builder.setMessage("Please connect to the internet")
+                //   .setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), EditShopProfile.class));
+                    finish();
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(ShopImages shopImages) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) shopImages.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
+    }
+
+
 }

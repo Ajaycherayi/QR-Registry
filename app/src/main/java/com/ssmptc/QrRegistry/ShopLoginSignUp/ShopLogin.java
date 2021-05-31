@@ -1,12 +1,10 @@
-package com.ssmptc.QrRegistry.ShopLoginSignup;
+package com.ssmptc.QrRegistry.ShopLoginSignUp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,17 +13,16 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.FindShops;
 import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
+import java.util.Objects;
 
 public class ShopLogin extends AppCompatActivity {
 
@@ -34,7 +31,6 @@ public class ShopLogin extends AppCompatActivity {
 
     private TextInputLayout et_shopId, et_phoneNumber, et_password;
     private ProgressDialog progressDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +48,9 @@ public class ShopLogin extends AppCompatActivity {
             showCustomDialog();
         }
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShopLogin.this, UserDashBoard.class));
-                finish();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(ShopLogin.this, UserDashBoard.class));
+            finish();
         });
 
     }
@@ -76,9 +69,9 @@ public class ShopLogin extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        String _shopId = et_shopId.getEditText().getText().toString().trim();
-        String _phoneNumber = et_phoneNumber.getEditText().getText().toString().trim();
-        String _password = et_password.getEditText().getText().toString().trim();
+        String _shopId = Objects.requireNonNull(et_shopId.getEditText()).getText().toString().trim();
+        String _phoneNumber = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
+        String _password = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
         if (_phoneNumber.charAt(0) == '0') {
 
@@ -103,23 +96,21 @@ public class ShopLogin extends AppCompatActivity {
                             String systemPassword = dataSnapshot.child("password").getValue(String.class);
                             String systemPhone = dataSnapshot.child("phoneNumber").getValue(String.class);
 
+                            assert systemPhone != null;
                             if (systemPhone.equals(_completePhoneNumber)) {
                                 et_password.setError(null);
 
+                                assert systemPassword != null;
                                 if (systemPassword.equals(_password)) {
                                     et_password.setError(null);
-
-                                    String _phoneNo = dataSnapshot.child("category").getValue(String.class);
+                                    
                                     String _shopName = dataSnapshot.child("shopName").getValue(String.class);
-                                    String _location = dataSnapshot.child("location").getValue(String.class);
-                                    String _category = dataSnapshot.child("category").getValue(String.class);
-                                    String _ownerName = dataSnapshot.child("ownerName").getValue(String.class);
                                     String _password = dataSnapshot.child("password").getValue(String.class);
                                     String _shopId = dataSnapshot.child("id").getValue(String.class);
 
                                     managerShop.setShopLogin(true);
 
-                                    managerShop.setDetails(_shopId,_phoneNo, _shopName, _location ,_category,_ownerName, _password);
+                                    managerShop.setDetails(_shopId, _shopName, _password);
 
                                     startActivity(new Intent(getApplicationContext(), ShopDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
@@ -153,7 +144,7 @@ public class ShopLogin extends AppCompatActivity {
     }
 
     public void SignUp(View view) {
-        startActivity(new Intent(ShopLogin.this,ShopSignup.class));
+        startActivity(new Intent(ShopLogin.this, ShopSignUp.class));
         finish();
     }
 
@@ -162,19 +153,11 @@ public class ShopLogin extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ShopLogin.this);
         builder.setMessage("Please connect to the internet")
-                .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
-                        finish();
-                    }
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), ShopSignUp.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -188,13 +171,14 @@ public class ShopLogin extends AppCompatActivity {
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()); // if true ,  else false
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
 
     private boolean validatePassword(){
-        String val = et_password.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_password.setError("Field can not be empty");
@@ -211,7 +195,7 @@ public class ShopLogin extends AppCompatActivity {
     }
 
     private boolean validateShopId(){
-        String val = et_shopId.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_shopId.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_shopId.setError("Field can not be empty");
@@ -229,7 +213,7 @@ public class ShopLogin extends AppCompatActivity {
     }
 
     private boolean validatePhoneNumber(){
-        String val = et_phoneNumber.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()){
             et_phoneNumber.setError("Field can not be empty");

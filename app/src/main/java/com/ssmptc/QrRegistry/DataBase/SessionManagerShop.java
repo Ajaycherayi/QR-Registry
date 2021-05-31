@@ -27,13 +27,9 @@ public class SessionManagerShop {
             return sharedPreferences.getBoolean("KEY_LOGIN_SHOP", false);
         }
 
-        public void setDetails(String shopId,String phoneNo, String shopName, String location, String category, String ownerName, String password) {
+        public void setDetails(String shopId, String shopName,String password) {
             editor.putString("KEY_ID", shopId);
-            editor.putString("KEY_PHONE", phoneNo);
             editor.putString("KEY_SHOP", shopName);
-            editor.putString("KEY_LOCATION", location);
-            editor.putString("KEY_CATEGORY",category);
-            editor.putString("KEY_NAME", ownerName);
             editor.putString("KEY_PASSWORD", password);
 
             editor.commit();
@@ -44,25 +40,9 @@ public class SessionManagerShop {
         return sharedPreferences.getString("KEY_ID", "");
     }
 
-        public String getPhone() {
-        return sharedPreferences.getString("KEY_PHONE", "");
-    }
-
         public String getShopName() {
             return sharedPreferences.getString("KEY_SHOP", "");
         }
-
-        public String getLocation() {
-            return sharedPreferences.getString("KEY_LOCATION", "");
-        }
-
-        public String getCategory() {
-            return sharedPreferences.getString("KEY_CATEGORY", "");
-        }
-
-        public String getOwnerName() {
-        return sharedPreferences.getString("KEY_NAME", "");
-    }
 
         public String getShopPassword() {
             return sharedPreferences.getString("KEY_PASSWORD", "");

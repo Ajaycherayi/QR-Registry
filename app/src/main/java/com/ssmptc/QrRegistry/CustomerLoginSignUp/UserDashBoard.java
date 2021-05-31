@@ -44,8 +44,8 @@ import com.ssmptc.QrRegistry.DataBase.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.R.layout;
-import com.ssmptc.QrRegistry.ShopLoginSignup.ShopDashBoard;
-import com.ssmptc.QrRegistry.ShopLoginSignup.ShopLogin;
+import com.ssmptc.QrRegistry.ShopLoginSignUp.ShopDashBoard;
+import com.ssmptc.QrRegistry.ShopLoginSignUp.ShopLogin;
 import com.ssmptc.QrRegistry.ToDoList.UserToDoList;
 
 import java.nio.charset.StandardCharsets;
@@ -300,7 +300,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
               managerCustomer.setDetails("","","");
 
               managerShop.setShopLogin(false);
-              managerShop.setDetails("","","","","","","");
+              managerShop.setDetails("","","");
 
                 //activity.finishAffinity();
                 dialog.dismiss();
