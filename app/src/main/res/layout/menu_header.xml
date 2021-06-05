@@ -32,25 +32,25 @@
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"
-        android:layout_marginLeft="50dp" />
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <TextClock
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="30dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="30dp"
         tools:targetApi="jelly_bean_mr1" />
 
     <ImageView

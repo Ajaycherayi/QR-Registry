@@ -104,7 +104,7 @@ public class UserLogin extends AppCompatActivity {
         String _completePhoneNumber = "+91" + _phoneNumber;
 
         // DataBase Check Query
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber ").equalTo(_completePhoneNumber);
+        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(_completePhoneNumber);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -22,7 +22,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@drawable/back_arrow"
+                android:src="@drawable/ic_back_arrow"
                 app:tint="@color/black"
                 android:layout_marginStart="20dp"
                 android:focusable="true"
@@ -31,7 +31,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/user"
+                android:src="@drawable/img_user"
                 android:layout_marginTop="-55dp"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@null" />
@@ -93,7 +93,7 @@
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/ic_customer"
+                app:startIconDrawable="@drawable/ic_user"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -176,7 +176,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_todo_list"
+                android:background="@drawable/bg_general_list"
                 android:paddingHorizontal="20dp">
 
                 <RadioButton

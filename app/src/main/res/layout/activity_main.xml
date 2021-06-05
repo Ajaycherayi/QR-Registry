@@ -61,11 +61,12 @@
             android:id="@+id/powered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
             android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="140dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/harmony"
             android:text="@string/powered_by"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="50sp" />
     </LinearLayout>
 </LinearLayout>

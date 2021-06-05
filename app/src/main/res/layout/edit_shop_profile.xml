@@ -20,7 +20,7 @@
             android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/ic_back_arrow"
             app:tint="@color/black"
             android:contentDescription="@null"
             android:focusable="true"
@@ -28,7 +28,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/shop_details"
+            android:src="@drawable/ic_shop_details"
             android:layout_marginTop="-55dp"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@null" />
@@ -226,7 +226,7 @@
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/ic_customer"
+                app:startIconDrawable="@drawable/ic_user"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -456,18 +456,20 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="30dp"
-                android:src="@drawable/add_image1"
+                android:src="@drawable/ic_add_image"
                 android:contentDescription="@null" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_uploadImage"
-                    android:layout_width="180dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
                     app:backgroundTint="@color/light_green"
                     android:text="@string/upload"
                     android:textSize="20sp"
@@ -477,8 +479,8 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_showAllImage"
-                    android:layout_width="180dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="20dp"
                     app:backgroundTint="@color/light_red"
                     android:text="@string/showAll"

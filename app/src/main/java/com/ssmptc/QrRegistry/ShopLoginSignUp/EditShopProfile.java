@@ -206,7 +206,7 @@ public class EditShopProfile extends AppCompatActivity {
             progressDialog.dismiss();
             Toast.makeText(EditShopProfile.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
             filePath = null;
-            btn_chooseImg.setImageResource(R.drawable.add_image1);
+            btn_chooseImg.setImageResource(R.drawable.ic_add_image);
 
             /*-------------------------------------------------------------------------------
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -262,10 +262,10 @@ public class EditShopProfile extends AppCompatActivity {
                 _description = dataSnapshot.child("description").getValue(String.class);
 
                 Objects.requireNonNull(et_description.getEditText()).setText(_description);
-                _time = dataSnapshot.child("working time").getValue(String.class);
+                _time = dataSnapshot.child("workingTime").getValue(String.class);
 
                 Objects.requireNonNull(et_time.getEditText()).setText(_time);
-                _days = dataSnapshot.child("working days").getValue(String.class);
+                _days = dataSnapshot.child("workingDays").getValue(String.class);
 
                 Objects.requireNonNull(et_days.getEditText()).setText(_days);
 

@@ -7,7 +7,9 @@
     android:fillViewport="true"
     tools:context=".ShopLoginSignUp.ShopLogin"
     android:background="@color/Primary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:transitionName="transition_login"
+    tools:targetApi="lollipop">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,17 +24,17 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:layout_marginTop="25dp"
-            android:src="@drawable/back_arrow"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/ic_back_arrow"
             app:tint="@color/black"
             android:contentDescription="@null"
             android:focusable="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp" />
+            android:layout_marginStart="25dp" />
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/shop_sign_up"
+            android:src="@drawable/ic_shop_sign_up"
             android:layout_gravity="center"
             android:layout_marginTop="-40dp"
             android:contentDescription="@null" />
@@ -129,7 +131,7 @@
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/ic_lock"
+                app:startIconDrawable="@drawable/ic_password"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -141,7 +143,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -157,11 +159,9 @@
                 tools:targetApi="lollipop" />
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/astronaut"

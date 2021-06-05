@@ -26,7 +26,7 @@
                 android:layout_height="49dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:src="@drawable/back_arrow1"
+                android:src="@drawable/ic_back_arrow_shop"
                 android:focusable="true"
                 android:contentDescription="@null" />
 
@@ -34,7 +34,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/shop"
+                android:src="@drawable/img_shop"
                 android:contentDescription="@null" />
             <TextView
                 android:id="@+id/show_name"
@@ -75,7 +75,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/barcode_scanner"
+                        android:src="@drawable/ic_qr_code_scanner_shop"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -113,7 +113,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code"
+                        android:src="@drawable/ic_qr_code_shop"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -160,7 +160,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/update_profile"
+                        android:src="@drawable/ic_edit_shop_profile"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -199,7 +199,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/search_people"
+                        android:src="@drawable/ic_today_customers"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -249,7 +249,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/report"
+                        android:src="@drawable/ic_search_people"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -288,7 +288,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/shop_logout"
+                        android:src="@drawable/ic_shop_logout"
                         android:contentDescription="@null" />
 
                     <TextView

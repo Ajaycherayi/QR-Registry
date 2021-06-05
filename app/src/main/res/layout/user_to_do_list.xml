@@ -25,7 +25,7 @@
             android:layout_marginTop="25dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/ic_back_arrow"
             app:tint="@color/black"
             android:layout_marginStart="20dp"
             android:focusable="true"

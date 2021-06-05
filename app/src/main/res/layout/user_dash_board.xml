@@ -8,7 +8,8 @@
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
     android:background="@color/Primary"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:targetApi="LOLLIPOP">
 
 
     <com.google.android.material.navigation.NavigationView
@@ -16,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/navTheme"
-        android:background="@drawable/bg_white"
+        android:background="@drawable/bg_drawer_menu"
         android:layout_gravity="start"
         app:menu="@menu/main_menu"
         app:itemTextColor="@color/black"
@@ -45,7 +46,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/user"
+                android:src="@drawable/img_user"
                 android:contentDescription="@null" />
 
             <TextView
@@ -82,7 +83,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="generateQR"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code2"
+                        android:src="@drawable/ic_qr_code_user"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -121,7 +122,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -133,7 +134,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_qr_code_scan1"
+                        android:src="@drawable/ic_qr_code_scanner_user"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -169,7 +170,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="ScannedShops"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -181,7 +182,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/shop"
+                        android:src="@drawable/img_shop"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -209,7 +210,7 @@
                 android:layout_weight="1"
                 app:cardElevation="10dp"
                 android:onClick="mapFind"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -257,7 +258,7 @@
                 android:layout_weight="1"
                 android:onClick="TodoList"
                 app:cardElevation="10dp"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -269,7 +270,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/todo"
+                        android:src="@drawable/ic_todo_list"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -297,7 +298,7 @@
                 android:layout_weight="1"
                 android:onClick="CustomerProfile"
                 app:cardElevation="10dp"
-                app:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -320,9 +321,9 @@
                         android:layout_marginBottom="20dp"
                         android:text="@string/editProfile"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:textColor="@color/white"
                         android:textSize="25sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>

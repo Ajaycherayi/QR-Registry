@@ -38,6 +38,8 @@ public class ShopDetailsSingleView extends AppCompatActivity {
 
     private TextView tv_shopName,tv_category,tv_ownerName,tv_location,tv_phoneNumber,tv_email,tv_wDays,tv_wTime,tv_description;
 
+    private TextView hint_email,hint_wDays,hint_wTime,hint_description;
+
     private String shopId,pushKey,shopName,category,location,email,phoneNumber;
 
     private DatabaseReference shopDb;
@@ -62,6 +64,14 @@ public class ShopDetailsSingleView extends AppCompatActivity {
         tv_wDays = findViewById(R.id.tv_wDays);
         tv_wTime = findViewById(R.id.tv_wTime);
         tv_description = findViewById(R.id.tv_description);
+
+        hint_email = findViewById(R.id.hint_email);
+        hint_wDays = findViewById(R.id.hint_wDays);
+        hint_wTime = findViewById(R.id.hint_wTime);
+        hint_description = findViewById(R.id.hint_description);
+
+
+
 
         //---------------Get Data From Previous Activity----------------
         shopId = getIntent().getStringExtra("shopId");
@@ -98,9 +108,41 @@ public class ShopDetailsSingleView extends AppCompatActivity {
                 tv_phoneNumber.setText(snapshot.child("phoneNumber").getValue(String.class));
                 email = snapshot.child("email").getValue(String.class);
                 tv_email.setText(email);
-                tv_wDays.setText(snapshot.child("working days").getValue(String.class));
-                tv_wTime.setText(snapshot.child("working time").getValue(String.class));
-                tv_description.setText(snapshot.child("description").getValue(String.class));
+
+                String wDay = snapshot.child("workingDays").getValue(String.class);
+                String wTimes = snapshot.child("workingTime").getValue(String.class);
+                String description = snapshot.child("description").getValue(String.class);
+
+                if (email.equals("")){
+
+                    tv_email.setVisibility(View.GONE);
+                    hint_email.setVisibility(View.GONE);
+                }else {
+                    tv_email.setText(email);
+                }
+
+                if (wDay.equals("")){
+                    tv_wDays.setVisibility(View.GONE);
+                    hint_wDays.setVisibility(View.GONE);
+                }else {
+                    tv_wDays.setText(snapshot.child("workingDays").getValue(String.class));
+                }
+
+                if (wTimes.equals("")){
+
+                    tv_wTime.setVisibility(View.GONE);
+                    hint_wTime.setVisibility(View.GONE);
+                }else {
+                    tv_wTime.setText(snapshot.child("workingTime").getValue(String.class));
+                }
+
+                if (description.equals("")){
+
+                    tv_description.setVisibility(View.GONE);
+                    hint_description.setVisibility(View.GONE);
+                }else {
+                    tv_description.setText(snapshot.child("description").getValue(String.class));
+                }
 
                 progressDialog.dismiss();
             }
@@ -127,7 +169,7 @@ public class ShopDetailsSingleView extends AppCompatActivity {
         btn_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email.equals(" ")){
+                if (email.equals("")){
                     Toast.makeText(ShopDetailsSingleView.this, "Shop Email Not Provided", Toast.LENGTH_SHORT).show();
                 }else{
                     Intent emailIntent = new Intent(Intent.ACTION_VIEW);

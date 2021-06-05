@@ -22,7 +22,7 @@
             android:layout_marginLeft="25dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/ic_back_arrow"
             app:tint="@color/black"
             android:contentDescription="@null"
             android:layout_marginStart="10dp"
@@ -60,11 +60,11 @@
         <LinearLayout
             android:id="@+id/layout_qrCode"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="60dp"
             android:paddingVertical="60dp"
             android:paddingHorizontal="5dp"
-            android:background="@drawable/bg_white"
+            android:background="@drawable/bg_lower"
             android:orientation="vertical">
 
             <ImageView

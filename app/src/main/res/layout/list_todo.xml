@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
-    app:elevation="10dp"
+    android:elevation="10dp"
     android:padding="10dp"
     app:cardUseCompatPadding="true"
     app:cardBackgroundColor="@color/white"
-    android:layout_marginHorizontal="5dp">
+    android:layout_marginHorizontal="5dp"
+    tools:targetApi="lollipop">
 
     <LinearLayout
         android:id="@+id/btn_edit"
@@ -86,8 +88,7 @@
                     android:layout_marginBottom="20dp"
                     android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp" />
+                    android:layout_marginStart="5dp" />
 
                 <ImageView
                     android:id="@+id/btn_delete"

@@ -2,7 +2,7 @@ package com.ssmptc.QrRegistry.DataBase.Shop;
 
 public class CustomerDataForShopList {
 
-    String id,name,phoneNumber,email,age,gender,address,currentDate,currentTime;
+    String id,name,phoneNumber,email,age,gender,address,currentDate,currentTime,location;
 
     private boolean expandable;
 
@@ -17,9 +17,10 @@ public class CustomerDataForShopList {
         this.expandable = expandable;
     }
 
-    public CustomerDataForShopList(String id, String name, String phoneNumber, String email, String age, String gender, String address, String currentDate, String currentTime) {
+    public CustomerDataForShopList(String id, String name, String phoneNumber,String location, String email, String age, String gender, String address, String currentDate, String currentTime) {
         this.id = id;
         this.name = name;
+        this.location = location;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.age = age;
@@ -36,6 +37,14 @@ public class CustomerDataForShopList {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {
