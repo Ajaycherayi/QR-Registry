@@ -168,12 +168,17 @@
     <string name="description">Description</string>
     <string name="required"><font color='#FF0000'>*</font> Required</string>
 
-
-    <string name="google_map_key">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
-
     <!-- - - - - - - - - - - About - - - - - - - - - -->
     <string name="version">Version 1.0</string>
-    <string name="coming">Coming Soon…</string>
+    <string name="team">Team QR Registry</string>
+    <string name="leader">Admin &amp; Learder</string>
+    <string name="teamMembers">Team Members</string>
+    <string name="contact">Contact us</string>
+    <string name="ajay">Ajay C</string>
+    <string name="anas">Mohamed Anas K P</string>
+    <string name="salman">Salmanul Faris C C</string>
+    <string name="arshid">Arshid Abdul Azeez M P</string>
+    <string name="nabeeh">Nabeeh P P</string>
 
 
 

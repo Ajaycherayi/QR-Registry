@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AboutQrRegistry"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    android:layout_gravity="center">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,11 +31,19 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/generated_qr"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_launcher"
         android:contentDescription="@null" />
 
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/harmony"
+            android:text="@string/team"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
 
 </LinearLayout>

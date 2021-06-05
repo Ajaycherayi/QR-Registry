@@ -56,7 +56,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/generated_qr"
+        android:src="@drawable/ic_launcher"
         android:layout_gravity="end"
         android:layout_marginTop="-115dp"
         android:contentDescription="@null" />

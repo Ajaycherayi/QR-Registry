@@ -36,7 +36,7 @@ public class ShowImageInUserAdapter extends RecyclerView.Adapter<ShowImageInUser
         ShopImageUrl uploadCurrent = shopImageUrlList.get(position);
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.ic_launcher)
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);

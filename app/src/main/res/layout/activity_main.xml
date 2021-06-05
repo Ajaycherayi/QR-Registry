@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/bg_primary"
-    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
@@ -57,16 +56,27 @@
             android:textColor="@color/white"
             android:textSize="80sp" />
 
-        <TextView
-            android:id="@+id/powered"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="140dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/harmony"
-            android:text="@string/powered_by"
-            android:textColor="@color/black"
-            android:textSize="50sp" />
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_marginBottom="30dp">
+
+            <TextView
+                android:id="@+id/powered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="140dp"
+                android:fontFamily="@font/harmony"
+                android:text="@string/powered_by"
+                android:textColor="@color/black"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>

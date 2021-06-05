@@ -109,7 +109,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -148,7 +148,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -196,7 +196,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -236,7 +236,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -284,7 +284,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -324,7 +324,7 @@
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

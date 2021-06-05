@@ -33,7 +33,7 @@
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="-55dp"
-            android:src="@drawable/generated_qr"
+            android:src="@drawable/ic_launcher"
             android:contentDescription="@null" />
 
         <TextView
