@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">QR Registry</string>
     <string name="welcome">W E L C O M E</string>
-    <string name="qr_registry"><b> QR CODE  REGISTRY</b></string>
     <string name="powered_by">Powered by QR Registry</string>
     <string name="qrCode">QR CODE</string>
     <string name="registry">REGISTRY</string>
@@ -14,7 +13,6 @@
     <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
 
     <!--User Login Page -->
-    <string name="welcomeTo">Welcome to</string>
     <string name="loginWith">Login With</string>
     <string name="SignUp">Sign Up</string>
 
@@ -45,14 +43,12 @@
     <!-- Shop Details buttons -->
     <string name="call">Call</string>
     <string name="message">Message</string>
-    <string name="showImages">Show shop Images</string>
     <string name="locate">Locate</string>
     <string name="delete">Delete</string>
     <string name="more">More…</string>
     <string name="shopImages">shop Images</string>
 
     <!-- Find Shops -->
-    <string name="findShop">Find Shop</string>
     <string name="find">F!ND</string>
     <string name="hint_category">Stationary</string>
     <string name="hint_location">Tirur</string>
@@ -76,7 +72,7 @@
     <string name="userEmail">Email</string>
     <string name="hint_email">example@gmail.com</string>
     <string name="address">Address</string>
-    <string name="hint_address">Rose Villa, Ramapuram, Thrishure</string>
+    <string name="hint_address">Current Address</string>
 
 
     <!-- - - - - - - - - - - Sign Up Page - - - - - - - - - -->
@@ -99,7 +95,7 @@
     <string name="shop_login_disable"><font color="#F74343">*</font> If you are a customer only you can disable the shop button.<br /> hit DISABLE Button.</string>
     <!-- - - - - - Login Alert - - - - -->
     <string name="idAlert">I Will Remember This.</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
 
 
     <!-- - - - - - - - - - - Phone number verification- - - - - - - - - -->
@@ -125,7 +121,7 @@
     <string name="hint_time">7:00 am - 5:00 pm</string>
     <string name="hint_days">Monday - Friday</string>
     <string name="shopAbout">Shop abouts and Images</string>
-    <string name="hint_desc">We have quality prodects...etc</string>
+    <string name="hint_desc">About shop</string>
     <string name="uploadImages">Upload Shop Photos or Images</string>
     <string name="upload">Upload</string>
     <string name="showAll">Show All</string>
@@ -134,7 +130,6 @@
     <string name="toDay">Today\'s  customers</string>
     <string name="list_age">Age :\t</string>
     <string name="list_gender">Gender :\t</string>
-    <string name="list_phone">Phone Number :\t</string>
     <string name="list_address">Address :\t</string>
 
     <!-- all Customers List -->
@@ -148,13 +143,9 @@
 
     <!-- Menu Page -->
     <string name="home">Home</string>
-    <string name="about">About</string>
     <string name="shop">Shop</string>
-    <string name="account">Account</string>
-    <string name="logout"><b>Logout</b></string>
 
     <string name="update">Update</string>
-    <string name="communication"><b>Communication</b></string>
 
 
     <!-- Verification Page -->
@@ -165,8 +156,6 @@
 
     <string name="name">Name</string>
     <string name="email">E-Mail</string>
-    <string name="phone">Phone</string>
-    <string name="password">Password</string>
 
     <!-- Menu Page -->
 
@@ -180,7 +169,6 @@
     <string name="required"><font color='#FF0000'>*</font> Required</string>
 
 
-    <string name="time"><b>SELECT TIME</b></string>
     <string name="google_map_key">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
 
     <!-- - - - - - - - - - - About - - - - - - - - - -->
