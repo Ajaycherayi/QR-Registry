@@ -45,7 +45,7 @@ public class ContactUs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("https://instagram.com/pp_nabee_h_0?utm_medium=copy_link");
+                Uri uri = Uri.parse("https://instagram.com/anas_mohmd__?utm_medium=copy_link");
                 Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
                 likeIng.setPackage("com.instagram.android");
 
