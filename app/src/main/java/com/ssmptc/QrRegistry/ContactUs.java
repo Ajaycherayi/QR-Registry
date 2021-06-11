@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import java.net.URLEncoder;
 
 public class ContactUs extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class ContactUs extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+                Toast.makeText(ContactUs.this, "Contact Nabeeh P P via Whatsapp", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -51,8 +53,9 @@ public class ContactUs extends AppCompatActivity {
                     startActivity(likeIng);
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://instagram.com/pp_nabee_h_0?utm_medium=copy_link")));
+                            Uri.parse("https://instagram.com/anas_mohmd__?utm_medium=copy_link")));
                 }
+                Toast.makeText(ContactUs.this, "Contact Mohamed Anas K P via Instagram", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -62,9 +65,10 @@ public class ContactUs extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-                Uri data = Uri.parse("mailto:?subject=" +"QR Registry"+ "&body=" + "Hai,\n" + "&to=" + "anaskp700@gmail.com");
+                Uri data = Uri.parse("mailto:?subject=" +"QR Registry"+ "&body=" + "Hai,\n" + "&to=" + "salmanulfariscc1999@gmail.com");
                 emailIntent.setData(data);
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                Toast.makeText(ContactUs.this, "Contact Salmanul Faris C C via E-mail", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -73,10 +77,11 @@ public class ContactUs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String url = "https://github.com/";
+                String url = "https://github.com/arshidabdulazeez";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                Toast.makeText(ContactUs.this, "Contact Arshid Abdul Azeez M P via GitHub", Toast.LENGTH_SHORT).show();
 
             }
         });
