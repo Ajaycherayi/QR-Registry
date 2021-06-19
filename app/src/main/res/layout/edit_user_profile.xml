@@ -107,6 +107,7 @@
                     android:inputType="textCapCharacters"
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
+                    android:digits="@string/allowedName"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -135,6 +136,7 @@
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:autoSizeTextType="uniform"
+                    android:digits="@string/allowedName"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -159,7 +161,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:hint="@string/hint_age"
                     android:textColorHint="@color/hintBlack"
                     android:autoSizeTextType="uniform"
@@ -275,6 +277,7 @@
                     android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:autoSizeTextType="uniform"
+                    android:digits="@string/allowedName"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
