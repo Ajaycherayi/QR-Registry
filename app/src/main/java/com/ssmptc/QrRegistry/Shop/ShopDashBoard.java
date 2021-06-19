@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignUp;
+package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -12,15 +12,15 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
+import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
@@ -37,6 +37,8 @@ public class ShopDashBoard extends AppCompatActivity {
     TextView textView;
     ImageView btn_back;
 
+    MaterialCardView btn_logout,btn_ScannerForShop,btn_ShopQR,btn_UpdateShopProfile,btn_CustomerList,btn_CustomerReport;
+
     String shopId,decodedData;
 
     SessionManagerShop managerShop;
@@ -50,6 +52,13 @@ public class ShopDashBoard extends AppCompatActivity {
         textView = findViewById(R.id.show_name);
         btn_back = findViewById(R.id.btn_back);
 
+        btn_logout = findViewById(R.id.btn_logout);
+        btn_ScannerForShop = findViewById(R.id.btn_ScannerForShop);
+        btn_ShopQR = findViewById(R.id.btn_ShopQR);
+        btn_UpdateShopProfile = findViewById(R.id.btn_UpdateShopProfile);
+        btn_CustomerList = findViewById(R.id.btn_CustomerList);
+        btn_CustomerReport = findViewById(R.id.btn_CustomerReport);
+
         managerShop = new SessionManagerShop(getApplicationContext());
         String sName = managerShop.getShopName();
         textView.setText(sName);
@@ -58,17 +67,37 @@ public class ShopDashBoard extends AppCompatActivity {
             startActivity(new Intent(ShopDashBoard.this, UserDashBoard.class));
             finish();
         });
+        //------------------------------------ Logout Shop ------------------------
+        btn_logout.setOnClickListener(v -> {
+            logout();
+        });
 
-    }
+        btn_ScannerForShop.setOnClickListener(v -> {
+            //--------------- Internet Checking -----------
+            if (!isConnected(ShopDashBoard.this)){
+                showCustomDialog();
+            }else {
+                scanCode();
+            }
+        });
+        //------------------------------------ Shop QR Code ------------------------
+        btn_ShopQR.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(),ShopQRCode.class));
+            finish();
+        });
+        //------------------------------------ Update shop profile ------------------------
+        btn_UpdateShopProfile.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), EditShopProfile.class));
+        });
+        //------------------------------------ Show Today's Customer List ------------------------
+        btn_CustomerList.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), TodayCustomers.class));
+        });
+        //------------------------------------ Show all Customers ------------------------
+        btn_CustomerReport.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), AllCustomers.class));
+        });
 
-    public void ScannerForShop(View view) {
-
-        //--------------- Internet Checking -----------
-        if (!isConnected(ShopDashBoard.this)){
-            showCustomDialog();
-        }else {
-            scanCode();
-        }
     }
 
     private void scanCode() {
@@ -118,16 +147,36 @@ public class ShopDashBoard extends AppCompatActivity {
 
                     String[] separateData = decodedData.split(":");
                     String phoneNumber = separateData[0];
+                    String location = separateData[1];
+                    String age = separateData[2];
+                    String gender = separateData[3];
+                    String email = separateData[4];
+                    String address = separateData[5];
+
+                    if (email.equals(" ")){
+                        email = "";
+                    }
+
+                    if (address.equals(" ")){
+                        address = "";
+                    }
 
                     String id = reference.push().getKey();
                     if (id != null){
-                        reference.child(id).child("phoneNumber").setValue(phoneNumber);
+
                         reference.child(id).child("id").setValue(id);
-                        reference.child(id).child("Name").setValue(name);
+                        reference.child(id).child("name").setValue(name);
+                        reference.child(id).child("phoneNumber").setValue(phoneNumber);
+                        reference.child(id).child("location").setValue(location);
+                        reference.child(id).child("age").setValue(age);
+                        reference.child(id).child("gender").setValue(gender);
                         reference.child(id).child("currentDate").setValue(currentDate);
                         reference.child(id).child("currentTime").setValue(currentTime);
+                        reference.child(id).child("email").setValue(email);
+                        reference.child(id).child("address").setValue(address);
+
                     }
-                    Toast.makeText(ShopDashBoard.this, "Customer data added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopDashBoard.this, "Customer data added ", Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
                         e.printStackTrace();
@@ -158,32 +207,6 @@ public class ShopDashBoard extends AppCompatActivity {
             }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    //------------------------------------ Shop QR Code ------------------------
-    public void ShopQR(View view) {
-        startActivity(new Intent(getApplicationContext(),ShopQRCode.class));
-        finish();
-    }
-
-    //------------------------------------ Update shop profile ------------------------
-    public void UpdateShopProfile(View view) {
-        startActivity(new Intent(getApplicationContext(), EditShopProfile.class));
-    }
-
-    //------------------------------------ Show Today's Customer List ------------------------
-    public void CustomerList(View view) {
-        startActivity(new Intent(getApplicationContext(), TodayCustomers.class));
-    }
-
-    //------------------------------------ Show all Customers ------------------------
-    public void CustomerReport(View view) {
-        startActivity(new Intent(getApplicationContext(), AllCustomers.class));
-    }
-
-    //------------------------------------ Logout Shop ------------------------
-    public void Logout(View view) {
-        logout();
     }
 
     private void logout() {

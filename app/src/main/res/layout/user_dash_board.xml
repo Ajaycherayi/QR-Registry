@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerLoginSignUp.UserDashBoard"
+    tools:context=".User.UserDashBoard"
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
     android:background="@color/Primary"
     android:fitsSystemWindows="true"
-    tools:targetApi="LOLLIPOP">
+    tools:targetApi="o">
 
 
     <com.google.android.material.navigation.NavigationView
@@ -22,6 +22,7 @@
         app:menu="@menu/main_menu"
         app:itemTextColor="@color/black"
         app:itemIconSize="35dp"
+        android:autoSizeTextType="uniform"
         android:clickable="true"
         app:itemHorizontalPadding="20dp"
         app:itemIconPadding="15dp"
@@ -54,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textSize="25sp"
@@ -77,12 +79,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_generateQR"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:onClick="generateQR"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
@@ -103,6 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/myQr"
                         android:textStyle="bold"
@@ -116,7 +119,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:onClick="scanQR"
+                android:id="@+id/btn_scanQR"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
@@ -142,6 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/scanCode"
                         android:textStyle="bold"
@@ -158,18 +162,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_ScannedShops"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:onClick="ScannedShops"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
@@ -190,6 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/scannedShop"
                         android:textStyle="bold"
@@ -203,13 +207,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_mapFind"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:onClick="mapFind"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
                 <RelativeLayout
@@ -230,6 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/findShops"
                         android:textStyle="bold"
@@ -246,17 +250,16 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_TodoList"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:onClick="TodoList"
                 app:cardElevation="10dp"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
@@ -278,6 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/todoList"
                         android:textStyle="bold"
@@ -291,12 +295,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_CustomerProfile"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:onClick="CustomerProfile"
                 app:cardElevation="10dp"
                 android:backgroundTint="@color/Primary_ExtraLight">
 
@@ -318,6 +321,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/editProfile"
                         android:textStyle="bold"

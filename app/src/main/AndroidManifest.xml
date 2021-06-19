@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,40 +16,86 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.QRRegistry"
-        android:fullBackupContent="@xml/backup_descriptor"
-        android:allowBackup="true">
-        <activity android:name=".CustomerLoginSignUp.ShopDetailsSingleView" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.ShowShopImages" android:screenOrientation="portrait"/>
-        <activity android:name=".ContactUs" android:screenOrientation="portrait" />
-        <activity android:name=".AboutQrRegistry" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.ShopDetails" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopPhoneNumberVerification" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.EditUserProfile" android:screenOrientation="portrait"/>
-        <activity android:name=".ToDoList.UserToDoList" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.FindShops" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.AllCustomers" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.TodayCustomers" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopImages" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.EditShopProfile" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopQRCode" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopDashBoard" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.UserQrCode" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.UserDashBoard" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.UserPhoneNumberVerification" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopSignUp" android:screenOrientation="portrait"/>
-        <activity android:name=".ShopLoginSignUp.ShopLogin" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.UserSignUp" android:screenOrientation="portrait"/>
-        <activity android:name=".CustomerLoginSignUp.UserLogin" android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        android:theme="@style/Theme.QRRegistry">
+        <activity
+            android:name=".User.ShopDetailsSingleView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.ShowShopImages"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContactUs"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutQrRegistry"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.ShopDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopPhoneNumberVerification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.EditUserProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ToDoList.UserToDoList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.FindShops"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.AllCustomers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.TodayCustomers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopImages"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.EditShopProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopQRCode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopDashBoard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.UserQrCode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.UserDashBoard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.UserPhoneNumberVerification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopSignUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop.ShopLogin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.UserSignUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".User.UserLogin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

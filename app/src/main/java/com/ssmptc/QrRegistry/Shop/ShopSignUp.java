@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignUp;
+package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,9 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
+import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +33,7 @@ public class ShopSignUp extends AppCompatActivity {
 
    private ProgressDialog progressDialog;
 
-    Button btn_getOtp;
+    Button btn_getOtp,btn_ToLogin;
     ImageView
     btn_back;
 
@@ -55,6 +53,7 @@ public class ShopSignUp extends AppCompatActivity {
         et_phoneNumber = findViewById(R.id.et_phone);
 
         btn_getOtp = findViewById(R.id.btn_getOtp);
+        btn_ToLogin = findViewById(R.id.btn_ToLogin);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -66,6 +65,12 @@ public class ShopSignUp extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(ShopSignUp.this, UserDashBoard.class));
+            finish();
+
+        });
+
+        btn_ToLogin.setOnClickListener(v -> {
+            startActivity(new Intent(ShopSignUp.this,ShopLogin.class));
             finish();
 
         });
@@ -136,12 +141,6 @@ public class ShopSignUp extends AppCompatActivity {
         };
     }
 
-    public void ToLogin(View view) {
-
-        startActivity(new Intent(ShopSignUp.this,ShopLogin.class));
-        finish();
-
-    }
 
     private boolean validateShopName(){
         String val = Objects.requireNonNull(et_shopName.getEditText()).getText().toString().trim();

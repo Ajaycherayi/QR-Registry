@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignUp;
+package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,15 +19,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
+import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
 import java.util.Objects;
-
 public class ShopLogin extends AppCompatActivity {
 
     SessionManagerShop managerShop;
     ImageView btn_back;
+
+    Button btn_login,btn_SignUp;
 
     private TextInputLayout et_shopId, et_phoneNumber, et_password;
     private ProgressDialog progressDialog;
@@ -41,10 +42,12 @@ public class ShopLogin extends AppCompatActivity {
         et_phoneNumber = findViewById(R.id.login_phone);
         et_password = findViewById(R.id.login_password);
         btn_back = findViewById(R.id.btn_backToCd);
+        btn_login = findViewById(R.id.btn_login);
+        btn_SignUp = findViewById(R.id.btn_SignUp);
 
        managerShop = new SessionManagerShop(getApplicationContext());
 
-        if (!isConnected(ShopLogin.this)){
+        if (isConnected(ShopLogin.this)){
             showCustomDialog();
         }
 
@@ -53,11 +56,16 @@ public class ShopLogin extends AppCompatActivity {
             finish();
         });
 
+        btn_login.setOnClickListener(v -> login());
+
+        btn_SignUp.setOnClickListener(v -> SignUp());
+
     }
 
-    public void login(View view) {
 
-        if (!isConnected(ShopLogin.this)){
+    public void login() {
+
+        if (isConnected(ShopLogin.this)){
             showCustomDialog();
         }
 
@@ -148,7 +156,7 @@ public class ShopLogin extends AppCompatActivity {
 
     }
 
-    public void SignUp(View view) {
+    public void SignUp() {
         startActivity(new Intent(ShopLogin.this, ShopSignUp.class));
         finish();
     }
@@ -178,7 +186,7 @@ public class ShopLogin extends AppCompatActivity {
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
 
-        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+        return (wifiConn == null || !wifiConn.isConnected()) && ((mobileConn == null || !mobileConn.isConnected()) && (bluetoothConn == null || !bluetoothConn.isConnected())); // if true ,  else false
 
     }
 

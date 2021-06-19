@@ -8,14 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.List;
 
 public class ShopImageAdapter extends RecyclerView.Adapter<ShopImageAdapter.ImageViewHolder> {

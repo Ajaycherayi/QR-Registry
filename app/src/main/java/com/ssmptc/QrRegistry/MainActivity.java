@@ -1,7 +1,6 @@
 package com.ssmptc.QrRegistry;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,9 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserDashBoard;
-import com.ssmptc.QrRegistry.CustomerLoginSignUp.UserSignUp;
+import com.ssmptc.QrRegistry.User.UserDashBoard;
+import com.ssmptc.QrRegistry.User.UserSignUp;
 import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
 
 

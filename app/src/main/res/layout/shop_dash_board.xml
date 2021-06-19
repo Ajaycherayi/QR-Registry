@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ShopLoginSignUp.ShopDashBoard">
+    tools:context=".Shop.ShopDashBoard"
+    tools:targetApi="o">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,12 +59,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_ScannerForShop"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:onClick="ScannerForShop">
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -85,6 +86,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
                         android:text="@string/scanQr"
+                        android:gravity="center_horizontal"
+                        android:autoSizeTextType="uniform"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:fontFamily="@font/my_fav_sans_number"
@@ -96,12 +99,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_ShopQR"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:onClick="ShopQR">
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -122,6 +125,8 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:autoSizeTextType="uniform"
                         android:text="@string/shopCode"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -137,18 +142,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_UpdateShopProfile"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:onClick="UpdateShopProfile">
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -169,6 +173,8 @@
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:autoSizeTextType="uniform"
                         android:text="@string/updateProfile"
                         android:textStyle="bold"
                         android:fontFamily="@font/my_fav_sans_number"
@@ -181,13 +187,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_CustomerList"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:onClick="CustomerList">
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -207,6 +212,8 @@
                         android:layout_height="wrap_content"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_centerInParent="true"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center_horizontal"
                         android:maxLines="1"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
@@ -224,19 +231,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_CustomerReport"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:onClick="CustomerReport"
                 app:backgroundTint="@color/white">
 
                 <RelativeLayout
@@ -257,8 +263,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/search"
+                        android:gravity="center_horizontal"
                         android:textStyle="bold"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -270,13 +278,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/btn_logout"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:onClick="Logout">
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -295,6 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:autoSizeTextType="uniform"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="20dp"
                         android:text="@string/logOut"

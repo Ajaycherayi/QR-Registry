@@ -1,23 +1,27 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +33,7 @@ import com.ssmptc.QrRegistry.R;
 
 public class ShopDetailsSingleView extends AppCompatActivity {
 
-    Button btn_email,btn_locate,btn_delete,btn_img;
+    Button btn_img,btn_contact;
     ImageView btn_back;
 
     SessionManagerUser managerUser;
@@ -50,10 +54,9 @@ public class ShopDetailsSingleView extends AppCompatActivity {
         setContentView(R.layout.shop_details_single_view);
 
         btn_back = findViewById(R.id.btn_back);
-        btn_email = findViewById(R.id.btn_sendMail);
-        btn_locate = findViewById(R.id.btn_locate);
-        btn_delete = findViewById(R.id.btn_delete);
+
         btn_img = findViewById(R.id.btn_img);
+        btn_contact = findViewById(R.id.btn_contact);
 
         tv_shopName = findViewById(R.id.tv_shopName);
         tv_category = findViewById(R.id.tv_category);
@@ -105,7 +108,8 @@ public class ShopDetailsSingleView extends AppCompatActivity {
                 location = snapshot.child("location").getValue(String.class);
                 tv_location.setText(location);
                 tv_ownerName.setText(snapshot.child("ownerName").getValue(String.class));
-                tv_phoneNumber.setText(snapshot.child("phoneNumber").getValue(String.class));
+                phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                tv_phoneNumber.setText(phoneNumber);
                 email = snapshot.child("email").getValue(String.class);
                 tv_email.setText(email);
 
@@ -153,67 +157,146 @@ public class ShopDetailsSingleView extends AppCompatActivity {
             }
         });
 
-
-
-        //---------------Show All Images Of Shop Uploaded----------------
-        btn_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShopDetailsSingleView.this,ShowShopImages.class);
-                intent.putExtra("shopId",shopId);
-                startActivity(intent);
-            }
-        });
-
-        //---------------Send Email To Shop----------------
-        btn_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (email.equals("")){
-                    Toast.makeText(ShopDetailsSingleView.this, "Shop Email Not Provided", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-                    Uri data = Uri.parse("mailto:?subject=" + ""+ "&body=" + "" + "&to=" + email);
-                    emailIntent.setData(data);
-                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                }
-            }
-        });
-
-        //---------------Locate Shop In Map----------------
-        btn_locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Url pass ShopName, Category and Location
-                String strUri = "http://maps.google.com/maps?q=" + shopName + "," + category +  " (" + location + ")";
-                Intent locationIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
-                locationIntent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(locationIntent);
-            }
-        });
-
-        //---------------Delete Shop Data From User DataBase----------------
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                shopDb = FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Shops").child(pushKey);
-                shopDb.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Shops").child(shopId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        snapshot.getRef().removeValue();
-                        startActivity(new Intent(getApplicationContext(),ShopDetails.class));
-                        Toast.makeText(ShopDetailsSingleView.this, "Shop Details Deleted", Toast.LENGTH_SHORT).show();
-                        finish();
+                        if (snapshot.hasChild("Shop Images")){
+
+                            //---------------Show All Images Of Shop Uploaded----------------
+                            btn_img.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(ShopDetailsSingleView.this,ShowShopImages.class);
+                                    intent.putExtra("shopId",shopId);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+                            btn_img.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ShopDetailsSingleView.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
+
+
+
+        btn_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog= new Dialog(ShopDetailsSingleView.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.contacts);
+
+                Button btn_email = dialog.findViewById(R.id.btn_sendMail);
+                Button btn_locate = dialog.findViewById(R.id.btn_locate);
+                Button btn_call = dialog.findViewById(R.id.btn_call);
+                Button btn_msg= dialog.findViewById(R.id.btn_msg);
+
+
+                if (email.equals("")){
+
+                    btn_email.setVisibility(View.GONE);
+
+                }else{
+
+                    //---------------Send Email To Shop----------------
+                    btn_email.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                            Intent emailIntent = new Intent(Intent.ACTION_VIEW);
+                            Uri data = Uri.parse("mailto:?subject=" + ""+ "&body=" + "" + "&to=" + email);
+                            emailIntent.setData(data);
+                            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                        }
+                    });
+
+                }
+
+
+                //---------------Locate Shop In Map----------------
+                btn_locate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Url pass ShopName, Category and Location
+                        String strUri = "http://maps.google.com/maps?q=" + shopName + "," + category +  " (" + location + ")";
+                        Intent locationIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+                        locationIntent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        startActivity(locationIntent);
+                    }
+                });
+
+                //---------------Call Intent----------------
+                btn_call.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        SessionManagerUser managerUser;
+                        managerUser = new SessionManagerUser(ShopDetailsSingleView.this);
+                        String phoneNumber = managerUser.getPhone();
+
+                        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Shops").child(pushKey)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String number = snapshot.child("phoneNumber").getValue(String.class);
+                                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                        callIntent.setData(Uri.parse("tel:" + number));
+                                        startActivity(callIntent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                    }
+                });
+
+                //---------------Message Intent----------------
+                btn_msg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        SessionManagerUser managerUser;
+                        managerUser = new SessionManagerUser(ShopDetailsSingleView.this);
+                        String phoneNumber = managerUser.getPhone();
+
+                        FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("Shops").child(pushKey)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String number = snapshot.child("phoneNumber").getValue(String.class);
+                                        Intent MessageIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", number, null));
+                                        startActivity(MessageIntent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                    }
+                });
+
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setWindowAnimations(R.style.BottomDialog);
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
             }
         });
+
+
 
         //---------------Back To Shop Details List----------------
         btn_back.setOnClickListener(new View.OnClickListener() {

@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center"
-    android:background="@color/white">
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white"
+    tools:targetApi="o">
 
     <ImageView
         android:layout_width="360dp"
@@ -23,13 +25,24 @@
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/my_fav_sans_number"
+        android:text="@string/unique"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <CheckBox
         android:id="@+id/check_box"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginLeft="40dp"
+        android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/idAlert"
         android:textColor="@color/black"
         android:textSize="20sp"

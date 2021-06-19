@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.List;
 
 public class ShowImageInUserAdapter extends RecyclerView.Adapter<ShowImageInUserAdapter.ImageViewHolder> {

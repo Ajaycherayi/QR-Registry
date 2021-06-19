@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.ShopLoginSignUp;
+package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -107,7 +107,7 @@ public class EditShopProfile extends AppCompatActivity {
 
             loadProgressDialog();
 
-            if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation()) {
+            if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation() | !validateEmail()) {
 
                 return;
             }
@@ -284,75 +284,91 @@ public class EditShopProfile extends AppCompatActivity {
     //-----------------------------Check data are changed or updated --------------------------
     private boolean isTimeChanged() {
 
-        if (!_time.equals(Objects.requireNonNull(et_time.getEditText()).getText().toString())){
-            reference.child("working time").setValue(et_time.getEditText().getText().toString());
+        if (!_time.equals(Objects.requireNonNull(et_time.getEditText()).getText().toString().trim())){
+            reference.child("working time").setValue(et_time.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
     private boolean isDayChanged() {
 
-        if (!_days.equals(Objects.requireNonNull(et_days.getEditText()).getText().toString())){
-            reference.child("working days").setValue(et_days.getEditText().getText().toString());
+        if (!_days.equals(Objects.requireNonNull(et_days.getEditText()).getText().toString().trim())){
+            reference.child("working days").setValue(et_days.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
 
     }
     private boolean isDescriptionChanged() {
-        if (!_description.equals(Objects.requireNonNull(et_description.getEditText()).getText().toString())){
+        if (!_description.equals(Objects.requireNonNull(et_description.getEditText()).getText().toString().trim())){
 
-            reference.child("description").setValue(et_description.getEditText().getText().toString());
+            reference.child("description").setValue(et_description.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
+    private boolean validateEmail() {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String val = Objects.requireNonNull(et_email.getEditText()).getText().toString().trim();
+
+        if (val.equals("")){
+            et_email.setError(null);
+            return true;
+        }else if (!val.matches(emailPattern)){
+            et_email.setError("Enter Valid Email");
+            return false;
+        } else {
+            et_email.setError(null);
+            return true;
+        }
+
+    }
     private boolean isEmailChanged() {
 
-        if (!_email.equals(Objects.requireNonNull(et_email.getEditText()).getText().toString())){
+        if (!_email.equals(Objects.requireNonNull(et_email.getEditText()).getText().toString().trim())){
 
-            reference.child("email").setValue(et_email.getEditText().getText().toString());
+            reference.child("email").setValue(et_email.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
     private boolean isLicenseChanged() {
-        if (!_LicenseNumber.equals(Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString())){
+        if (!_LicenseNumber.equals(Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString().trim())){
 
-            reference.child("licenseNumber").setValue(et_LicenseNumber.getEditText().getText().toString());
+            reference.child("licenseNumber").setValue(et_LicenseNumber.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
     private boolean isPhoneNumberChanged() {
-        if (!_ownerName.equals(Objects.requireNonNull(et_ownerName.getEditText()).getText().toString())){
+        if (!_ownerName.equals(Objects.requireNonNull(et_ownerName.getEditText()).getText().toString().trim())){
 
-            reference.child("ownerNameNumber").setValue(et_ownerName.getEditText().getText().toString());
+            reference.child("ownerNameNumber").setValue(et_ownerName.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
 
     }
     private boolean isLocationChanged() {
-        if (!_location.equals(Objects.requireNonNull(et_location.getEditText()).getText().toString())){
+        if (!_location.equals(Objects.requireNonNull(et_location.getEditText()).getText().toString().trim())){
 
-            reference.child("location").setValue(et_location.getEditText().getText().toString());
+            reference.child("location").setValue(et_location.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
     private boolean isCategoryChanged() {
-        if (!_category.equals(Objects.requireNonNull(et_category.getEditText()).getText().toString())){
+        if (!_category.equals(Objects.requireNonNull(et_category.getEditText()).getText().toString().trim())){
 
-            reference.child("category").setValue(et_category.getEditText().getText().toString());
+            reference.child("category").setValue(et_category.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
     }
     private boolean isNameChanged() {
-        if (!_ShopName.equals(Objects.requireNonNull(et_ShopName.getEditText()).getText().toString())){
+        if (!_ShopName.equals(Objects.requireNonNull(et_ShopName.getEditText()).getText().toString().trim())){
 
-            reference.child("shopName").setValue(et_ShopName.getEditText().getText().toString());
+            reference.child("shopName").setValue(et_ShopName.getEditText().getText().toString().trim());
             return true;
         }else
             return false;

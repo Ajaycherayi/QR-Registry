@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,13 +7,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -27,8 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +43,8 @@ import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.QRCodeScanner;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.R.layout;
-import com.ssmptc.QrRegistry.ShopLoginSignUp.ShopDashBoard;
-import com.ssmptc.QrRegistry.ShopLoginSignUp.ShopLogin;
+import com.ssmptc.QrRegistry.Shop.ShopDashBoard;
+import com.ssmptc.QrRegistry.Shop.ShopLogin;
 import com.ssmptc.QrRegistry.ToDoList.UserToDoList;
 
 import java.nio.charset.StandardCharsets;
@@ -68,6 +66,8 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     MenuItem  menuItem;
 
+    MaterialCardView btn_CustomerProfile,btn_TodoList,btn_mapFind,btn_ScannedShops,btn_scanQR,btn_generateQR;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
@@ -83,7 +83,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     SessionManagerUser managerCustomer;
     SessionManagerShop managerShop;
 
-    private String sName,sId,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
+    private String sName,ShopData,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -100,6 +100,13 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         navigationView = findViewById(R.id.navigation_view);
         contentView = findViewById(R.id.linear_content);
         user_Name = findViewById(R.id.get_name);
+
+        btn_CustomerProfile = findViewById(R.id.btn_CustomerProfile);
+        btn_TodoList = findViewById(R.id.btn_TodoList);
+        btn_mapFind = findViewById(R.id.btn_mapFind);
+        btn_ScannedShops = findViewById(R.id.btn_ScannedShops);
+        btn_scanQR = findViewById(R.id.btn_scanQR);
+        btn_generateQR = findViewById(R.id.btn_generateQR);
 
         Menu menuNav = navigationView.getMenu();
         MenuItem nav_shop = menuNav.findItem(R.id.nav_shop);
@@ -136,6 +143,53 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 else drawerLayout.openDrawer(GravityCompat.START);
             }
 
+        });
+
+        btn_CustomerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserDashBoard.this, EditUserProfile.class));
+            }
+        });
+
+        btn_TodoList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserDashBoard.this, UserToDoList.class));
+            }
+        });
+
+        btn_mapFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserDashBoard.this, FindShops.class));
+            }
+        });
+
+        btn_ScannedShops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ShopDetails.class));
+            }
+        });
+
+        btn_scanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //--------------- Internet Checking -----------
+                if (!isConnected(UserDashBoard.this)){
+                    showCustomDialog();
+                }else {
+                    scanCode();
+                }
+            }
+        });
+
+        btn_generateQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserQrCode.class));
+            }
         });
 
     }
@@ -352,21 +406,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         alert.show();
     }
 
-
-    public void generateQR(View view) {
-        startActivity(new Intent(getApplicationContext(), UserQrCode.class));
-    }
-
-    public void scanQR(View view) {
-
-        //--------------- Internet Checking -----------
-        if (!isConnected(UserDashBoard.this)){
-            showCustomDialog();
-        }else {
-            scanCode();
-        }
-    }
-
     private void scanCode() {
 
             //Initialize intent integrator
@@ -411,7 +450,12 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 String shopDetails = separated[2];
 
                 try {
-                    sId = (String) decrypt(shopDetails);
+                    ShopData = (String) decrypt(shopDetails);
+
+                    String[] separated0 = ShopData.split(":");
+
+                    String sId = separated0[0];
+                    String phoneNumber = separated0[1];
 
                     Query checkData = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Shops").orderByChild("shopId").equalTo(sId);
                     checkData.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -425,6 +469,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                                 String id = reference.push().getKey();
                                 if (id != null){
                                     reference.child(id).child("shopId").setValue(sId);
+                                    reference.child(id).child("phoneNumber").setValue(phoneNumber);
                                     reference.child(id).child("shopName").setValue(shopName);
                                     reference.child(id).child("id").setValue(id);
                                 }
@@ -507,25 +552,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         digest.update(bytes,0,bytes.length);
         byte[] key = digest.digest();
         return new SecretKeySpec(key,"AES");
-    }
-
-    public void ScannedShops(View view) {
-        startActivity(new Intent(getApplicationContext(),ShopDetails.class));
-    }
-
-    public void mapFind(View view) {
-        startActivity(new Intent(UserDashBoard.this, FindShops.class));
-
-    }
-
-    public void TodoList(View view) {
-        startActivity(new Intent(UserDashBoard.this, UserToDoList.class));
-
-    }
-
-    public void CustomerProfile(View view) {
-        startActivity(new Intent(UserDashBoard.this, EditUserProfile.class));
-
     }
 
     //--------------- Internet Error Dialog Box -----------

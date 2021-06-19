@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ShopLoginSignUp.ShopPhoneNumberVerification">
+    tools:context=".Shop.ShopPhoneNumberVerification"
+    tools:targetApi="o">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,6 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
             android:text="@string/otpVerification"
             android:textSize="40sp"
             android:textColor="@color/white"
@@ -48,6 +50,7 @@
             android:id="@+id/tv_phoneNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:gravity="center"/>
@@ -65,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:autoSizeTextType="uniform"
                     android:inputType="number"
                     android:hint="@string/hint_otp"
                     android:layout_marginHorizontal="30dp"
@@ -101,6 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginLeft="30dp"
+                    android:autoSizeTextType="uniform"
                     android:text="@string/noOtp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -110,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:autoSizeTextType="uniform"
                     android:text="@string/resend"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/blue"

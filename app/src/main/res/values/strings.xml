@@ -11,10 +11,12 @@
     <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
     <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
+    <string name="numbers">1234567890</string>
 
     <!--User Login Page -->
     <string name="loginWith">Login With</string>
     <string name="SignUp">Sign Up</string>
+    <string name="unique">This unique Id for your shop Login</string>
 
     <!-- - - - - - - - - - - Dash Board - - - - - - - - - - -->
 
@@ -35,7 +37,7 @@
     <string name="list_category">Category :\t</string>
     <string name="list_location">Location : \t</string>
     <string name="list_owner">Owner :\t</string>
-    <string name="list_phoneNo">Phone Number : \t</string>
+    <string name="list_phoneNo">Phone Number :\t</string>
     <string name="list_days">Working Days :\t</string>
     <string name="list_time">Working Time :\t</string>
     <string name="list_desc">Description :\t</string>
@@ -46,6 +48,7 @@
     <string name="locate">Locate</string>
     <string name="delete">Delete</string>
     <string name="more">More…</string>
+    <string name="contact">contact</string>
     <string name="shopImages">shop Images</string>
 
     <!-- Find Shops -->
@@ -56,6 +59,8 @@
 
     <!-- To-do List -->
     <string name="todoList">To-do List</string>
+    <string name="addNew">Add New</string>
+    <string name="save">save</string>
     <string name="hint_Title">Title</string>
     <string name="hint_selectDate">Select date</string>
 
@@ -153,12 +158,10 @@
     <string name="noOtp">Didn\'t receive OTP?</string>
 
 
-
     <string name="name">Name</string>
     <string name="email">E-Mail</string>
 
     <!-- Menu Page -->
-
 
 
     <string name="licenseNo">License Number<font color='#FF0000'>*</font></string>
@@ -173,15 +176,12 @@
     <string name="team">Team QR Registry</string>
     <string name="leader">Admin &amp; Leader</string>
     <string name="teamMembers">Team Members</string>
-    <string name="contact">Contact us</string>
+    <string name="contactUs">Contact us</string>
     <string name="ajay">Ajay C</string>
     <string name="anas">Mohamed Anas K P</string>
     <string name="salman">Salmanul Faris C C</string>
     <string name="arshid">Arshid Abdul Azeez M P</string>
     <string name="nabeeh">Nabeeh P P</string>
-
-
-
 
 
 </resources>

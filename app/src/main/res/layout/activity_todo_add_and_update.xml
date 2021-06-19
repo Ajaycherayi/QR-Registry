@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout_container"
+    android:layout_marginHorizontal="8dp"
+    android:background="@drawable/bg_lower"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_update"
+        android:autoSizeTextType="uniform"
+        android:layout_marginTop="10dp"
+        android:text="@string/addNew"
+        android:textStyle="bold"
+        android:textColor="@color/Primary"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        tools:targetApi="o" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card_shop"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/et_title"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textMultiLine"
+        android:maxLength="240"
+        android:maxLines="1"
+        android:maxHeight="20dp"
+        android:hint="@string/hint_Title"
+        app:hintTextColor="@color/hintBlack"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:autofillHints="@string/hint_Title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card_shop"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/et_description"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textMultiLine"
+        android:maxLength="240"
+        android:maxLines="1"
+        android:maxHeight="20dp"
+        android:hint="@string/description"
+        app:hintTextColor="@color/hintBlack"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:autofillHints="@string/hint_desc" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/hint_selectDate"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/Primary"
+        app:cornerRadius="5dp"
+        app:startIconTint="@color/black"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        tools:targetApi="o" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingHorizontal="10dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_disable"
+            android:text="@string/login_cancel"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:autoSizeTextType="uniform"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:backgroundTint="@color/light_red"
+            tools:ignore="UnusedAttribute" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/bt_ok"
+            android:text="@string/save"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:autoSizeTextType="uniform"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:backgroundTint="@color/light_green"
+            tools:ignore="UnusedAttribute" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

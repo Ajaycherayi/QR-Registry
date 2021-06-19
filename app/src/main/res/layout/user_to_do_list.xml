@@ -4,23 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Primary_ExtraLight"
+    android:background="@color/Primary"
     tools:context=".ToDoList.UserToDoList"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_upper"
-        android:layout_marginHorizontal="10dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/btn_backToCd"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -34,89 +27,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-40dp"
+                android:autoSizeTextType="uniform"
                 android:text="@string/todoList"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                android:layout_gravity="center_horizontal"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_marginTop="40dp"
-                android:hint="@string/hint_Title"
-                app:boxStrokeWidth="2dp"
-                app:helperTextTextColor="@color/black"
-                android:textColorHint="@color/white"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
-                android:textSize="30sp"
-                android:singleLine="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:inputType="textCapSentences"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_description"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
-                android:inputType="textMultiLine"
-                android:maxLength="240"
-                android:maxLines="1"
-                android:maxHeight="20dp"
-                android:hint="@string/description"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:textSize="25sp"
-                android:importantForAutofill="no" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_selectDate"
-            android:layout_width="185dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:hint="@string/hint_selectDate"
-            android:textColorHint="@color/Primary"
-            android:textColor="@color/Primary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="5dp"
-            app:startIconTint="@color/black"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp"
-            android:layout_marginStart="20dp" />
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                tools:targetApi="o" />
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"
-            app:backgroundTint="@color/white"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="-60dp"
-            android:layout_gravity="bottom|end"
-            app:fabSize="normal"
-            android:contentDescription="@null"
-            android:layout_marginEnd="15dp" />
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
         android:background="@drawable/bg_lower"
-        android:layout_marginTop="10dp">
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/toDoListView"
             android:layout_width="match_parent"
@@ -125,8 +54,23 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"/>
-    </LinearLayout>
+            android:layout_marginBottom="1dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            app:fabSize="normal"
+            android:contentDescription="@null"
+            tools:targetApi="lollipop" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>

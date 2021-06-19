@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -6,7 +6,8 @@
     android:fillViewport="true"
     android:layout_height="match_parent"
     android:background="@color/Primary"
-    tools:context=".ShopLoginSignUp.ShopSignUp">
+    tools:context=".Shop.ShopSignUp"
+    tools:targetApi="o">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -39,6 +40,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:autoSizeTextType="uniform"
            android:layout_marginTop="15dp"
            android:text="@string/SignUpWith"
            android:textSize="20sp"
@@ -48,6 +50,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:autoSizeTextType="uniform"
            android:layout_marginTop="8dp"
            android:text="@string/app_name"
            android:textAllCaps="true"
@@ -63,13 +66,14 @@
            android:orientation="vertical"
            android:background="@drawable/bg_lower"
            android:layout_marginTop="20dp"
-           android:layout_marginHorizontal="15dp"
+           android:layout_marginHorizontal="5dp"
            android:paddingHorizontal="15dp"
            android:paddingTop="20dp">
 
            <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_shopName"
                    android:hint="@string/shopName"
@@ -85,15 +89,18 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
+                       android:autoSizeTextType="uniform"
                        android:textSize="20sp"
                        android:digits="@string/allowedName"
                        android:inputType="text"
+                       android:fontFamily="@font/my_fav_sans_number"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
            <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_category"
                    android:hint="@string/category"
@@ -110,14 +117,18 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
+                       android:autoSizeTextType="uniform"
                        android:textSize="20sp"
                        android:inputType="text"
+                       android:fontFamily="@font/my_fav_sans_number"
+                       android:digits="@string/allowedName"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
            <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_shopLocation"
                    android:hint="@string/shopLocation"
@@ -134,8 +145,11 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
+                       android:autoSizeTextType="uniform"
                        android:textSize="20sp"
                        android:inputType="text"
+                       android:fontFamily="@font/my_fav_sans_number"
+                       android:digits="@string/allowedName"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,6 +164,7 @@
                    android:id="@+id/et_ownerName"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    android:layout_marginTop="8dp"
                    android:hint="@string/ownerName"
                    android:textColorHint="@color/black"
@@ -164,8 +179,11 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
+                       android:autoSizeTextType="uniform"
                        android:inputType="text"
                        android:textColor="@color/black"
+                       android:digits="@string/allowedName"
+                       android:fontFamily="@font/my_fav_sans_number"
                        android:textSize="20sp" />
 
                </com.google.android.material.textfield.TextInputLayout>
@@ -175,8 +193,11 @@
                    android:id="@+id/et_phone"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    android:layout_marginTop="10dp"
                    android:hint="@string/ownerPhone"
+                   app:prefixTextColor="@color/hintBlack"
+                   app:prefixText="+91"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
                    app:boxStrokeWidth="2dp"
@@ -189,7 +210,8 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
-                       android:inputType="phone"
+                       android:autoSizeTextType="uniform"
+                       android:inputType="number"
                        android:textColor="@color/black"
                        android:textSize="20sp" />
 
@@ -198,6 +220,7 @@
            <com.google.android.material.textfield.TextInputLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:autoSizeTextType="uniform"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:id="@+id/et_shopPassword"
                    android:hint="@string/shopPassword"
@@ -214,8 +237,10 @@
                    <com.google.android.material.textfield.TextInputEditText
                        android:layout_width="match_parent"
                        android:layout_height="55dp"
+                       android:autoSizeTextType="uniform"
                        android:textSize="20sp"
                        android:inputType="textPassword"
+                       android:fontFamily="@font/my_fav_sans_number"
                        android:textColor="@color/black"/>
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,13 +261,13 @@
                    tools:targetApi="lollipop" />
 
            <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btn_ToLogin"
                    android:layout_width="match_parent"
                    android:layout_height="60dp"
                    android:layout_gravity="center"
                    android:layout_marginBottom="10dp"
                    android:fontFamily="@font/astronaut"
                    android:gravity="center"
-                   android:onClick="ToLogin"
                    android:backgroundTint="@color/white"
                    app:strokeColor="@color/Primary"
                    app:strokeWidth="2dp"

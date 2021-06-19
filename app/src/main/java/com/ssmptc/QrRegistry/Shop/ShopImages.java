@@ -1,10 +1,9 @@
-package com.ssmptc.QrRegistry.ShopLoginSignUp;
+package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -25,7 +24,6 @@ import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageAdapter;
 import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
-
 import java.util.ArrayList;
 
 public class ShopImages extends AppCompatActivity implements ShopImageAdapter.OnItemClickListener {
@@ -109,7 +107,7 @@ public class ShopImages extends AppCompatActivity implements ShopImageAdapter.On
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(this, "Normal Click", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press 1 Sec", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -123,7 +121,7 @@ public class ShopImages extends AppCompatActivity implements ShopImageAdapter.On
         imageRef.delete().addOnSuccessListener(aVoid -> {
 
             shopDb.child(selectedKey).removeValue();
-            Toast.makeText(ShopImages.this, "Item Deleted..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShopImages.this, "Image Deleted..", Toast.LENGTH_SHORT).show();
 
         });
 

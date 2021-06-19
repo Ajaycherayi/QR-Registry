@@ -5,9 +5,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="18dp"
     android:gravity="center"
-    android:background="#CAECFD">
+    android:background="#CAECFD"
+    tools:targetApi="o">
 
     <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="360dp"
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:autoSizeTextType="uniform"
         android:text="@string/shopLogin"
         android:textSize="40sp"
         android:textStyle="bold"/>
@@ -30,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginLeft="5dp"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/shop_login_create"
         android:textColor="@color/black"
@@ -43,6 +46,7 @@
         android:layout_marginLeft="5dp"
         android:layout_gravity="start"
         android:gravity="clip_horizontal"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/shop_login_cancel"
         android:textColor="@color/black"
@@ -53,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
+        android:autoSizeTextType="uniform"
         android:layout_gravity="start"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/shop_login_disable"
@@ -61,7 +66,7 @@
         android:layout_marginStart="5dp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
@@ -71,13 +76,12 @@
             android:id="@+id/bt_cancel"
             android:text="@string/login_cancel"
             android:textStyle="bold"
+            android:fontFamily="@font/my_fav_sans_number"
             style="@android:style/TextAppearance.DeviceDefault.Medium"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:autoSizeTextType="uniform"
-            android:backgroundTint="@color/Primary_light"
-            tools:ignore="UnusedAttribute" />
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/Primary_light" />
 
 
         <Button
@@ -87,13 +91,12 @@
             android:id="@+id/btn_disable"
             android:text="@string/login_disable"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:autoSizeTextType="uniform"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/my_fav_sans_number"
             style="@android:style/TextAppearance.DeviceDefault.Medium"
-            android:backgroundTint="@color/light_red"
-            tools:ignore="UnusedAttribute" />
+            android:backgroundTint="@color/light_red"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,13 +104,12 @@
             android:id="@+id/bt_ok"
             android:text="@string/login_login"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:autoSizeTextType="uniform"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/my_fav_sans_number"
             style="@android:style/TextAppearance.DeviceDefault.Medium"
-            android:backgroundTint="@color/light_green"
-            tools:ignore="UnusedAttribute" />
+            android:backgroundTint="@color/light_green" />
 
 
     </LinearLayout>

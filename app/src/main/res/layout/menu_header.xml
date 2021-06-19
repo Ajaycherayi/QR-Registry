@@ -11,13 +11,15 @@
     android:orientation="vertical"
     android:layout_centerVertical="true"
     android:paddingLeft="15dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+    tools:targetApi="o">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="35sp"/>
@@ -26,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/stayHome"
+        android:autoSizeTextType="uniform"
         android:textSize="15sp"
         android:textColor="@color/white"
         android:layout_marginBottom="10dp" />
@@ -34,8 +37,9 @@
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="15dp"
+        android:autoSizeTextType="uniform"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"
@@ -47,11 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp"
+        android:autoSizeTextType="uniform"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"
         android:layout_marginLeft="30dp"
-        tools:targetApi="jelly_bean_mr1" />
+        tools:targetApi="o" />
 
     <ImageView
         android:layout_width="100dp"

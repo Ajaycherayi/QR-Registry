@@ -1,8 +1,7 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,7 +15,6 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,9 +69,16 @@ public class UserLogin extends AppCompatActivity {
                 }
             }
         });
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+            }
+        });
     }
 
-    public void login(View view) {
+    private void userLogin() {
 
         if (!isConnected(UserLogin.this)){
             showCustomDialog();
@@ -146,6 +151,7 @@ public class UserLogin extends AppCompatActivity {
                 Toast.makeText(UserLogin.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
     }

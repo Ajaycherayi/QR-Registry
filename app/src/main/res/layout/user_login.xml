@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".CustomerLoginSignUp.UserLogin"
+    tools:context=".User.UserLogin"
     android:background="@color/Primary"
     android:orientation="vertical"
     android:transitionName="transition_login"
-    tools:targetApi="lollipop">
+    tools:targetApi="o" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,15 +29,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:text="@string/loginWith"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:textSize="17sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:targetApi="o" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:layout_marginTop="8dp"
                 android:text="@string/app_name"
                 android:layout_gravity="center"
@@ -45,14 +48,14 @@
                 android:textStyle="bold"
                 android:textSize="35sp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="100dp"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_lower">
 
             <LinearLayout
@@ -65,11 +68,14 @@
                     android:id="@+id/et_phoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="@string/ownerPhone"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/black"
                     app:boxStrokeWidth="1dp"
+                    app:prefixText="+91"
+                    app:prefixTextColor="@color/hintBlack"
                     android:layout_marginTop="20dp"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/black"
@@ -81,7 +87,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:textSize="20sp"
-                        android:inputType="phone"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:inputType="number"
                         android:textColor="@color/black"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +97,7 @@
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="@string/shopPassword"
                     android:textColorHint="@color/black"
@@ -104,6 +113,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
+                        android:autoSizeTextType="uniform"
                         android:textSize="20sp"
                         android:inputType="textPassword"
                         android:textColor="@color/black"/>
@@ -121,7 +131,6 @@
                 android:fontFamily="@font/astronaut"
                 android:gravity="center"
                 android:backgroundTint="@color/Primary"
-                android:onClick="login"
                 app:cornerRadius="5dp"
                 android:text="@string/login"
                 android:textColor="@color/white"

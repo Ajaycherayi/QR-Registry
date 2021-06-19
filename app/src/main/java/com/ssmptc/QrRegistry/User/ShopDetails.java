@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -142,23 +141,6 @@ public class ShopDetails extends AppCompatActivity {
 
                             adapter = new ShopDetailsAdapter(ShopDetails.this,dataForUser);
                             recyclerView.setAdapter(adapter);
-                            adapter.setOnItemClickListener(new ShopDetailsAdapter.OnItemClickListener(){
-
-                                @Override
-                                public void onCallClick(int position) {
-                                    CallToShop(position);
-                                }
-
-                                @Override
-                                public void onMessageClick(int position) {
-                                    MessageToShop(position);
-                                }
-
-                                @Override
-                                public void onMoreClick(int position) {
-                                    MoreShopDetails(position);
-                                }
-                            });
 
                         }
 
@@ -180,65 +162,6 @@ public class ShopDetails extends AppCompatActivity {
         });
 
 
-    }
-
-    //------------------------Show More About Shop----------------
-    private void MoreShopDetails(int position) {
-
-        ShopsDataForUser data = dataForUser.get(position);
-        String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers ShopImageUrl
-        String keyId = data.getId(); // Get User DataBase Key
-
-        Intent intent = new Intent(ShopDetails.this,ShopDetailsSingleView.class);
-        intent.putExtra("shopId",id); // Pass Shop Id value To ShopDetailsSingleView
-        intent.putExtra("key",keyId); // Pass key value To ShopDetailsSingleView
-        startActivity(intent);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    //-------------Intent to Massage-------------
-    private void MessageToShop(int position) {
-
-        ShopsDataForUser data = dataForUser.get(position);
-        String id = data.getShopId();
-
-        shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
-        shopDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String number = snapshot.child("phoneNumber").getValue(String.class);
-                Intent MessageIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", number, null));
-                startActivity(MessageIntent);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    //-------------Intent Dialer With Phone Number------
-    private void CallToShop(int position) {
-
-        ShopsDataForUser data = dataForUser.get(position);
-        String id = data.getShopId();
-
-        shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(id).child("Shop Profile");
-        shopDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String number = snapshot.child("phoneNumber").getValue(String.class);
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + number));
-                startActivity(callIntent);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     //--------------- Internet Error Dialog Box -----------

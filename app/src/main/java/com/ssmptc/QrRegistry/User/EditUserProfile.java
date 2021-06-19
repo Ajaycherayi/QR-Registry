@@ -1,8 +1,7 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,6 +81,13 @@ public class EditUserProfile extends AppCompatActivity {
             }
         });
 
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateData();
+            }
+        });
+
     }
 
     private void callProgressDialog() {
@@ -142,10 +147,10 @@ public class EditUserProfile extends AppCompatActivity {
 
     }
 
-    public void updateData(View view) {
+    public void updateData() {
 
         //EditText Validations
-        if (!validateName()  | !validateLocation() | !validateAge() | !validateGender()) {
+        if (!validateName()  | !validateLocation() | !validateAge() | !validateGender() | !validateEmail()) {
 
             return;
         }
@@ -264,7 +269,6 @@ public class EditUserProfile extends AppCompatActivity {
         }
     }
     private boolean validateAge() {
-        // String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String val = et_age.getEditText().getText().toString().trim();
 
         if (val.isEmpty()){
@@ -275,6 +279,22 @@ public class EditUserProfile extends AppCompatActivity {
             return false;
         }else {
             et_age.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateEmail() {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String val = et_email.getEditText().getText().toString().trim();
+
+        if (val.equals("")){
+            et_email.setError(null);
+            return true;
+        }else if (!val.matches(emailPattern)){
+            et_email.setError("Enter Valid Email");
+            return false;
+        } else {
+            et_email.setError(null);
             return true;
         }
 

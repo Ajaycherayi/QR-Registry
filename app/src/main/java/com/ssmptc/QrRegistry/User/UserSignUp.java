@@ -1,4 +1,4 @@
-package com.ssmptc.QrRegistry.CustomerLoginSignUp;
+package com.ssmptc.QrRegistry.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,13 +111,13 @@ public class UserSignUp extends AppCompatActivity {
                 rb_selectedGender = findViewById(rg_gender.getCheckedRadioButtonId());
                 String gender =  rb_selectedGender.getText().toString();
 
-                String phone = et_phoneNumber.getEditText().getText().toString();
+                String phone = et_phoneNumber.getEditText().getText().toString().trim();
                 String phoneNumber = "+91" + phone;
 
                 if (!phone.isEmpty()) {
                     if (phone.length() == 10) {
 
-                        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(phoneNumber);
+                        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
 
                         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

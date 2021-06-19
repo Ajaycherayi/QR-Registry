@@ -34,12 +34,14 @@
         <item name="paddingTopNoTitle">20dp</item>
         <item name="android:layout_centerInParent">true</item>
 
-
-
-
-        <!-- text size in menu-->
-
     </style>
+
+    <!--- Bottom Dialog -->
+    <style name="BottomDialog" >
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
 
 
 </resources>

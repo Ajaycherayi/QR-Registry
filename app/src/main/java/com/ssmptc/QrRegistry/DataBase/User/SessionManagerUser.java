@@ -2,9 +2,6 @@ package com.ssmptc.QrRegistry.DataBase.User;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import java.util.HashMap;
-
 public class SessionManagerUser {
 
     // Initialize Variables

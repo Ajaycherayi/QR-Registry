@@ -18,17 +18,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="45dp"
             android:fontFamily="@font/bold_height_regular"
             android:gravity="center"
             android:text="@string/welcome"
             android:textColor="@color/white"
-            android:textSize="45sp" />
+            android:textSize="40sp"
+            tools:targetApi="o" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/drawer_btn"
-            android:layout_width="260dp"
-            android:layout_height="260dp"
+            android:layout_width="228dp"
+            android:layout_height="210dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             app:lottie_autoPlay="true"
@@ -38,23 +40,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
             android:text="@string/qrCode"
             android:textColor="@color/white"
-            android:textSize="80sp" />
+            android:textSize="80sp"
+            tools:targetApi="o" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
             android:text="@string/registry"
             android:textColor="@color/white"
-            android:textSize="80sp" />
+            android:textSize="80sp"
+            tools:targetApi="o" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,13 +74,15 @@
                 android:id="@+id/powered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:fontFamily="@font/harmony"
                 android:text="@string/powered_by"
                 android:textColor="@color/black"
                 android:textSize="50sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:targetApi="o" />
         </LinearLayout>
 
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/Primary"
-    tools:context=".ShopLoginSignUp.TodayCustomers">
+    tools:context=".Shop.TodayCustomers">
 
     <ImageView
         android:id="@+id/btn_backToSd"
@@ -43,6 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoSizeTextType="uniform"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:text="@string/toDay"
@@ -50,7 +51,8 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="35sp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:targetApi="o" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +60,7 @@
         android:background="@drawable/bg_lower"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:layout_marginHorizontal="5dp">
 
 
