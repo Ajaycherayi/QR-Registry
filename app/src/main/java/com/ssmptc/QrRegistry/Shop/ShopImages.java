@@ -37,7 +37,7 @@ public class ShopImages extends AppCompatActivity implements ShopImageAdapter.On
     private ShopImageAdapter shopImageAdapter;
     private FirebaseStorage ImgStorage;
     private DatabaseReference shopDb ;
-
+    private String shopId;
     private ValueEventListener mDBListener;
 
     @Override
@@ -58,7 +58,7 @@ public class ShopImages extends AppCompatActivity implements ShopImageAdapter.On
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         managerShop = new SessionManagerShop(getApplicationContext());
-        String shopId = managerShop.getShopId();
+        shopId = managerShop.getShopId();
 
         ImgStorage= FirebaseStorage.getInstance();
         shopDb = FirebaseDatabase.getInstance().getReference("Shops").child(shopId).child("Shop Images");
@@ -123,7 +123,23 @@ public class ShopImages extends AppCompatActivity implements ShopImageAdapter.On
             shopDb.child(selectedKey).removeValue();
             Toast.makeText(ShopImages.this, "Image Deleted..", Toast.LENGTH_SHORT).show();
 
+            FirebaseDatabase.getInstance().getReference("Shops").child(shopId)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (!snapshot.hasChild("Shop Images")){
+                                startActivity(new Intent(ShopImages.this,EditShopProfile.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
         });
+
 
     }
 

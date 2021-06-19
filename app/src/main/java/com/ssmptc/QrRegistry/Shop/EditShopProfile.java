@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ import com.google.firebase.storage.StorageReference;
 import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
 import com.ssmptc.QrRegistry.R;
+import com.ssmptc.QrRegistry.User.ShopDetailsSingleView;
+import com.ssmptc.QrRegistry.User.ShowShopImages;
 
 import java.util.Objects;
 
@@ -107,7 +110,7 @@ public class EditShopProfile extends AppCompatActivity {
 
             loadProgressDialog();
 
-            if (!validateShopName() | !validateCategory() | !validateLicense() | !validateOwnerName() | !validateLocation() | !validateEmail()) {
+            if (!validateShopName() | !validateCategory() | !validateOwnerName() | !validateLocation() | !validateEmail()) {
 
                 return;
             }
@@ -134,7 +137,34 @@ public class EditShopProfile extends AppCompatActivity {
             }
         });
 
-        btn_showAll.setOnClickListener(v -> startActivity(new Intent(EditShopProfile.this,ShopImages.class)));
+        btn_showAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase.getInstance().getReference("Shops").child(shopId)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.hasChild("Shop Images")){
+                                    startActivity(new Intent(EditShopProfile.this,ShopImages.class));
+                                }
+                                else {
+                                    Toast.makeText(EditShopProfile.this, "Images are not uploaded", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+            }
+        });
+
+
+
+
 
         loadProgressDialog();
 
@@ -375,20 +405,7 @@ public class EditShopProfile extends AppCompatActivity {
     }
 
     //----------------------------- Validate input Text Required ------------------------------
-    private boolean validateLicense(){
-        String val1 = Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString().trim();
 
-        if (val1.isEmpty()){
-            et_LicenseNumber.setError("Day can not be empty");
-            return false;
-        }
-        else{
-            et_LicenseNumber.setError(null);
-            et_LicenseNumber.setErrorEnabled(false);
-            return true;
-        }
-
-    }
     private boolean validateShopName(){
         String val1 = Objects.requireNonNull(et_ShopName.getEditText()).getText().toString().trim();
 

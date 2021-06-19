@@ -11,7 +11,6 @@
     <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
     <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
-    <string name="numbers">1234567890</string>
 
     <!--User Login Page -->
     <string name="loginWith">Login With</string>

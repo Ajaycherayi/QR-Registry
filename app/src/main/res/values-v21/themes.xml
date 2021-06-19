@@ -37,14 +37,6 @@
     </style>
 
     <!--- Bottom Dialog -->
-    <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
-    </style>
-
-    <style name="BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
 
 
 </resources>

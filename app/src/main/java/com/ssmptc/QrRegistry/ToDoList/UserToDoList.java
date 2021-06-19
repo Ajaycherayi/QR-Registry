@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ssmptc.QrRegistry.Shop.EditShopProfile;
 import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
 import com.ssmptc.QrRegistry.R;
@@ -42,8 +44,7 @@ public class UserToDoList extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private String selectedDate;
-    public boolean isUpdate = false; //flag to check is update or is add new
-
+    private ProgressDialog progressDialog;
     private DatabaseReference todoDb;
     private List<TodoModel> todoModels;
     private TodoAdapter adapter;
@@ -90,6 +91,9 @@ public class UserToDoList extends AppCompatActivity {
             }
         });
 
+        //Initialize ProgressDialog
+        loadProgressDialog();
+
         list(); // Load all data
 
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -118,10 +122,9 @@ public class UserToDoList extends AppCompatActivity {
                 Button btn_new  = dialog.findViewById(R.id.bt_ok);
 
 
-
-               btn_selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                btn_selectDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         UserToDoList.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -150,40 +153,41 @@ public class UserToDoList extends AppCompatActivity {
                 btn_new.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        
+                        if (et_title.getText().toString().isEmpty() | et_desc.getText().toString().isEmpty()){
+                            Toast.makeText(UserToDoList.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
+                        }else if (btn_selectDate.getText().toString().isEmpty()){
+                            Toast.makeText(UserToDoList.this, "Please select a date", Toast.LENGTH_SHORT).show();
+                        }else {
 
-                        if (et_title.getText().toString().isEmpty() | et_desc.getText().toString().isEmpty() | btn_selectDate.getText().toString().isEmpty()) {
 
-                            return;
+                            String date = btn_selectDate.getText().toString();
+
+                            String nTitle = et_title.getText().toString();
+                            String nDesc = et_desc.getText().toString();
+
+                            String[] separated = date.split("/");
+
+                            String newDay = separated[0];
+                            String newMonth = separated[1];
+                            String newYear = separated[2];
+
+                            String id = todoDb.push().getKey();
+                            TodoModel model = new TodoModel(id, nTitle, nDesc, newDay, newMonth, newYear);
+
+                            if (id != null) {
+                                todoDb.child(id).setValue(model);
+                            }
+
+                            dialog.dismiss();
+                            Toast.makeText(UserToDoList.this, "New item listed", Toast.LENGTH_SHORT).show();
+                            loadProgressDialog();
+                            list();
+
                         }
-
-
-                        String date = btn_selectDate.getText().toString();
-
-                        String nTitle = et_title.getText().toString();
-                        String nDesc = et_desc.getText().toString();
-
-                        String[] separated = date.split("/");
-
-                        String newDay = separated[0];
-                        String newMonth = separated[1];
-                        String newYear = separated[2];
-
-                        String id = todoDb.push().getKey();
-                        TodoModel model = new TodoModel(id,nTitle,nDesc,newDay,newMonth,newYear);
-
-                        if (id != null){
-                            todoDb.child(id).setValue(model);
-                        }
-
-                        dialog.dismiss();
-                        Toast.makeText(UserToDoList.this, "New item listed", Toast.LENGTH_SHORT).show();
-                        list();
-
 
                     }
                 });
-
-
 
             }
 
@@ -192,6 +196,17 @@ public class UserToDoList extends AppCompatActivity {
 
 
 
+
+    }
+
+    //-----------------------Progress Dialog-------------------
+    private void loadProgressDialog() {
+
+        //Initialize ProgressDialog
+        progressDialog = new ProgressDialog(UserToDoList.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
 
@@ -211,6 +226,7 @@ public class UserToDoList extends AppCompatActivity {
 
                 adapter = new TodoAdapter(UserToDoList.this, todoModels);
                 recyclerView.setAdapter(adapter);
+                progressDialog.dismiss();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
