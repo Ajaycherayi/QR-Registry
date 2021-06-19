@@ -115,6 +115,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             @Override
             public void onClick(View v) {
 
+
+
                 Calendar calendar = Calendar.getInstance();
                 final int year = calendar.get(Calendar.YEAR);
                 final int month = calendar.get(Calendar.MONTH);
@@ -129,6 +131,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                 EditText et_title = dialog.findViewById(R.id.et_title);
                 EditText et_desc = dialog.findViewById(R.id.et_description);
                 Button btn_add  = dialog.findViewById(R.id.bt_ok);
+
+
 
                 btn_add.setText(R.string.update);
                 tv_update.setText(R.string.update);
@@ -206,15 +210,21 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
                                         }else {
 
-                                            db.child("title").setValue(nTitle);
-                                            db.child("description").setValue(nDesc);
-                                            db.child("day").setValue(setDay);
-                                            db.child("month").setValue(setMonth);
-                                            db.child("year").setValue(setYear);
+                                            if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()){
+                                                Toast.makeText(mContext, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
+                                            }else if (btn_selectDate.getText().toString().isEmpty()){
+                                                Toast.makeText(mContext, "Please select a date", Toast.LENGTH_SHORT).show();
+                                            }else {
 
-                                            Toast.makeText(mContext, "Item Updated..", Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
+                                                db.child("title").setValue(nTitle);
+                                                db.child("description").setValue(nDesc);
+                                                db.child("day").setValue(setDay);
+                                                db.child("month").setValue(setMonth);
+                                                db.child("year").setValue(setYear);
 
+                                                Toast.makeText(mContext, "Item Updated..", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                            }
                                         }
 
                                     }

@@ -192,7 +192,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             }
         });
 
+
     }
+
 
     // Navigation Drawer Functions
     private void navigationDrawer() {
@@ -279,7 +281,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.exit:
-                finish();
+                finishAffinity();
                 break;
         }
 
@@ -287,7 +289,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         return true;
     }
-
     private void share() {
 
         try {
@@ -318,7 +319,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         managerCustomer = new SessionManagerUser(getApplicationContext());
         managerShop = new SessionManagerShop(getApplicationContext());
-        String nPhone = managerCustomer.getPhone();
 
         if (managerShop.getShopLogin()) {
             startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));

@@ -154,7 +154,7 @@ public class UserToDoList extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         
-                        if (et_title.getText().toString().isEmpty() | et_desc.getText().toString().isEmpty()){
+                        if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()){
                             Toast.makeText(UserToDoList.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
                         }else if (btn_selectDate.getText().toString().isEmpty()){
                             Toast.makeText(UserToDoList.this, "Please select a date", Toast.LENGTH_SHORT).show();

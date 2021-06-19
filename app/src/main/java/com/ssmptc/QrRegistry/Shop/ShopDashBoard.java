@@ -100,6 +100,11 @@ public class ShopDashBoard extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
+
     private void scanCode() {
 
         IntentIntegrator intentIntegrator = new IntentIntegrator(ShopDashBoard.this); //Initialize intent integrator

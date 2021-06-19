@@ -8,6 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
+import com.ssmptc.QrRegistry.Shop.ShopDashBoard;
 import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.User.UserSignUp;
 import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
@@ -19,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static int SPLASH_TIMER = 3400;
 
-    ImageView qr_img;
-    TextView wcm,qr,powered;
+
+    TextView powered;
     SessionManagerUser managerCustomer;
+    SessionManagerShop managerShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-              //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
+                //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
                 //Initialize SessionManager
                 managerCustomer = new SessionManagerUser(getApplicationContext());
+                managerShop = new SessionManagerShop(getApplicationContext());
 
-                if (managerCustomer.getCustomerLogin()){
+                if (managerShop.getShopLogin()){
+                    startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+                }else if (managerCustomer.getCustomerLogin()){
                     startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
                 }else {
                     Intent intent = new Intent(MainActivity.this, UserSignUp.class);

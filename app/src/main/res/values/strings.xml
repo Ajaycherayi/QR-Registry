@@ -31,7 +31,7 @@
     <!-- Shop Details Scanned -->
     <string name="scannedShop">Scanned shops</string>
     <string name="shops">Shops</string>
-    <string name="searchHint">Search Shop/Location/category</string>
+    <string name="searchHint">Search</string>
     <!-- Shop Details list -->
     <string name="list_category">Category :\t</string>
     <string name="list_location">Location : \t</string>

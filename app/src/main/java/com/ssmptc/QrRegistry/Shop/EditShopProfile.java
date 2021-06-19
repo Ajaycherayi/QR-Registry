@@ -315,7 +315,7 @@ public class EditShopProfile extends AppCompatActivity {
     private boolean isTimeChanged() {
 
         if (!_time.equals(Objects.requireNonNull(et_time.getEditText()).getText().toString().trim())){
-            reference.child("working time").setValue(et_time.getEditText().getText().toString().trim());
+            reference.child("workingTime").setValue(et_time.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
@@ -323,7 +323,7 @@ public class EditShopProfile extends AppCompatActivity {
     private boolean isDayChanged() {
 
         if (!_days.equals(Objects.requireNonNull(et_days.getEditText()).getText().toString().trim())){
-            reference.child("working days").setValue(et_days.getEditText().getText().toString().trim());
+            reference.child("workingDays").setValue(et_days.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
