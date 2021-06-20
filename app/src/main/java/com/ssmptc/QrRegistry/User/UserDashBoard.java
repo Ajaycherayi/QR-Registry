@@ -162,6 +162,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_mapFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(UserDashBoard.this, "Find shops", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UserDashBoard.this, FindShops.class));
             }
         });
@@ -169,6 +170,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_ScannedShops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(UserDashBoard.this, "You scanned shops", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),ShopDetails.class));
             }
         });
@@ -281,6 +283,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.exit:
+                Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
                 finishAffinity();
                 break;
         }
@@ -527,7 +530,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             }
         } else {
 
-            Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You did not scan anything", Toast.LENGTH_SHORT).show();
         }
 
         super.onActivityResult(requestCode, resultCode, data);

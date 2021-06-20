@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/btn_disable"
+            android:id="@+id/btn_cancel"
             android:text="@string/login_cancel"
             android:textStyle="bold"
             android:textSize="15sp"

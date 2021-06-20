@@ -124,13 +124,21 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
                 final Dialog dialog= new Dialog(mContext);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.activity_todo_add_and_update);
+                dialog.setContentView(R.layout.todo_add_and_update);
 
                 TextView tv_update = dialog.findViewById(R.id.tv_update);
                 Button btn_selectDate = dialog.findViewById(R.id.btn_selectDate);
                 EditText et_title = dialog.findViewById(R.id.et_title);
                 EditText et_desc = dialog.findViewById(R.id.et_description);
                 Button btn_add  = dialog.findViewById(R.id.bt_ok);
+                Button btn_cancel  = dialog.findViewById(R.id.btn_cancel);
+
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                                dialog.dismiss();
+                    }
+                });
 
 
 

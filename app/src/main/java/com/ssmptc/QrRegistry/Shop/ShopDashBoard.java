@@ -65,6 +65,7 @@ public class ShopDashBoard extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(ShopDashBoard.this, UserDashBoard.class));
+            Toast.makeText(this, "User Dashboard", Toast.LENGTH_SHORT).show();
             finish();
         });
         //------------------------------------ Logout Shop ------------------------
@@ -102,6 +103,7 @@ public class ShopDashBoard extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
         finishAffinity();
     }
 
@@ -207,7 +209,7 @@ public class ShopDashBoard extends AppCompatActivity {
                 }
             } else {
 
-                Toast.makeText(getApplicationContext(), "OOPS... You did Not Scan Anything", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You did not scan anything", Toast.LENGTH_SHORT).show();
 
             }
 

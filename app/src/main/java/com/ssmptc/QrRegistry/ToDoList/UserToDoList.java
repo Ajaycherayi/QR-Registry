@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ssmptc.QrRegistry.Shop.EditShopProfile;
 import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.User.SessionManagerUser;
 import com.ssmptc.QrRegistry.R;
@@ -108,7 +107,7 @@ public class UserToDoList extends AppCompatActivity {
                 final Dialog dialog= new Dialog(UserToDoList.this);
 
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.activity_todo_add_and_update);
+                dialog.setContentView(R.layout.todo_add_and_update);
 
                 dialog.show();
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -120,6 +119,15 @@ public class UserToDoList extends AppCompatActivity {
                 EditText et_title = dialog.findViewById(R.id.et_title);
                 EditText et_desc = dialog.findViewById(R.id.et_description);
                 Button btn_new  = dialog.findViewById(R.id.bt_ok);
+
+                Button btn_cancel  = dialog.findViewById(R.id.btn_cancel);
+
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
 
                 btn_selectDate.setOnClickListener(new View.OnClickListener() {
