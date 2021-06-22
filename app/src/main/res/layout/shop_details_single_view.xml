@@ -58,8 +58,8 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/bg_lower"
             android:orientation="vertical"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="20dp">
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="15dp">
 
 
 
@@ -82,7 +82,6 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_general_list"
                     android:fontFamily="@font/my_fav_sans_number"
-                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -265,7 +264,7 @@
                 android:textColor="@color/white"
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/black"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_contact"
@@ -278,7 +277,7 @@
                 android:textColor="@color/white"
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/black"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="1dp" />
 
 
         </LinearLayout>

@@ -22,7 +22,7 @@
         android:autoSizeTextType="uniform"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="35sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,13 +37,13 @@
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:autoSizeTextType="uniform"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextClock

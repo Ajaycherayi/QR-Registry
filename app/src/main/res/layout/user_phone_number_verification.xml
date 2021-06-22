@@ -142,6 +142,8 @@
                 android:gravity="center"
                 android:backgroundTint="@color/Primary"
                 app:cornerRadius="5dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
                 android:text="@string/SignUp"
                 android:textColor="@color/white"
                 android:textSize="25sp"

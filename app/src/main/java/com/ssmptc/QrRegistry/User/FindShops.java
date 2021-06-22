@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ssmptc.QrRegistry.R;
@@ -22,6 +23,7 @@ public class FindShops extends AppCompatActivity {
 
     private TextInputLayout et_category,et_location;
     ImageView btn_back;
+    Button btn_FindShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +33,26 @@ public class FindShops extends AppCompatActivity {
         et_category = findViewById(R.id.et_category);
         et_location = findViewById(R.id.et_location);
         btn_back = findViewById(R.id.btn_backToCd);
+        btn_FindShop = findViewById(R.id.btn_FindShop);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(FindShops.this, UserDashBoard.class));
-                finish();
+                finishAffinity();
+            }
+        });
+
+        btn_FindShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FindShop();
             }
         });
 
     }
 
-    public void FindShop(View view) {
+    public void FindShop() {
 
         if (!isConnected(FindShops.this)){
             showCustomDialog();

@@ -82,7 +82,7 @@ public class AllCustomers extends AppCompatActivity {
 
         btn_back.setOnClickListener(v ->  {
             startActivity(new Intent(AllCustomers.this,ShopDashBoard.class));
-            finish();
+            finishAffinity();
         });
 
         search();

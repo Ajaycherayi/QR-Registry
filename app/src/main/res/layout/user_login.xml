@@ -130,6 +130,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/astronaut"
                 android:gravity="center"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
                 android:backgroundTint="@color/Primary"
                 app:cornerRadius="5dp"
                 android:text="@string/login"
@@ -154,7 +156,7 @@
                 android:transitionName="transition_signUp"
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/Primary"
-                app:strokeWidth="2dp"/>
+                app:strokeWidth="1dp"/>
 
         </LinearLayout>
 

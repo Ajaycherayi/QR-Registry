@@ -8,7 +8,7 @@
     tools:context=".Shop.ShopLogin"
     android:background="@color/Primary"
     android:orientation="vertical"
-    android:transitionName="transition_login"
+    android:transitionName="transition_shop_login"
     tools:targetApi="o">
 
     <LinearLayout
@@ -34,7 +34,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_shop_sign_up"
+            android:src="@drawable/ic_shop_login"
             android:layout_gravity="center"
             android:layout_marginTop="-40dp"
             android:contentDescription="@null" />
@@ -65,7 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/bg_lower"
             android:orientation="vertical"
@@ -82,7 +82,7 @@
                 android:hint="@string/shopId"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
@@ -111,7 +111,7 @@
                 app:prefixTextColor="@color/hintBlack"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
@@ -138,7 +138,7 @@
                 android:hint="@string/shopPassword"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
@@ -165,6 +165,8 @@
                 android:gravity="center"
                 android:backgroundTint="@color/Primary"
                 app:cornerRadius="5dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
                 android:text="@string/login"
                 android:textColor="@color/white"
                 android:textSize="25sp"
@@ -183,10 +185,10 @@
                 android:text="@string/SignUp"
                 android:textColor="@color/Primary"
                 android:textSize="25sp"
-                android:transitionName="transition_signUp"
+                android:transitionName="transition_shop_signUp"
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/Primary"
-                app:strokeWidth="2dp"
+                app:strokeWidth="1dp"
                 tools:targetApi="lollipop" />
         </LinearLayout>
     </LinearLayout>

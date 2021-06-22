@@ -48,7 +48,7 @@
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/img_user"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"/>
 
             <TextView
                 android:id="@+id/get_name"
@@ -85,7 +85,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -162,7 +162,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -173,7 +173,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -196,6 +196,7 @@
                         android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
                         android:text="@string/scannedShop"
+                        android:gravity="center_horizontal"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:fontFamily="@font/my_fav_sans_number"
@@ -213,7 +214,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -250,7 +251,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -261,7 +262,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -273,22 +274,22 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_todo_list"
-                        android:contentDescription="@null" />
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_todo_list" />
 
                     <TextView
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
-                        android:autoSizeTextType="uniform"
+                        android:layout_centerInParent="true"
                         android:layout_marginBottom="20dp"
-                        android:text="@string/todoList"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:autoSizeTextType="uniform"
                         android:fontFamily="@font/my_fav_sans_number"
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="20sp" />
+                        android:text="@string/todoList"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -301,7 +302,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="10dp"
-                android:backgroundTint="@color/Primary_ExtraLight">
+                android:backgroundTint="@color/bg_Todo_card">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

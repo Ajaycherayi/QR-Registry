@@ -69,7 +69,7 @@ public class TodayCustomers extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(TodayCustomers.this,ShopDashBoard.class));
-            finish();
+            finishAffinity();
         });
 
         list();

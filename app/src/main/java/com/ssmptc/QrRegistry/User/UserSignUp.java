@@ -206,6 +206,12 @@ public class UserSignUp extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        super.onBackPressed();
+    }
+
     private boolean validatePhoneNumber() {
 
         String val = et_phoneNumber.getEditText().getText().toString().trim();

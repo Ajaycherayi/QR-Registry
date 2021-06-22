@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -162,6 +164,15 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
 
                         shopId.setText(nodeId);
 
+                        shopId.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText("Shop Id", nodeId);
+                                Toast.makeText(ShopPhoneNumberVerification.this, "Copied", Toast.LENGTH_SHORT).show();
+                                clipboard.setPrimaryClip(clip);
+                            }
+                        });
                         btCancel.setOnClickListener(v1 -> dialog.cancel());
                         btOk.setOnClickListener(v1 -> dialog.dismiss());
                         checkBox.setOnClickListener(v1 -> {
@@ -214,9 +225,10 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
 
                                 });
 
-                            }else {
+                            }else{
                                 btOk.setEnabled(false);
-                                btOk.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                                btOk.setBackgroundColor(getResources().getColor(R.color.common_google_signin_btn_text_dark_disabled));
+
                             }
                         });
 

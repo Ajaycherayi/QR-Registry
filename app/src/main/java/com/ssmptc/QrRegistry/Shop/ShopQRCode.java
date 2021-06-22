@@ -86,7 +86,7 @@ public class ShopQRCode extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(),ShopDashBoard.class));
-            finish();
+            finishAffinity();
         });
 
         //--------------- Internet Checking -----------

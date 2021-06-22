@@ -84,7 +84,6 @@ public class ShopDashBoard extends AppCompatActivity {
         //------------------------------------ Shop QR Code ------------------------
         btn_ShopQR.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(),ShopQRCode.class));
-            finish();
         });
         //------------------------------------ Update shop profile ------------------------
         btn_UpdateShopProfile.setOnClickListener(v -> {

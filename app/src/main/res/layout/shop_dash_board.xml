@@ -147,46 +147,6 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_UpdateShopProfile"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_shop">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_edit_shop_profile"
-                        android:contentDescription="@null" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_horizontal"
-                        android:autoSizeTextType="uniform"
-                        android:text="@string/updateProfile"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/my_fav_sans_number"
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_CustomerList"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
@@ -227,15 +187,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_CustomerReport"
                 android:layout_width="0dp"
@@ -267,6 +218,54 @@
                         android:layout_marginBottom="20dp"
                         android:text="@string/search"
                         android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_UpdateShopProfile"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card_shop">
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_edit_shop_profile"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:autoSizeTextType="uniform"
+                        android:text="@string/updateProfile"
                         android:textStyle="bold"
                         android:fontFamily="@font/my_fav_sans_number"
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -313,6 +312,7 @@
                         android:textSize="20sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
+            
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

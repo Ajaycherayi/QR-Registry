@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,8 +65,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "qrregistry@shop";
-
-    MenuItem  menuItem;
 
     MaterialCardView btn_CustomerProfile,btn_TodoList,btn_mapFind,btn_ScannedShops,btn_scanQR,btn_generateQR;
 
@@ -162,7 +162,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_mapFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserDashBoard.this, "Find shops", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UserDashBoard.this, FindShops.class));
             }
         });
@@ -170,7 +169,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_ScannedShops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserDashBoard.this, "You scanned shops", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),ShopDetails.class));
             }
         });

@@ -2,6 +2,8 @@ package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +12,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Pair;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -69,11 +73,30 @@ public class ShopSignUp extends AppCompatActivity {
 
         });
 
-        btn_ToLogin.setOnClickListener(v -> {
-            startActivity(new Intent(ShopSignUp.this,ShopLogin.class));
-            finish();
+        btn_ToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShopLogin.class);
 
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_ToLogin),"transition_shop_login");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ShopSignUp.this,pairs);
+                    startActivity(intent,options.toBundle());
+                }
+                else{
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
         });
+
+
+
+
+
 
         btn_getOtp.setOnClickListener(v -> {
 

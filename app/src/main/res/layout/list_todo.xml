@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
-    android:elevation="10dp"
+    android:layout_weight="1"
+    app:cardElevation="8dp"
     android:padding="10dp"
-    app:cardUseCompatPadding="true"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginEnd="10dp"
     app:cardBackgroundColor="@color/white"
     android:layout_marginHorizontal="5dp"
-    tools:targetApi="o">
+    tools:targetApi="o"
+    android:layout_marginStart="10dp">
 
     <LinearLayout
         android:id="@+id/btn_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/Primary_ExtraLight">
+        android:background="@color/bg_Todo_card">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,11 +130,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"/>
-
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

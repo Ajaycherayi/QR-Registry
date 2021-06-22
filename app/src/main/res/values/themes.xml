@@ -27,7 +27,7 @@
         <item name="android:textColorPrimary">@color/white</item>
         <!-- Background Color -->
         <item name="colorControlHighlight">@color/Primary_light</item>
-        <item name="android:textSize">23sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="listPreferredItemHeightSmall">60dp</item>
         <item name="sizePercent">25</item>
         <item name="android:expandableListPreferredItemPaddingLeft">10dp</item>

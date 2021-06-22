@@ -23,8 +23,11 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:autoSizeTextType="uniform"
+        android:gravity="center_horizontal"
         android:text="@string/shopLogin"
-        android:textSize="40sp"
+        android:textAllCaps="true"
+        android:layout_marginBottom="5dp"
+        android:textSize="25sp"
         android:textStyle="bold"/>
 
     <TextView

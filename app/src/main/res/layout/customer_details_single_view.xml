@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
-    app:cardBackgroundColor="@color/white"
-    app:elevation="5dp"
-    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/Primary_light"
+    android:layout_weight="1"
+    app:cardElevation="8dp"
+    app:strokeWidth=".5dp"
+    app:strokeColor="@color/hintBlack"
+    android:layout_marginBottom="15dp"
     android:layout_marginHorizontal="8dp"
     tools:targetApi="o">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_shop_details_card"
+        android:background="@color/card_white"
         android:orientation="vertical"
         android:id="@+id/linear_layout"
         android:paddingTop="5dp">
@@ -275,16 +278,12 @@
                         app:backgroundTint="@color/Primary"
                         android:textColor="@color/white"
                         app:strokeColor="@color/black"
-                        app:strokeWidth="2dp" />
+                        app:strokeWidth="1dp" />
 
                 </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"/>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

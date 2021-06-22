@@ -86,7 +86,7 @@ public class UserToDoList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserToDoList.this, UserDashBoard.class));
-                finish();
+                finishAffinity();
             }
         });
 

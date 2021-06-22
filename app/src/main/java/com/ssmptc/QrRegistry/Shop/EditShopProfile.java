@@ -103,7 +103,7 @@ public class EditShopProfile extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(EditShopProfile.this,ShopDashBoard.class));
-            finish();
+            finishAffinity();
         });
 
         btn_update.setOnClickListener(v -> {

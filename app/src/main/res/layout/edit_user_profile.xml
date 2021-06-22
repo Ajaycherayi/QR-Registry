@@ -7,6 +7,7 @@
     android:fillViewport="true"
     android:background="@color/Primary"
     tools:context=".User.EditUserProfile"
+    android:transitionName="transition_edit_user_profile"
     tools:targetApi="o">
 
     <LinearLayout
@@ -54,8 +55,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_lower"
             android:orientation="vertical"
             android:padding="10dp">
@@ -63,25 +64,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update_user"
-                android:autoSizeTextType="uniform"
-                android:textSize="25sp"
-                android:textStyle="bold"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/Primary"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp" />
+                android:autoSizeTextType="uniform"
+                android:text="@string/update_user"
+                android:textColor="@color/Primary"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:autoSizeTextType="uniform"
                 android:text="@string/required"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:layout_marginStart="10dp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_name"
@@ -92,7 +93,7 @@
                 android:hint="@string/userName"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
@@ -103,11 +104,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:autoSizeTextType="uniform"
+                    android:digits="@string/allowedName"
                     android:hint="@string/name"
                     android:inputType="textCapCharacters"
-                    android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
-                    android:digits="@string/allowedName"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +122,7 @@
                 android:hint="@string/shopLocation"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
@@ -132,11 +133,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:autoSizeTextType="uniform"
+                    android:digits="@string/allowedName"
                     android:hint="@string/hint_location"
                     android:inputType="textCapSentences"
                     android:textColor="@color/black"
-                    android:autoSizeTextType="uniform"
-                    android:digits="@string/allowedName"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -150,22 +151,22 @@
                 android:hint="@string/age"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                app:hintTextColor="@color/black"
                 app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
                 app:startIconDrawable="@drawable/ic_age"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:inputType="number"
-                    android:hint="@string/hint_age"
-                    android:textColorHint="@color/hintBlack"
                     android:autoSizeTextType="uniform"
+                    android:hint="@string/hint_age"
+                    android:inputType="number"
                     android:textColor="@color/black"
+                    android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -173,19 +174,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/gender"
-                android:textSize="15sp"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"/>
+                android:textSize="15sp" />
 
             <RadioGroup
                 android:id="@+id/radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/bg_general_list"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_general_list"
                 android:paddingHorizontal="20dp">
 
                 <RadioButton
@@ -194,35 +195,33 @@
                     android:layout_height="wrap_content"
                     android:text="@string/male"
                     android:textColor="@color/black"
-                    app:buttonTint="@color/Primary"/>
+                    app:buttonTint="@color/Primary" />
 
                 <RadioButton
                     android:id="@+id/radio_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/female"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
                     android:layout_marginStart="10dp"
-                    app:buttonTint="@color/Primary"/>
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/female"
+                    android:textColor="@color/black"
+                    app:buttonTint="@color/Primary" />
 
                 <RadioButton
                     android:id="@+id/radio_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/other"
                     android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    app:buttonTint="@color/Primary"/>
+                    app:buttonTint="@color/Primary" />
             </RadioGroup>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="33dp"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/Primary" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -234,7 +233,7 @@
                 android:hint="@string/userEmail"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
@@ -245,10 +244,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:autoSizeTextType="uniform"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
-                    android:autoSizeTextType="uniform"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -262,23 +261,21 @@
                 android:hint="@string/address"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:expandedHintEnabled="false"
-                app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/ic_location"
-                app:startIconTint="@color/black">
+                app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="@string/hint_address"
                     android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="horizontal"
                     android:textColor="@color/black"
-                    android:autoSizeTextType="uniform"
-                    android:digits="@string/allowedName"
-                    android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -287,14 +284,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="20dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/astronaut"
                 android:text="@string/update"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:strokeColor="@color/black"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="1dp" />
         </LinearLayout>
 
     </LinearLayout>

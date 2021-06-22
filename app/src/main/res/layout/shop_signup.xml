@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/Primary"
     tools:context=".Shop.ShopSignUp"
+    android:transitionName="transition_shop_signUp"
     tools:targetApi="o">
 
    <LinearLayout
@@ -79,7 +80,7 @@
                    android:hint="@string/shopName"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
                    app:hintTextColor="@color/black"
@@ -106,7 +107,7 @@
                    android:hint="@string/category"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    android:layout_marginTop="8dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
@@ -134,7 +135,7 @@
                    android:hint="@string/shopLocation"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    android:layout_marginTop="8dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
@@ -155,7 +156,7 @@
 
            <View
                    android:layout_width="match_parent"
-                   android:layout_height="2dp"
+                   android:layout_height="1.5dp"
                    android:background="@color/Primary"
                    android:layout_marginTop="15dp"/>
 
@@ -169,7 +170,7 @@
                    android:hint="@string/ownerName"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
                    app:hintTextColor="@color/black"
@@ -200,7 +201,7 @@
                    app:prefixText="+91"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    app:endIconMode="clear_text"
                    app:endIconTint="@color/black"
                    app:hintTextColor="@color/black"
@@ -226,7 +227,7 @@
                    android:hint="@string/shopPassword"
                    android:textColorHint="@color/black"
                    app:boxStrokeColor="@color/black"
-                   app:boxStrokeWidth="2dp"
+                   app:boxStrokeWidth="1dp"
                    android:layout_marginTop="8dp"
                    app:endIconMode="password_toggle"
                    app:endIconTint="@color/black"
@@ -245,20 +246,21 @@
                </com.google.android.material.textfield.TextInputLayout>
 
            <com.google.android.material.button.MaterialButton
-                   android:id="@+id/btn_getOtp"
-                   android:layout_width="match_parent"
-                   android:layout_height="60dp"
-                   android:layout_gravity="center"
-                   android:layout_marginTop="10dp"
-                   android:fontFamily="@font/astronaut"
-                   android:gravity="center"
-                   android:backgroundTint="@color/Primary"
-                   app:cornerRadius="5dp"
-                   android:text="@string/getOtp"
-                   android:textColor="@color/white"
-                   android:textSize="25sp"
-                   android:transitionName="transition_signUp"
-                   tools:targetApi="lollipop" />
+               android:id="@+id/btn_getOtp"
+               android:layout_width="match_parent"
+               android:layout_height="53dp"
+               android:layout_gravity="center"
+               android:layout_marginTop="10dp"
+               android:backgroundTint="@color/Primary"
+               android:fontFamily="@font/astronaut"
+               android:gravity="center"
+               android:text="@string/getOtp"
+               android:textColor="@color/white"
+               android:textSize="25sp"
+               app:cornerRadius="5dp"
+               app:strokeColor="@color/black"
+               app:strokeWidth="1dp"
+               tools:targetApi="lollipop" />
 
            <com.google.android.material.button.MaterialButton
                    android:id="@+id/btn_ToLogin"
@@ -270,12 +272,12 @@
                    android:gravity="center"
                    android:backgroundTint="@color/white"
                    app:strokeColor="@color/Primary"
-                   app:strokeWidth="2dp"
+                   app:strokeWidth="1dp"
                    app:cornerRadius="5dp"
                    android:text="@string/login"
                    android:textColor="@color/Primary"
                    android:textSize="25sp"
-                   android:transitionName="transition_signUp"
+                   android:transitionName="transition_shop_login"
                    tools:targetApi="lollipop" />
        </LinearLayout>
    </LinearLayout>

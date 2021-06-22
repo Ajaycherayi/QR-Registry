@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent"
     tools:context=".User.ShopDetails"
     android:orientation="vertical"
     tools:targetApi="o">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="25dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_back_arrow"
+        app:tint="@color/black"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:layout_marginStart="20dp" />
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="25dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:src="@drawable/ic_back_arrow"
-            app:tint="@color/black"
-            android:focusable="true"
-            android:contentDescription="@null"
-            android:layout_marginStart="20dp" />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="-50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/img_shop"
+        android:contentDescription="@null"/>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="-50dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/img_shop"
-            android:contentDescription="@null"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shops"
+        android:textStyle="bold"
+        android:autoSizeTextType="uniform"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25sp"
+        android:fontFamily="@font/my_fav_sans_number"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shops"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:layout_gravity="center_horizontal"
-            android:textSize="25sp"
-            android:fontFamily="@font/my_fav_sans_number"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_margin="20dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/bg_general_list"
-            android:hint="@string/searchHint"
-            android:inputType="text"
-            android:maxHeight="20dp"
-            android:maxLength="100"
-            android:maxLines="1"
-            android:paddingHorizontal="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hintBlack"
-            android:textSize="20sp"
-            android:importantForAutofill="no" />
-
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_general_list"
+        android:hint="@string/searchHint"
+        android:inputType="text"
+        android:maxHeight="20dp"
+        android:maxLength="100"
+        android:maxLines="1"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintBlack"
+        android:textSize="20sp"
+        android:importantForAutofill="no" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,7 +74,7 @@
         android:background="@drawable/bg_lower"
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
+        android:paddingTop="20dp"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -86,4 +89,8 @@
             android:layout_marginRight="1dp" />
     </LinearLayout>
 
+
 </LinearLayout>
+
+
+</ScrollView>

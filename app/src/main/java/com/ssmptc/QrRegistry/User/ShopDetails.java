@@ -104,7 +104,7 @@ public class ShopDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShopDetails.this,UserDashBoard.class));
-                finish();
+                finishAffinity();
             }
         });
     }

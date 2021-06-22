@@ -2,6 +2,8 @@ package com.ssmptc.QrRegistry.Shop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +12,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Pair;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.ssmptc.QrRegistry.User.UserDashBoard;
 import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.R;
+import com.ssmptc.QrRegistry.User.UserLogin;
+import com.ssmptc.QrRegistry.User.UserSignUp;
+
 import java.util.Objects;
 public class ShopLogin extends AppCompatActivity {
 
@@ -58,7 +65,27 @@ public class ShopLogin extends AppCompatActivity {
 
         btn_login.setOnClickListener(v -> login());
 
-        btn_SignUp.setOnClickListener(v -> SignUp());
+        btn_SignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShopSignUp.class);
+
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_SignUp),"transition_shop_signUp");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ShopLogin.this,pairs);
+                    startActivity(intent,options.toBundle());
+                }
+                else{
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+
+
 
     }
 
@@ -156,10 +183,14 @@ public class ShopLogin extends AppCompatActivity {
 
     }
 
-    public void SignUp() {
-        startActivity(new Intent(ShopLogin.this, ShopSignUp.class));
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(ShopLogin.this,UserDashBoard.class));
         finish();
+        super.onBackPressed();
     }
+
 
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
