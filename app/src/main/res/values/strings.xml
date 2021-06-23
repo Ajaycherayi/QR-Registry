@@ -65,7 +65,7 @@
     <string name="hint_selectDate">Select date</string>
 
     <!-- Edit Profile -->
-    <string name="editProfile">Edit Profile</string>
+    <string name="editProfile">Update Profile</string>
     <string name="update_user">Update your details</string>
     <string name="userName">Name<font color='#FF0000'>*</font></string>
     <string name="age">Age<font color='#FF0000'>*</font></string>

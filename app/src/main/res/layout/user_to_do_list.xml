@@ -22,16 +22,23 @@
         android:focusable="true"
         android:contentDescription="@null" />
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_todo_list"
+        android:contentDescription="@null"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-40dp"
         android:autoSizeTextType="uniform"
         android:text="@string/todoList"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:layout_gravity="center_horizontal"
         tools:targetApi="o" />
 
@@ -39,8 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_lower"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
 

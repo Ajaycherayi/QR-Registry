@@ -208,6 +208,92 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_TodoList"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/bg_Todo_card">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card_user">
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_todo_list" />
+
+                    <TextView
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="20dp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:text="@string/todoList"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_CustomerProfile"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/bg_Todo_card">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card_user">
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_edit_profile"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentBottom="true"
+                        android:autoSizeTextType="uniform"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/editProfile"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_mapFind"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
@@ -250,88 +336,5 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_TodoList"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:backgroundTint="@color/bg_Todo_card">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_user">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_todo_list" />
-
-                    <TextView
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginBottom="20dp"
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/my_fav_sans_number"
-                        android:text="@string/todoList"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_CustomerProfile"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:backgroundTint="@color/bg_Todo_card">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_user">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_edit_profile"
-                        android:contentDescription="@null" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentBottom="true"
-                        android:autoSizeTextType="uniform"
-                        android:layout_marginBottom="20dp"
-                        android:text="@string/editProfile"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/my_fav_sans_number"
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

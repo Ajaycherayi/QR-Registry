@@ -164,7 +164,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_today_customers"
+                        android:src="@drawable/ic_today_clients"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -206,7 +206,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_search_people"
+                        android:src="@drawable/ic_search_clients"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -290,8 +290,8 @@
                     android:background="@drawable/bg_card_shop">
 
                     <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/ic_shop_logout"

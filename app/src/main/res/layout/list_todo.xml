@@ -93,7 +93,7 @@
                     android:textStyle="bold"
                     app:backgroundTint="@color/light_red"
                     app:strokeColor="@color/black"
-                    app:strokeWidth="2dp"
+                    app:strokeWidth="1dp"
                     tools:ignore="SmallSp" />
             </RelativeLayout>
 
