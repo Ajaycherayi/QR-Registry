@@ -164,6 +164,7 @@
                         android:layout_marginLeft="10dp"
                         android:autoSizeTextType="uniform"
                         android:text="@string/list_location"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:textColor="#000"
                         android:textSize="20sp"
                         android:layout_marginStart="10dp" />
@@ -172,6 +173,9 @@
                         android:id="@+id/tv_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_general_list"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="4dp"
                         android:fontFamily="@font/my_fav_sans_number"
                         android:maxLines="1"
                         android:autoSizeTextType="uniform"
@@ -183,13 +187,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:text="@string/list_phoneNo"
                         android:textColor="#000"
                         android:textSize="20sp"
@@ -199,6 +205,9 @@
                         android:id="@+id/tv_phoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_general_list"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="4dp"
                         android:fontFamily="@font/my_fav_sans_number"
                         android:maxLines="1"
                         android:autoSizeTextType="uniform"
@@ -210,15 +219,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
 
                     <TextView
                         android:id="@+id/hint_email"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:text="@string/list_email"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -227,8 +238,11 @@
                         android:id="@+id/tv_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_general_list"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="4dp"
                         android:maxLines="1"
-                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -237,7 +251,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
 
                     <TextView
                         android:id="@+id/hint_address"
@@ -245,6 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
                         android:text="@string/list_address"
                         android:textColor="#000"
                         android:textSize="20sp"
@@ -254,7 +270,11 @@
                         android:id="@+id/tv_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="2"
+                        android:background="@drawable/bg_general_list"
+                        android:paddingHorizontal="5dp"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:paddingVertical="4dp"
+                        android:maxLines="5"
                         android:autoSizeTextType="uniform"
                         android:textColor="#000"
                         android:textSize="20sp" />

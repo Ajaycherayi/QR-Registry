@@ -52,6 +52,21 @@ public class CustomersDetailsAdapter extends RecyclerView.Adapter<CustomersDetai
     public void onBindViewHolder(@NonNull TextViewHolder holder,final int position) {
 
         CustomerDataForShopList model = customerDataForShop.get(position);
+        String address = model.getAddress();
+        String email = model.getEmail();
+
+        if (address.equals("")){
+            holder.tv_address.setText(R.string.notUpdated);
+        }else {
+            holder.tv_address.setText(model.getAddress());
+        }
+
+        if (email.equals("")){
+            holder.tv_email.setText(R.string.notUpdated);
+        }else {
+            holder.tv_email.setText(model.getEmail());
+        }
+
         holder.tv_name.setText(model.getName());
         holder.tv_phoneNumber.setText(model.getPhoneNumber());
         holder.tv_date.setText(model.getCurrentDate());
@@ -59,6 +74,24 @@ public class CustomersDetailsAdapter extends RecyclerView.Adapter<CustomersDetai
         holder.tv_age.setText(model.getAge());
         holder.tv_gender.setText(model.getGender());
         holder.tv_location.setText(model.getLocation());
+
+
+
+
+        boolean isExpandable = customerDataForShop.get(position).isExpandable();
+        holder.expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                model.setExpandable(!model.isExpandable());
+                notifyItemChanged(position);
+
+            }
+        });
+
 
         holder.btn_contact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,26 +215,6 @@ public class CustomersDetailsAdapter extends RecyclerView.Adapter<CustomersDetai
         });
 
 
-        String address = model.getAddress();
-        String email = model.getEmail();
-
-        if (address.equals("")){
-            holder.tv_address.setVisibility(View.GONE);
-            holder.hint_address.setVisibility(View.GONE);
-        }else {
-            holder.tv_address.setText(model.getAddress());
-        }
-
-        if (email.equals("")){
-            holder.tv_email.setVisibility(View.GONE);
-            holder.hint_email.setVisibility(View.GONE);
-        }else {
-            holder.tv_email.setText(model.getEmail());
-        }
-
-        boolean isExpandable = customerDataForShop.get(position).isExpandable();
-        holder.expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-
     }
 
     @Override
@@ -209,7 +222,7 @@ public class CustomersDetailsAdapter extends RecyclerView.Adapter<CustomersDetai
         return customerDataForShop.size();
     }
 
-    public class TextViewHolder extends RecyclerView.ViewHolder{
+    public static class TextViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_name, tv_phoneNumber, tv_time, tv_date, tv_age, tv_gender, tv_address, tv_email,tv_location;
         TextView hint_address, hint_email;
@@ -239,15 +252,6 @@ public class CustomersDetailsAdapter extends RecyclerView.Adapter<CustomersDetai
             linearLayout = itemView.findViewById(R.id.linear_layout);
             expandable = itemView.findViewById(R.id.expandable_layout);
 
-            linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    CustomerDataForShopList customersList = customerDataForShop.get(getAdapterPosition());
-                    customersList.setExpandable(!customersList.isExpandable());
-                    notifyItemChanged(getAdapterPosition());
-                }
-            });
 
         }
 

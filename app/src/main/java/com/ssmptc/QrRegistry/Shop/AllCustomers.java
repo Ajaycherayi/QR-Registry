@@ -197,6 +197,7 @@ public class AllCustomers extends AppCompatActivity {
 
                     adapter = new CustomersDetailsAdapter(AllCustomers.this, customerDataForShopLists);
                     recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                     progressDialog.dismiss();
 
                 }

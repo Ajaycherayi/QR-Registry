@@ -92,6 +92,7 @@ public class TodayCustomers extends AppCompatActivity {
 
                     adapter = new CustomersDetailsAdapter(TodayCustomers.this, customerDataForShopLists);
                     recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                     progressDialog.dismiss();
 
                 }

@@ -135,6 +135,7 @@
     <string name="list_age">Age :\t</string>
     <string name="list_gender">Gender :\t</string>
     <string name="list_address">Address :\t</string>
+    <string name="notUpdated">not updated</string>
 
     <!-- all Customers List -->
     <string name="allCustomers">All clients</string>

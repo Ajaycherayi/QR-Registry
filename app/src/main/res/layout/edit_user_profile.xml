@@ -269,9 +269,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="120dp"
                     android:inputType="textMultiLine"
                     android:overScrollMode="always"
+                    android:maxLines="6"
+                    android:gravity="top"
                     android:padding="10dp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="horizontal"
