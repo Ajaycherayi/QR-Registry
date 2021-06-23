@@ -88,9 +88,10 @@ public class TodayCustomers extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     CustomerDataForShopList model = postSnapshot.getValue(CustomerDataForShopList.class);
-                    customerDataForShopLists.add(model);
+                    customerDataForShopLists.add(0,model);
 
                     adapter = new CustomersDetailsAdapter(TodayCustomers.this, customerDataForShopLists);
+                    recyclerView.smoothScrollToPosition(0);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     progressDialog.dismiss();

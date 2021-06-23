@@ -127,7 +127,7 @@ public class ShopDetails extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             //--------------- Get data from shop database and put into ShopsDataForCustomers model ------------------------
-                            dataForUser.add(new ShopsDataForUser((postSnapshot.child("id").getValue(String.class)),dataSnapshot.child("id").getValue(String.class),
+                            dataForUser.add(0,new ShopsDataForUser((postSnapshot.child("id").getValue(String.class)),dataSnapshot.child("id").getValue(String.class),
                                     dataSnapshot.child("shopName").getValue(String.class),
                                     dataSnapshot.child("category").getValue(String.class),
                                     dataSnapshot.child("ownerName").getValue(String.class),
@@ -140,6 +140,7 @@ public class ShopDetails extends AppCompatActivity {
                                     dataSnapshot.child("name").getValue(String.class)));
 
                             adapter = new ShopDetailsAdapter(ShopDetails.this,dataForUser);
+                            recyclerView.smoothScrollToPosition(0);
                             recyclerView.setAdapter(adapter);
 
                         }

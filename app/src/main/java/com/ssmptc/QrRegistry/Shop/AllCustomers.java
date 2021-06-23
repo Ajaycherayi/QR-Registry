@@ -75,7 +75,6 @@ public class AllCustomers extends AppCompatActivity {
         recyclerView = findViewById(R.id.customersView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(AllCustomers.this));
-
         customerDataForShopLists = new ArrayList<>();
 
 
@@ -158,9 +157,9 @@ public class AllCustomers extends AppCompatActivity {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                         CustomerDataForShopList model = postSnapshot.getValue(CustomerDataForShopList.class);
-                        customerDataForShopLists.add(model);
-
+                        customerDataForShopLists.add(0,model);
                         adapter = new CustomersDetailsAdapter(AllCustomers.this, customerDataForShopLists);
+                        recyclerView.smoothScrollToPosition(0);
                         recyclerView.setAdapter(adapter);
                         progressDialog.dismiss();
 
@@ -193,9 +192,9 @@ public class AllCustomers extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     CustomerDataForShopList model = postSnapshot.getValue(CustomerDataForShopList.class);
-                    customerDataForShopLists.add(model);
-
+                    customerDataForShopLists.add(0,model);
                     adapter = new CustomersDetailsAdapter(AllCustomers.this, customerDataForShopLists);
+                    recyclerView.smoothScrollToPosition(0);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     progressDialog.dismiss();

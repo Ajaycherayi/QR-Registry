@@ -140,12 +140,13 @@ public class ShopDashBoard extends AppCompatActivity {
             String output = intentResult.getContents();
 
             if (output.startsWith("QrRegistryUser")) {
-                String[] separated = output.split(":");
-
-                String name = separated[1];
-                String userDetails = separated[2];
 
                 try {
+                    String[] separated = output.split(":");
+
+                    String name = separated[1];
+                    String userDetails = separated[2];
+
                     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("hh:mm aa", Locale.getDefault()).format(new Date());
 
@@ -159,16 +160,16 @@ public class ShopDashBoard extends AppCompatActivity {
                     String email = separateData[4];
                     String address = separateData[5];
 
-                    if (email.equals(" ")){
+                    if (email.equals(" ")) {
                         email = "";
                     }
 
-                    if (address.equals(" ")){
+                    if (address.equals(" ")) {
                         address = "";
                     }
 
                     String id = reference.push().getKey();
-                    if (id != null){
+                    if (id != null) {
 
                         reference.child(id).child("id").setValue(id);
                         reference.child(id).child("name").setValue(name);
@@ -184,11 +185,6 @@ public class ShopDashBoard extends AppCompatActivity {
                     }
                     Toast.makeText(ShopDashBoard.this, "Customer data added ", Toast.LENGTH_SHORT).show();
 
-                } catch (Exception e) {
-                        e.printStackTrace();
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
                     //Initialize Dialog box
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
 
@@ -199,18 +195,28 @@ public class ShopDashBoard extends AppCompatActivity {
                     builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode()).setNegativeButton("OK", (dialog, which) -> dialog.dismiss());
 
                     builder.show();  //Show Alert Dialog
-
-                } else{
+                } catch (Exception e) {
+                    e.printStackTrace();
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
                     builder.setMessage("Wrong QR Code");
                     builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
                     builder.show();
                 }
-            } else {
+            }
+
+             else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShopDashBoard.this);
+                    builder.setMessage("Wrong QR Code");
+                    builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                    builder.show();
+            }
+        } else {
 
                 Toast.makeText(getApplicationContext(), "You did not scan anything", Toast.LENGTH_SHORT).show();
 
-            }
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }

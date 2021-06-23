@@ -229,11 +229,12 @@ public class UserToDoList extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     TodoModel model = postSnapshot.getValue(TodoModel.class);
-                    todoModels.add(model);
+                    todoModels.add(0,model);
                 }
 
                 adapter = new TodoAdapter(UserToDoList.this, todoModels);
                 recyclerView.setAdapter(adapter);
+                recyclerView.smoothScrollToPosition(0);
                 progressDialog.dismiss();
             }
             @Override

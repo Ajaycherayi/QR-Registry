@@ -445,12 +445,14 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
 
             if (output.startsWith("QrRegistryShop")) {
-                String[] separated = output.split(":");
-
-                String shopName = separated[1];
-                String shopDetails = separated[2];
 
                 try {
+
+                    String[] separated = output.split(":");
+
+                    String shopName = separated[1];
+                    String shopDetails = separated[2];
+
                     ShopData = (String) decrypt(shopDetails);
 
                     String[] separated0 = ShopData.split(":");
@@ -463,8 +465,11 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
-
-                                Toast.makeText(UserDashBoard.this, "This Shop Data Already Exist", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
+                                builder.setMessage("Details already exist ");
+                                builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
+                                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                                builder.show();
 
                             }else {
                                 String id = reference.push().getKey();
@@ -474,7 +479,31 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                                     reference.child(id).child("shopName").setValue(shopName);
                                     reference.child(id).child("id").setValue(id);
                                 }
-                                Toast.makeText(UserDashBoard.this, "Added New Shop Data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserDashBoard.this, "New shop details added", Toast.LENGTH_SHORT).show();
+                                //Initialize Dialog box
+                                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
+
+                                //Set Title
+                                builder.setTitle("Result");
+
+                                //Set Message
+                                builder.setMessage("Read Successfully");
+
+                                //set Positive Button
+                                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        scanCode();
+                                    }
+                                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                //Show Alert Dialog
+                                builder.show();
                             }
                         }
                         @Override
@@ -485,34 +514,18 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
 
                 } catch (Exception e) {
-                    Toast.makeText(this, "Wrong Key", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
+                    builder.setMessage("Wrong QR Code");
+                    builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            scanCode();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                    builder.show();
                 }
-
-                //Initialize Dialog box
-                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
-
-                //Set Title
-                builder.setTitle("Result");
-
-                //Set Message
-                builder.setMessage("Read Successfully");
-
-                //set Positive Button
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanCode();
-                    }
-                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                //Show Alert Dialog
-                builder.show();
 
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
@@ -523,6 +536,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                         scanCode();
                     }
                 });
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
                 builder.show();
 
             }
