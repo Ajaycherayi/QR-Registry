@@ -107,7 +107,7 @@
                     android:autoSizeTextType="uniform"
                     android:digits="@string/allowedName"
                     android:hint="@string/hint_ownerName"
-                    android:inputType="textCapCharacters"
+                    android:inputType="textCapSentences"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />

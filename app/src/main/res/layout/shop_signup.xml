@@ -248,7 +248,7 @@
            <com.google.android.material.button.MaterialButton
                android:id="@+id/btn_getOtp"
                android:layout_width="match_parent"
-               android:layout_height="53dp"
+               android:layout_height="60dp"
                android:layout_gravity="center"
                android:layout_marginTop="10dp"
                android:backgroundTint="@color/Primary"
