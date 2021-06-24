@@ -145,6 +145,7 @@
                         android:layout_height="55dp"
                         android:autoSizeTextType="uniform"
                         android:inputType="number"
+                        android:maxLength="2"
                         android:fontFamily="@font/my_fav_sans_number"
                         android:textColor="@color/black"
                         android:textSize="20sp" />

@@ -165,6 +165,7 @@
                     android:autoSizeTextType="uniform"
                     android:hint="@string/hint_age"
                     android:inputType="number"
+                    android:maxLength="2"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />

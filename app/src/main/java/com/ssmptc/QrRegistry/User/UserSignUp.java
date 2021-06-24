@@ -265,7 +265,7 @@ public class UserSignUp extends AppCompatActivity {
         if (val.isEmpty()){
             et_age.setError("Field can not be empty");
             return false;
-        }else if(val.length()>3){
+        }else if(val.length()>2){
             et_age.setError("Enter Valid Age");
             return false;
         }else {
