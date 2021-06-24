@@ -78,12 +78,12 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     TextClock tv_time;
 
 
-    String phoneNo,currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.getDefault()).format(new Date());
+    String phoneNo;
     String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
     SessionManagerUser managerCustomer;
     SessionManagerShop managerShop;
 
-    private String sName,ShopData,sCategory,sOwnerName,sLocation,sPhoneNumber,sEmail,sDays, sTime,sDescription,sImages;
+    private String ShopData;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -119,8 +119,23 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         tv_time.setFormat24Hour(null);
 
         managerCustomer = new SessionManagerUser(getApplicationContext());
-        String sName = managerCustomer.getName();
-        user_Name.setText(sName);
+        String sPhone = managerCustomer.getPhone();
+
+        FirebaseDatabase.getInstance().getReference("Users").child(sPhone).child("Profile")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String sName = snapshot.child("name").getValue(String.class);
+                        user_Name.setText(sName);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
 
         navigationDrawer();
 

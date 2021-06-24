@@ -188,6 +188,7 @@ public class EditUserProfile extends AppCompatActivity {
                 }else {
 
                     userDb.child("name").setValue(et_name.getEditText().getText().toString());
+                    tv_name.setText(et_name.getEditText().getText().toString());
                     userDb.child("location").setValue(et_location.getEditText().getText().toString());
                     userDb.child("age").setValue(et_age.getEditText().getText().toString());
                     userDb.child("gender").setValue(rb_selected.getText().toString());
