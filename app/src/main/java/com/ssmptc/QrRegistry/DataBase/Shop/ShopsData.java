@@ -1,12 +1,12 @@
 package com.ssmptc.QrRegistry.DataBase.Shop;
 
 public class ShopsData {
-    String id,shopName,category,location,ownerName,phoneNumber,password,email,licenseNumber,description,workingTime,workingDays;
+    String id,shopName,category,location,ownerName,phoneNumber,password,email,description,workingTime,workingDays;
 
     public ShopsData() {
     }
 
-    public ShopsData(String id, String shopName, String category, String location, String ownerName, String phoneNumber, String password, String email, String licenseNumber, String description, String workingTime, String workingDays) {
+    public ShopsData(String id, String shopName, String category, String location, String ownerName, String phoneNumber, String password, String email, String description, String workingTime, String workingDays) {
         this.id = id;
         this.shopName = shopName;
         this.category = category;
@@ -15,7 +15,6 @@ public class ShopsData {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.email = email;
-        this.licenseNumber = licenseNumber;
         this.description = description;
         this.workingTime = workingTime;
         this.workingDays = workingDays;
@@ -83,14 +82,6 @@ public class ShopsData {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
     }
 
     public String getDescription() {

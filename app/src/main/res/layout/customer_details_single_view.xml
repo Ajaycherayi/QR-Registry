@@ -73,7 +73,6 @@
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/my_fav_sans_number"
                 android:maxLines="1"
-                android:text="@string/name"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />

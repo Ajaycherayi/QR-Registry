@@ -45,7 +45,7 @@ public class EditShopProfile extends AppCompatActivity {
     ImageView btn_back;
     Button btn_upload,btn_showAll,btn_update;
 
-    private TextInputLayout et_ShopName,et_LicenseNumber,et_category,et_location,et_ownerName,et_email,et_time,et_days ,et_description;
+    private TextInputLayout et_ShopName,et_category,et_location,et_ownerName,et_email,et_time,et_days ,et_description;
     private ImageView btn_chooseImg;
     private ProgressDialog progressDialog;
 
@@ -54,7 +54,7 @@ public class EditShopProfile extends AppCompatActivity {
     private StorageReference storageReference;
     private Uri filePath;
     private String shopId;
-    private String  _ShopName,_LicenseNumber,_category,_location,_ownerName,_email,_time,_days,_description;
+    private String  _ShopName,_category,_location,_ownerName,_email,_time,_days,_description;
     SessionManagerShop managerShop;
 
 
@@ -76,7 +76,6 @@ public class EditShopProfile extends AppCompatActivity {
 
         // Update Details
         et_ShopName = findViewById(R.id.et_shopName);
-        et_LicenseNumber = findViewById(R.id.et_LicenseNumber);
         et_category = findViewById(R.id.et_category);
         et_location = findViewById(R.id.et_shopLocation);
         et_ownerName = findViewById(R.id.et_ownerName);
@@ -117,7 +116,7 @@ public class EditShopProfile extends AppCompatActivity {
 
             dbUpdate();
 
-            if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isLicenseChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
+            if (isNameChanged() | isCategoryChanged() | isLocationChanged() | isPhoneNumberChanged() | isEmailChanged() | isDescriptionChanged() | isTimeChanged() | isDayChanged()){
 
                 Toast.makeText(EditShopProfile.this, "Data has been Updated", Toast.LENGTH_SHORT).show();
             }
@@ -161,10 +160,6 @@ public class EditShopProfile extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
         loadProgressDialog();
 
@@ -271,32 +266,28 @@ public class EditShopProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 _ShopName = dataSnapshot.child("shopName").getValue(String.class);
+                tv_shopName.setText(_ShopName);
                 Objects.requireNonNull(et_ShopName.getEditText()).setText(_ShopName);
 
-                tv_shopName.setText(dataSnapshot.child("shopName").getValue(String.class));
                 _category = dataSnapshot.child("category").getValue(String.class);
-
                 Objects.requireNonNull(et_category.getEditText()).setText(_category);
+
                 _location = dataSnapshot.child("location").getValue(String.class);
-
                 Objects.requireNonNull(et_location.getEditText()).setText(_location);
+
                 _ownerName = dataSnapshot.child("ownerName").getValue(String.class);
-
                 Objects.requireNonNull(et_ownerName.getEditText()).setText(_ownerName);
-                _LicenseNumber = dataSnapshot.child("licenseNumber").getValue(String.class);
 
-                Objects.requireNonNull(et_LicenseNumber.getEditText()).setText(_LicenseNumber);
                 _email = dataSnapshot.child("email").getValue(String.class);
-
                 Objects.requireNonNull(et_email.getEditText()).setText(_email);
+
                 _description = dataSnapshot.child("description").getValue(String.class);
-
                 Objects.requireNonNull(et_description.getEditText()).setText(_description);
+
                 _time = dataSnapshot.child("workingTime").getValue(String.class);
-
                 Objects.requireNonNull(et_time.getEditText()).setText(_time);
-                _days = dataSnapshot.child("workingDays").getValue(String.class);
 
+                _days = dataSnapshot.child("workingDays").getValue(String.class);
                 Objects.requireNonNull(et_days.getEditText()).setText(_days);
 
                 progressDialog.dismiss();
@@ -358,14 +349,6 @@ public class EditShopProfile extends AppCompatActivity {
         if (!_email.equals(Objects.requireNonNull(et_email.getEditText()).getText().toString().trim())){
 
             reference.child("email").setValue(et_email.getEditText().getText().toString().trim());
-            return true;
-        }else
-            return false;
-    }
-    private boolean isLicenseChanged() {
-        if (!_LicenseNumber.equals(Objects.requireNonNull(et_LicenseNumber.getEditText()).getText().toString().trim())){
-
-            reference.child("licenseNumber").setValue(et_LicenseNumber.getEditText().getText().toString().trim());
             return true;
         }else
             return false;

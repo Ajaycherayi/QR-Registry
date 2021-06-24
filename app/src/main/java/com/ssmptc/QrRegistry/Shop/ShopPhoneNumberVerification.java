@@ -186,13 +186,12 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                                     rff = FirebaseDatabase.getInstance().getReference().child("Shops");
 
                                     String email = "";
-                                    String licenseNumber = "";
                                     String description = "";
                                     String workingTime = "";
                                     String workingDays = "";
 
                                     rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
-                                    ShopsData addNewShop = new ShopsData(nodeId,shopName,category,location,ownerName,phoneNumber,password,email,licenseNumber,description,workingTime,workingDays);
+                                    ShopsData addNewShop = new ShopsData(nodeId,shopName,category,location,ownerName,phoneNumber,password,email,description,workingTime,workingDays);
                                     rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
 
                                     Query shopData = FirebaseDatabase.getInstance().getReference("Shops").child(nodeId).child("Shop Profile");

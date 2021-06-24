@@ -39,7 +39,7 @@
             android:id="@+id/btn_sendMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email"
+            android:text="@string/editEmail"
             android:textColor="@color/white"
             app:cornerRadius="30dp"
             app:icon="@drawable/ic_email"

@@ -5,34 +5,65 @@
     <string name="qrCode">QR</string>
     <string name="registry">REGISTRY</string>
 
+    <!--===================== User Sign Up Page =====================-->
 
-    <!-- - - - - - - - - - - Sign Up Page - - - - - - - - - -->
     <string name="login">Login</string>
+
+    <string name="signUpName">Name</string>
+    <string name="signUpLocation">Location</string>
+    <string name="signUpAge">Age</string>
+    <string name="signUpGender">Choose Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="signUpPhone">Phone</string>
+    <string name="signUpPassword">Password</string>
+
     <string name="getOtp">Get Otp</string>
     <string name="SignUpWith">Sign up with</string>
     <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
 
-    <!--User Login Page -->
+    <!--===================== Phone number verification =====================-->
+
+    <string name="otpVerification"><b>OTP Verification</b></string>
+    <string name="noOtp">Didn\'t receive OTP?</string>
+
+    <string name="hint_otp">######</string>
+    <string name="resend">Resend</string>
+
+    <!--===================== User Login Page =====================-->
+
     <string name="loginWith">Login With</string>
     <string name="SignUp">Sign Up</string>
-    <string name="unique">Copy this unique Id for your shop or org Login</string>
 
-    <!-- - - - - - - - - - - Dash Board - - - - - - - - - - -->
+    <!--=============================== User Dash Board ===============================-->
 
     <string name="stayHome">STAY HOME STAY SAFE</string>
 
-    <!-- My QR Code -->
+    <string name="home">Home</string>
+    <string name="shop">Shops or Organization</string>
+    <string name="contactUs">Contact us</string>
+    <string name="logOut">Logout</string>
+
+
     <string name="myQr">My QR</string>
+    <string name="scanCode">Scan QR</string>
+    <string name="scannedShop">Scanned Details</string>
+    <string name="todoList">To-do List</string>
+    <string name="editProfile">Update Profile</string>
+    <string name="findShops">Find</string>
+
+    <!--===================== My QR Code  =============================-->
+
     <string name="yourQrCode">YOUR QR CODE</string>
     <string name="TapForScreenShot">Tap For ScreenShot</string>
 
-    <string name="scanCode">Scan QR</string>
+    <!--===================== Scanned Details =============================-->
 
-    <!-- Shop Details Scanned -->
-    <string name="scannedShop">Scanned Details</string>
-    <string name="shops">Shops or Organization</string>
     <string name="searchHint">Search</string>
-    <!-- Shop Details list -->
+    <string name="delete">Delete</string>
+    <string name="more">More…</string>
+
     <string name="list_category">Category :\t</string>
     <string name="list_location">Location : \t</string>
     <string name="list_owner">Owner :\t</string>
@@ -41,146 +72,141 @@
     <string name="list_time">Working Time :\t</string>
     <string name="list_desc">Description :\t</string>
     <string name="list_email">Email :\t</string>
+
+    <string name="shopImages">Shop or organization Images</string>
+    <string name="contact">contact</string>
     <string name="chooseOne">Choose one</string>
-    <!-- Shop Details buttons -->
+
+    <!--========== Contact to shop ==========-->
+
     <string name="call">Call</string>
     <string name="message">Message</string>
     <string name="locate">Locate</string>
-    <string name="delete">Delete</string>
-    <string name="more">More…</string>
-    <string name="contact">contact</string>
-    <string name="shopImages">Shop or organization Images</string>
 
-    <!-- Find Shops -->
+    <!--===================== Find Shops =============================-->
+
     <string name="find">F!ND</string>
     <string name="hint_category">Stationary</string>
     <string name="hint_location">Tirur</string>
-    <string name="findShops">Find</string>
 
-    <!-- To-do List -->
-    <string name="todoList">To-do List</string>
+    <!--===================== To-do List =====================-->
+
     <string name="addNew">Add New</string>
     <string name="save">save</string>
     <string name="hint_Title">Title</string>
     <string name="hint_selectDate">Select date</string>
 
-    <!-- Edit Profile -->
-    <string name="editProfile">Update Profile</string>
+    <!--===================== User Edit Profile =====================-->
+
     <string name="update_user">Update your details</string>
-    <string name="userName">Name<font color='#FF0000'>*</font></string>
-    <string name="age">Age<font color='#FF0000'>*</font></string>
+
+    <string name="required"><font color='#FF0000'>*</font> Required</string>
+    <string name="editName">Name<font color='#FF0000'>*</font></string>
+    <string name="editLocation">Location<font color='#FF0000'>*</font></string>
+    <string name="editAge">Age<font color='#FF0000'>*</font></string>
+    <string name="editGender">Choose Gender<font color='#FF0000'>*</font></string>
+    <string name="editEmail">Email</string>
+    <string name="editAddress">Address</string>
+
     <string name="hint_age">20</string>
-    <string name="gender">Choose Gender<font color='#FF0000'>*</font></string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other">Other</string>
-    <string name="userEmail">Email</string>
     <string name="hint_email">example@gmail.com</string>
-    <string name="address">Address</string>
 
+    <string name="update">Update</string>
 
-    <!-- - - - - - - - - - - Sign Up Page - - - - - - - - - -->
-    <string name="shopName">Shop or Organization Name<font color='#FF0000'>*</font></string>
-    <string name="category">Category<font color='#FF0000'>*</font></string>
-    <string name="shopLocation">Location<font color='#FF0000'>*</font></string>
-    <string name="ownerPhone">Phone<font color='#FF0000'>*</font></string>
-    <string name="shopPassword">Password<font color='#FF0000'>*</font></string>
+    <!--============================================================================================================================-->
 
-    <!-- - - - - - - - - - - Login Page - - - - - - - - - -->
-    <string name="shopId">Shop or Organization ID<font color='#FF0000'>*</font></string>
-    <!-- - - - - - Login Alert - - - - -->
+    <!--===================== Shop Login Alert =====================-->
+
     <string name="shopLogin">Shop or Organization Login</string>
     <string name="login_cancel">Cancel</string>
     <string name="login_disable">Disable</string>
-    <string name="login_login">Login</string>
 
     <string name="shop_login_create"><font color="#09EAA3">*</font> If you own a shop or organization, join us.<br />Login or signUp with the <b>LOGIN</b> Button.</string>
     <string name="shop_login_cancel"><font color="#44ADFF">*</font> If you do not do anything right now.<br />hit <b>CANCEL</b> Button.</string>
     <string name="shop_login_disable"><font color="#F74343">*</font> If you are a user only you can disable the shop or organization button.<br /> hit <b>DISABLE</b> Button.</string>
-    <!-- - - - - - Login Alert - - - - -->
+
+    <!--===================== Shop Sign Up Page =====================-->
+
+    <string name="signUpShopName">Shop or Organization Name</string>
+    <string name="signUpCategory">Category</string>
+    <string name="signUpOwnerName">Owner Name</string>
+
+    <!--===================== Shop Id Alert =====================-->
+
+    <string name="unique">Copy this unique Id for your shop or org Login</string>
     <string name="idAlert">I Will Remember This.</string>
     <string name="ok">OK</string>
 
+    <!--===================== Shop Login Page =====================-->
 
-    <!-- - - - - - - - - - - Phone number verification- - - - - - - - - -->
-    <string name="hint_otp">######</string>
-    <string name="resend">Resend</string>
+    <string name="LoginShopId">Shop or Organization ID</string>
 
-    <!-- - - - - - - - - - - Shop Dash Board - - - - - - - - - - -->
-    <string name="qrCodeOf">QR CODE OF</string>
-    <string name="scanQr">Scan QR</string>
+    <!--=============================== Shop Dash Board  ===============================-->
+
     <string name="shopCode">QR Code</string>
+    <string name="toDay">Today\'s  clients</string>
+    <string name="search">Search clients</string>
     <string name="updateProfile">Update Details</string>
 
-    <!-- Edit Profile -->
+
+    <!--===================== Shop QR Code  =============================-->
+
+    <string name="qrCodeOf">QR CODE OF</string>
+
+    <!--===================== Edit Shop Profile =====================-->
+
     <string name="id">ID : </string>
     <string name="updateShop">Update your shop or Organization details</string>
+    <string name="contactDetails">Contact Details</string>
+    <string name="workDayTime">Working Days and Times</string>
+    <string name="shopAbout">Shop abouts and Images</string>
+    <string name="uploadImages">Upload your shop or organization Images</string>
+
+    <string name="editShopName">Name<font color='#FF0000'>*</font></string>
+    <string name="editCategory">Category<font color='#FF0000'>*</font></string>
+    <string name="editOwnerName">Owner Name<font color='#FF0000'>*</font></string>
+    <string name="workingTime">Working Time</string>
+    <string name="workingDays">Working Days</string>
+    <string name="description">Description</string>
+
     <string name="hint_enterShopName">Enter shop or organization name</string>
     <string name="hint_shopCategory">Enter shop or organization category</string>
-    <string name="hint_license">Shop or Organization category license</string>
-    <string name="contactDetails">Contact Details</string>
     <string name="hint_ownerName">eg. John</string>
     <string name="hint_shopLocation">eg. Bypass road, calicut</string>
-    <string name="workDayTime">Working Days and Times</string>
     <string name="hint_time">7:00 am - 5:00 pm</string>
     <string name="hint_days">Monday - Friday</string>
-    <string name="shopAbout">Shop abouts and Images</string>
     <string name="hint_desc">About shop</string>
-    <string name="uploadImages">Upload your shop or organization Images</string>
+
     <string name="upload">Upload</string>
     <string name="showAll">Show all</string>
 
-    <!-- Today's Customers List -->
-    <string name="toDay">Today\'s  clients</string>
+    <!--===================== Today's Customers List =====================-->
+
     <string name="list_age">Age :\t</string>
     <string name="list_gender">Gender :\t</string>
     <string name="list_address">Address :\t</string>
     <string name="notUpdated">not updated</string>
 
-    <!-- all Customers List -->
+    <!--===================== All customers list =====================-->
+
     <string name="allCustomers">All clients</string>
     <string name="selectDate">select Date</string>
-    <string name="search">Search clients</string>
 
-    <!-- LogOut -->
-    <string name="logOut">Logout</string>
+    <!--============================================================================================================================-->
 
+    <!--===================== About =====================-->
 
-    <!-- Menu Page -->
-    <string name="home">Home</string>
-    <string name="shop">Shop or Organization</string>
-
-    <string name="update">Update</string>
-
-
-    <!-- Verification Page -->
-    <string name="otpVerification"><b>OTP Verification</b></string>
-    <string name="noOtp">Didn\'t receive OTP?</string>
-
-
-    <string name="name">Name</string>
-    <string name="email">E-Mail</string>
-
-    <!-- Menu Page -->
-
-    <string name="licenseNo">License Number<font color='#FF0000'>*</font></string>
-    <string name="ownerName">Owner Name<font color='#FF0000'>*</font></string>
-    <string name="workingTime">Working Time</string>
-    <string name="workingDays">Working Days</string>
-    <string name="description">Description</string>
-    <string name="required"><font color='#FF0000'>*</font> Required</string>
-
-    <!-- - - - - - - - - - - About - - - - - - - - - -->
     <string name="version">Version 1.0</string>
     <string name="team">Team QR Registry</string>
     <string name="leader">Admin &amp; Leader</string>
     <string name="teamMembers">Team Members</string>
-    <string name="contactUs">Contact us</string>
+
+    <!--===================== Contact us =====================-->
+
     <string name="ajay">Ajay C</string>
     <string name="anas">Mohamed Anas K P</string>
     <string name="salman">Salmanul Faris C C</string>
     <string name="arshid">Arshid Abdul Azeez M P</string>
     <string name="nabeeh">Nabeeh P P</string>
-
 
 </resources>
