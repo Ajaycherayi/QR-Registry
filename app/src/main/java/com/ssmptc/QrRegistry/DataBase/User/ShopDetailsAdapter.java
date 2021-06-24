@@ -57,14 +57,32 @@ public class ShopDetailsAdapter  extends RecyclerView.Adapter<ShopDetailsAdapter
            @Override
            public void onClick(View v) {
 
-               String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers ShopImageUrl
+               String id = data.getShopId(); // Get Shop Id from ShopsDataForCustomers
                String keyId = data.getId(); // Get User DataBase Key
 
-               Intent intent = new Intent(mContext, ShopDetailsSingleView.class);
-               intent.putExtra("shopId",id); // Pass Shop Id value To ShopDetailsSingleView
-               intent.putExtra("key",keyId); // Pass key value To ShopDetailsSingleView
-               mContext.startActivity(intent);
-               notifyDataSetChanged();
+               FirebaseDatabase.getInstance().getReference("Shops").orderByChild("shopId").equalTo(id)
+                       .addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                               if (snapshot.exists()){
+                                   Intent intent = new Intent(mContext, ShopDetailsSingleView.class);
+                                   intent.putExtra("shopId",id); // Pass Shop Id value To ShopDetailsSingleView
+                                   intent.putExtra("key",keyId); // Pass key value To ShopDetailsSingleView
+                                   mContext.startActivity(intent);
+                                   notifyDataSetChanged();
+                               }else {
+                                   Toast.makeText(mContext, "Shop does not exist in QR Registry", Toast.LENGTH_SHORT).show();
+                               }
+
+                           }
+
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError error) {
+
+                           }
+                       });
+
            }
        });
 
