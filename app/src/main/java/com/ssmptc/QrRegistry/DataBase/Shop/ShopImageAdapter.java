@@ -40,7 +40,7 @@ public class ShopImageAdapter extends RecyclerView.Adapter<ShopImageAdapter.Imag
         ShopImageUrl uploadCurrent = shopImageUrlList.get(position);
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
-                .placeholder(R.drawable.ic_launcher)
+                .placeholder(R.drawable.img_loading)
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
