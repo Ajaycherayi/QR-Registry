@@ -64,23 +64,8 @@ public class ShopDashBoard extends AppCompatActivity {
         btn_CustomerReport = findViewById(R.id.btn_CustomerReport);
 
         managerShop = new SessionManagerShop(getApplicationContext());
-        String sId = managerShop.getShopId();
-
-        FirebaseDatabase.getInstance().getReference("Shops").child(sId).child("Shop Profile")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String sName = snapshot.child("shopName").getValue(String.class);
-                        textView.setText(sName);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
+        String sName = managerShop.getShopName();
+        textView.setText(sName);
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(ShopDashBoard.this, UserDashBoard.class));

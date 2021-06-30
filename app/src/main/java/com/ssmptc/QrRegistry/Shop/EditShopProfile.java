@@ -32,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ssmptc.QrRegistry.DataBase.Shop.SessionManagerShop;
 import com.ssmptc.QrRegistry.DataBase.Shop.ShopImageUrl;
+import com.ssmptc.QrRegistry.DataBase.Shop.ShopsData;
 import com.ssmptc.QrRegistry.R;
 import com.ssmptc.QrRegistry.User.ShopDetailsSingleView;
 import com.ssmptc.QrRegistry.User.ShowShopImages;
@@ -101,7 +102,7 @@ public class EditShopProfile extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference("ShopImages").child(shopId);
 
         btn_back.setOnClickListener(v -> {
-            startActivity(new Intent(EditShopProfile.this,ShopDashBoard.class));
+            startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
             finishAffinity();
         });
 
@@ -165,6 +166,12 @@ public class EditShopProfile extends AppCompatActivity {
 
         dbUpdate();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), ShopDashBoard.class));
+        super.onBackPressed();
     }
 
     //-----------------------Progress Dialog-------------------
@@ -265,8 +272,12 @@ public class EditShopProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                managerShop = new SessionManagerShop(getApplicationContext());
+
                 _ShopName = dataSnapshot.child("shopName").getValue(String.class);
                 tv_shopName.setText(_ShopName);
+                String _Password = dataSnapshot.child("password").getValue(String.class);
+                managerShop.setDetails(shopId,_ShopName,_Password);
                 Objects.requireNonNull(et_ShopName.getEditText()).setText(_ShopName);
 
                 _category = dataSnapshot.child("category").getValue(String.class);

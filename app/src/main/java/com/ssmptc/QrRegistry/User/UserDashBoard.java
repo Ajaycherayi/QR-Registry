@@ -80,7 +80,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String phoneNo;
     String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
-    SessionManagerUser managerCustomer;
+    SessionManagerUser managerUser;
     SessionManagerShop managerShop;
 
     private String ShopData;
@@ -118,28 +118,14 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         tv_time.setFormat12Hour("hh:mm:ss a");
         tv_time.setFormat24Hour(null);
 
-        managerCustomer = new SessionManagerUser(getApplicationContext());
-        String sPhone = managerCustomer.getPhone();
+        managerUser = new SessionManagerUser(getApplicationContext());
 
-        FirebaseDatabase.getInstance().getReference("Users").child(sPhone).child("Profile")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String sName = snapshot.child("name").getValue(String.class);
-                        user_Name.setText(sName);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
+        String sName = managerUser.getName();
+        user_Name.setText(sName);
 
         navigationDrawer();
 
-        nav_shop.setVisible(!managerCustomer.getShopButton());
+        nav_shop.setVisible(!managerUser.getShopButton());
 
         // SessionManager sessionManager = new SessionManager(this);
         //HashMap<String,String> userDetails = sessionManager.getUserDetailsFromSession();
@@ -333,7 +319,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     private void shopLogin() {
 
-        managerCustomer = new SessionManagerUser(getApplicationContext());
+        managerUser = new SessionManagerUser(getApplicationContext());
         managerShop = new SessionManagerShop(getApplicationContext());
 
         if (managerShop.getShopLogin()) {
@@ -365,7 +351,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 public void onClick(View v) {
                     Menu menuNav = navigationView.getMenu();
                     MenuItem nav_shop = menuNav.findItem(R.id.nav_shop);
-                    managerCustomer.setShopButton(true);
+                    managerUser.setShopButton(true);
                     nav_shop.setVisible(false);
                     dialog.dismiss();
                 }
@@ -376,7 +362,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     private void logout() {
 
-        managerCustomer = new SessionManagerUser(getApplicationContext());
+        managerUser = new SessionManagerUser(getApplicationContext());
         managerShop = new SessionManagerShop(getApplicationContext());
 
         //Initialize alert dialog
@@ -393,9 +379,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-              managerCustomer.setCustomerLogin(false);
-              managerCustomer.setShopButton(false);
-              managerCustomer.setDetails("","","");
+              managerUser.setCustomerLogin(false);
+              managerUser.setShopButton(false);
+              managerUser.setDetails("","","");
 
               managerShop.setShopLogin(false);
               managerShop.setDetails("","","");
@@ -449,7 +435,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         if (intentResult.getContents() != null && resultCode == RESULT_OK) {
 
             managerShop = new SessionManagerShop(getApplicationContext());
-            phoneNo  = managerCustomer.getPhone();
+            phoneNo  = managerUser.getPhone();
 
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
             DatabaseReference reference = rootNode.getReference("Users").child(phoneNo).child("Shops");

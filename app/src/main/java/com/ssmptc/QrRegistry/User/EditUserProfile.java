@@ -80,7 +80,7 @@ public class EditUserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(EditUserProfile.this,UserDashBoard.class));
+                startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
                 finishAffinity();
             }
         });
@@ -92,6 +92,12 @@ public class EditUserProfile extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
+        super.onBackPressed();
     }
 
     private void callProgressDialog() {
@@ -186,6 +192,11 @@ public class EditUserProfile extends AppCompatActivity {
                     Toast.makeText(EditUserProfile.this, "Same data no changes", Toast.LENGTH_SHORT).show();
 
                 }else {
+
+                    managerUser = new SessionManagerUser(getApplicationContext());
+                    phoneNumber = managerUser.getPhone();
+                    String _Password = managerUser.getPassword();
+                    managerUser.setDetails(et_name.getEditText().getText().toString(),phoneNumber,_Password);
 
                     userDb.child("name").setValue(et_name.getEditText().getText().toString());
                     tv_name.setText(et_name.getEditText().getText().toString());
