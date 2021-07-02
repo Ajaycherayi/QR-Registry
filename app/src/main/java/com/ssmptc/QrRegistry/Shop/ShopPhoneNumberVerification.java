@@ -196,7 +196,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                                     String workingTime = "";
                                     String workingDays = "";
 
-                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(node+1000);
+                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(String.valueOf(node+1000));
                                     ShopsData addNewShop = new ShopsData(nodeId,shopName,category,location,ownerName,phoneNumber,password,email,description,workingTime,workingDays);
                                     rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
 
