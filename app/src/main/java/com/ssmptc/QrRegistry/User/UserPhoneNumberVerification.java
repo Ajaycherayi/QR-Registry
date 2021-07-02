@@ -152,6 +152,12 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
 
             PhoneAuthProvider.verifyPhoneNumber(options);
 
+            btn_resend.setVisibility(View.GONE);
+            tv_resend.setVisibility(View.GONE);
+
+            tv_counter.setVisibility(View.VISIBLE);
+
+
             CountTimer();
         });
 
@@ -183,8 +189,10 @@ public class UserPhoneNumberVerification extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 long counter = millisUntilFinished / 1000;
                 tv_counter.setText( counter + " Sec");
-                if (counter<15){
+                if (counter<=15){
                     tv_counter.setTextColor(getResources().getColor(R.color.light_red));
+                }else {
+                    tv_counter.setTextColor(getResources().getColor(R.color.light_green));
                 }
             }
 

@@ -134,7 +134,6 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
             //Initialize ProgressDialog
             progressDialog = new ProgressDialog(ShopPhoneNumberVerification.this);
             progressDialog.show();
-            progressDialog.setCancelable(false);
             progressDialog.setContentView(R.layout.progress_dialog);
             progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -162,18 +161,24 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                         Button btOk = dialog.findViewById(R.id.bt_ok);
                         TextView shopId = dialog.findViewById(R.id.tv_shopId);
 
-                        shopId.setText(nodeId);
+                        shopId.setText(String.valueOf(node+1000));
 
                         shopId.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                                ClipData clip = ClipData.newPlainText("Shop Id", nodeId);
+                                ClipData clip = ClipData.newPlainText("Shop Id",String.valueOf(node+1000));
                                 Toast.makeText(ShopPhoneNumberVerification.this, "Copied", Toast.LENGTH_SHORT).show();
                                 clipboard.setPrimaryClip(clip);
                             }
                         });
-                        btCancel.setOnClickListener(v1 -> dialog.cancel());
+                        btCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.cancel();
+                                progressDialog.dismiss();
+                            }
+                        });
                         btOk.setOnClickListener(v1 -> dialog.dismiss());
                         checkBox.setOnClickListener(v1 -> {
                             if (checkBox.isChecked()){
@@ -181,6 +186,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                                 btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
                                 btOk.setEnabled(true);
                                 btOk.setOnClickListener(v11 -> {
+
 
                                     DatabaseReference rff;
                                     rff = FirebaseDatabase.getInstance().getReference().child("Shops");
@@ -190,7 +196,7 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
                                     String workingTime = "";
                                     String workingDays = "";
 
-                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(nodeId);
+                                    rff.child(String.valueOf(node+1000)).child("shopId").setValue(node+1000);
                                     ShopsData addNewShop = new ShopsData(nodeId,shopName,category,location,ownerName,phoneNumber,password,email,description,workingTime,workingDays);
                                     rff.child(String.valueOf(node+1000)).child("Shop Profile").setValue(addNewShop);
 
@@ -253,7 +259,14 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
 
             PhoneAuthProvider.verifyPhoneNumber(options);
 
+            btn_resend.setVisibility(View.GONE);
+            tv_resend.setVisibility(View.GONE);
+
+            tv_counter.setVisibility(View.VISIBLE);
+
             CountTimer();
+
+
         });
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -283,8 +296,10 @@ public class ShopPhoneNumberVerification extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 long counter = millisUntilFinished / 1000;
                 tv_counter.setText( counter + " Sec");
-                if (counter<15){
+                if (counter<=15){
                     tv_counter.setTextColor(getResources().getColor(R.color.light_red));
+                }else {
+                    tv_counter.setTextColor(getResources().getColor(R.color.light_green));
                 }
             }
 
