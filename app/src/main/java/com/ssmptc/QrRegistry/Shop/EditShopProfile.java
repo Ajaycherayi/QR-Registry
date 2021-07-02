@@ -367,7 +367,7 @@ public class EditShopProfile extends AppCompatActivity {
     private boolean isPhoneNumberChanged() {
         if (!_ownerName.equals(Objects.requireNonNull(et_ownerName.getEditText()).getText().toString().trim())){
 
-            reference.child("ownerNameNumber").setValue(et_ownerName.getEditText().getText().toString().trim());
+            reference.child("ownerName").setValue(et_ownerName.getEditText().getText().toString().trim());
             return true;
         }else
             return false;
