@@ -15,18 +15,19 @@
 ### 🏪Shop/Organization
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If user is a shop, hospital or institute, etc owner user can register it after first registering the user. they get a login. Profile for your shop/organization, which contain shop/organization details like Name, Location, Category etc. They can scan User QR code to access the user details. They can store the data directly into their database or sheets and they can update their Profile. Communication media which provide communication between User and shop, hospital or institute, etc.
 
+---
 
 <h1 align="center">
-  Team Memberz
+  👨🏻‍💻Team Memberz😎
 </h1>
 
+![Team Members](https://user-images.githubusercontent.com/79051664/131244292-c693263b-6985-4509-a3a5-b7e3db73178b.png)
 
+<h2 align="center">
+  <a href="https://drive.google.com/file/d/1sJjwOp2aMiBKm8b0DuDcBaZmsSj8fkM7/view?usp=sharing" align="center">🔎View Project Report</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/Ajaycherayi/QR-Registry/files/7072134/QR_Registry_Project_Report.pdf" align="center">📥Download Project Report</a>
+</h2>
 
-
-![Screenshot (21)](https://user-images.githubusercontent.com/79051664/131239869-a5863681-54b3-4bea-8512-d350ecb9df61.png)
-
-
-
-<a href="" align="center">Project Report</a>
 
 
