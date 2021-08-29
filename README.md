@@ -1,4 +1,4 @@
-# QR-Registry
+# <img src="https://user-images.githubusercontent.com/79051664/131239629-b8f09e35-cfaf-4a41-ac46-30f20970980f.png" width="35" height="35"> QR Registry
 
 ## Abstract
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nowadays whole world is in a critical situation. When you go to shop, hospital or institute, etc to you need to give your details to the them. and they will record or register it in their database. So, we need to give our data manually to them. And also, you have to know, if you in an unknown city, then you need to find some shop, hospital or institute, etc and needed a better communication with them it is so difficult.
@@ -16,6 +16,17 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If user is a shop, hospital or institute, etc owner user can register it after first registering the user. they get a login. Profile for your shop/organization, which contain shop/organization details like Name, Location, Category etc. They can scan User QR code to access the user details. They can store the data directly into their database or sheets and they can update their Profile. Communication media which provide communication between User and shop, hospital or institute, etc.
 
 
+<h1 align="center">
+  Team Memberz
+</h1>
 
+
+
+
+![Screenshot (21)](https://user-images.githubusercontent.com/79051664/131239869-a5863681-54b3-4bea-8512-d350ecb9df61.png)
+
+
+
+<a href="" align="center">Project Report</a>
 
 
